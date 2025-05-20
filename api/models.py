@@ -1,8 +1,35 @@
 # api/models.py
 from django.db import models
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.utils import timezone
 
+
+class User(models.Model):
+    username = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=15)
+    password = models.CharField(max_length=255)
+    role = models.CharField(max_length=15,
+                            choices=(("owner", "Business owner"),
+                                     ("employee", "Employee"),
+                                     ("topemployee", "Employee with elevated privileges"),
+                                     ("admin", "Admin")),
+                            default="employee")
+    team = models.ForeignKey("Team", related_name="members", on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.username} ({self.email})"
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    owner = models.ForeignKey(User, related_name='owned_teams')
+
+    def __str__(self):
+        return f"{self.name} (Owner: {self.owner})"
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
@@ -10,7 +37,7 @@ class Project(models.Model):
     owner = models.ForeignKey(User, related_name='owned_projects', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    team = models.ForeignKey(Team, related_name="projects")
     def __str__(self):
         return self.name
 

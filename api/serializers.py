@@ -1,12 +1,17 @@
 # api/serializers.py
 from rest_framework import serializers
-from .models import Project, Task, WorkLog
-from django.contrib.auth.models import User
+from .models import Project, Task, WorkLog, Team, User
+#from django.contrib.auth.models import User
 
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']
+
+class TeamSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ['id', 'name', 'owner']
 
 class TaskSimpleSerializer(serializers.ModelSerializer):
     assignee = UserSimpleSerializer(read_only=True, required=False)
