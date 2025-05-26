@@ -1,6 +1,8 @@
 .env
 .idea
 .venv
+db.sqlite3
+api/migrations
 
 
 #Some python staff idk tbh
