@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from api.models import User, Tea
+from api.models import User, Team
 
 class UserModelTest(TestCase):
     def setUp(self): # setUp for tests

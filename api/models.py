@@ -21,7 +21,7 @@ class User(AbstractUser):
 class Team(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    owner = models.ForeignKey(User, related_name='owned_teams')
+    owner = models.ForeignKey(User, related_name='owned_teams', on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name} (Owner: {self.owner})"

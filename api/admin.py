@@ -1,7 +1,7 @@
 # api/admin.py
 
 from django.contrib import admin
-from .models import Project, Task, WorkLog
+from .models import Project, Task, WorkLog, User
 
 
 class TaskInline(admin.TabularInline):
@@ -103,3 +103,9 @@ class WorkLogAdmin(admin.ModelAdmin):
     @admin.display(description='Project')
     def project_display(self, obj):
         return obj.project.name if obj.project else "-"
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['username', 'first_name', 'last_name', 'email', 'role']
+    search_fields = ('username',)
