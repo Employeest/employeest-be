@@ -1,0 +1,7 @@
+django
+djangorestframework
+django-filter
+drf-yasg
+python-dotenv
+requests
+gunicorn
