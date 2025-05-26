@@ -1,5 +1,3 @@
-# api/admin.py
-
 from django.contrib import admin
 from .models import Project, Task, WorkLog, User
 
@@ -11,13 +9,15 @@ class TaskInline(admin.TabularInline):
     autocomplete_fields = ['assignee']
     show_change_link = True
 
+
 class WorkLogInline(admin.TabularInline):
     model = WorkLog
     extra = 1
     fields = ('user', 'date', 'hours_spent', 'description')
     autocomplete_fields = ['user']
-    # readonly_fields = ('user',) # Якщо user завжди поточний
+
     show_change_link = True
+
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
@@ -33,7 +33,7 @@ class ProjectAdmin(admin.ModelAdmin):
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',) # Сховати за замовчуванням
+            'classes': ('collapse',)
         }),
     )
     inlines = [TaskInline, WorkLogInline]
