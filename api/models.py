@@ -1,6 +1,6 @@
-# api/models.py
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from datetime import date as datetime_date
 from django.utils import timezone
 
 
@@ -26,6 +26,7 @@ class Team(models.Model):
     def __str__(self):
         return f"{self.name} (Owner: {self.owner})"
 
+
 class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
@@ -33,8 +34,10 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     team = models.ManyToManyField(Team, related_name="projects", blank=True)
+
     def __str__(self):
         return self.name
+
 
 class Task(models.Model):
     STATUS_CHOICES = [
@@ -48,8 +51,8 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='TODO')
     assignee = models.ForeignKey(User, related_name='assigned_tasks', on_delete=models.SET_NULL, null=True, blank=True)
-    story_points = models.IntegerField(null=True, blank=True) # Also mentioned as part of task management
-    deadline = models.DateField(null=True, blank=True) # Mentioned in task creation
+    story_points = models.IntegerField(null=True, blank=True)
+    deadline = models.DateField(null=True, blank=True)
     estimation_hours = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,8 +64,8 @@ class Task(models.Model):
 class WorkLog(models.Model):
     user = models.ForeignKey(User, related_name='work_logs', on_delete=models.CASCADE)
     task = models.ForeignKey(Task, related_name='work_logs', on_delete=models.CASCADE, null=True, blank=True)
-    project = models.ForeignKey(Project, related_name='work_logs', on_delete=models.CASCADE, null=True, blank=True) # Якщо логуємо на рівні проекту
-    date = models.DateField(default=timezone.now)
+    project = models.ForeignKey(Project, related_name='work_logs', on_delete=models.CASCADE, null=True, blank=True)
+    date = models.DateField(default=datetime_date.today)
     hours_spent = models.DecimalField(max_digits=4, decimal_places=2)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

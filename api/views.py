@@ -1,4 +1,3 @@
-# employeest/employeest-be/employeest-be-072d382410c7e443938a6222569ff9013d9a2f12/api/views.py
 from django.db.models import Count, Sum
 from django.utils import timezone
 from django.db.models.functions import TruncMonth, TruncWeek
@@ -10,7 +9,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
 
 from .models import Project, Task, WorkLog, User
 from .permissions import IsProjectOwner, IsAssigneeOrProjectOwner, IsWorkLogOwner
@@ -35,17 +33,17 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
             self.permission_classes = [permissions.IsAuthenticated, IsProjectOwner]
-        elif self.action == 'task_status_chart': # Make sure this matches the method name
+        elif self.action == 'task_status_chart':
             self.permission_classes = [permissions.IsAuthenticated,
                                        IsProjectOwner]
-        elif self.action == 'project_velocity_chart': # Make sure this matches the method name
+        elif self.action == 'project_velocity_chart':
             self.permission_classes = [permissions.IsAuthenticated, IsProjectOwner]
         else:
             self.permission_classes = [
                 permissions.IsAuthenticated]
         return super().get_permissions()
 
-    @action(detail=True, methods=['get'], url_path='velocity-chart', url_name='velocity-chart') # QUICK FIX: Explicit url_name
+    @action(detail=True, methods=['get'], url_path='velocity-chart', url_name='velocity-chart')
     def project_velocity_chart(self, request, pk=None):
         project = self.get_object()
         three_months_ago = timezone.now() - timezone.timedelta(days=90)
@@ -62,7 +60,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
         ).order_by('period_start')
 
         if not velocity_data:
-            return Response({"message": "Not enough data to calculate project velocity."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "Not enough data to calculate project velocity."},
+                            status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['period_start'].strftime('%Y-W%W') for item in velocity_data]
         data = [item['total_story_points'] for item in velocity_data]
@@ -79,13 +78,14 @@ class ProjectViewSet(viewsets.ModelViewSet):
         else:
             return Response({'error': 'Could not generate chart URL.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    @action(detail=True, methods=['get'], url_path='task-status-chart', url_name='task-status-chart') # Explicit url_name for consistency
+    @action(detail=True, methods=['get'], url_path='task-status-chart', url_name='task-status-chart')
     def task_status_chart(self, request, pk=None):
         project = self.get_object()
         task_statuses = project.tasks.values('status').annotate(count=Count('status')).order_by('status')
 
         if not task_statuses:
-            return Response({"message": "No tasks found for this project to generate a chart."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "No tasks found for this project to generate a chart."},
+                            status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['status'] for item in task_statuses]
         data = [item['count'] for item in task_statuses]
@@ -119,7 +119,8 @@ class BusinessStatisticsViews(APIView):
         ).order_by('month')
 
         if not completed_tasks_monthly:
-            return Response({"message": "No completed tasks with story points found for the last year."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "No completed tasks with story points found for the last year."},
+                            status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['month'].strftime('%Y-%m') for item in completed_tasks_monthly]
         data = [item['total_story_points'] for item in completed_tasks_monthly]
@@ -155,7 +156,8 @@ class UserPersonalStatsView(APIView):
         ).order_by('month')
 
         if not completed_tasks_monthly:
-            return Response({"message": "You have no completed tasks in the last year."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": "You have no completed tasks in the last year."},
+                            status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['month'].strftime('%Y-%m') for item in completed_tasks_monthly]
         data = [item['tasks_count'] for item in completed_tasks_monthly]
@@ -186,7 +188,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
             self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
-        elif self.action in ['start_progress', 'mark_as_done']: # Make sure these match method names
+        elif self.action in ['start_progress', 'mark_as_done']:
             self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
         else:
             self.permission_classes = [permissions.IsAuthenticated]
@@ -199,7 +201,8 @@ class TaskViewSet(viewsets.ModelViewSet):
             task.status = 'IN_PROGRESS'
             task.save()
             return Response({'status': 'Task moved to In Progress', 'task_status': task.status})
-        return Response({'status': 'Task cannot be moved to In Progress from current state'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status': 'Task cannot be moved to In Progress from current state'},
+                        status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['post'], url_path='mark-as-done')
     def mark_as_done(self, request, pk=None):
@@ -209,7 +212,8 @@ class TaskViewSet(viewsets.ModelViewSet):
             task.updated_at = timezone.now()
             task.save()
             return Response({'status': 'Task marked as Done', 'task_status': task.status})
-        return Response({'status': 'Task cannot be marked as Done from current state'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status': 'Task cannot be marked as Done from current state'},
+                        status=status.HTTP_400_BAD_REQUEST)
 
 
 class WorkLogViewSet(viewsets.ModelViewSet):
@@ -219,7 +223,7 @@ class WorkLogViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_staff or (hasattr(user, 'role') and user.role == 'admin'): # Consider if 'owner' role should also see all
+        if user.is_staff or (hasattr(user, 'role') and user.role == 'admin'):
             return WorkLog.objects.all()
         return WorkLog.objects.filter(user=user)
 
@@ -273,8 +277,7 @@ class EmployeeDashboardView(APIView):
         user = request.user
 
         assigned_task_projects_ids = Task.objects.filter(assignee=user).values_list('project_id', flat=True).distinct()
-        # Assuming 'team' field on Project model and 'members' on Team model.
-        # If Project.team is a ManyToManyField to Team, and User.team is a ManyToManyField to Team:
+
         user_teams_ids = user.team.all().values_list('id', flat=True)
         team_projects_ids = Project.objects.filter(team__id__in=user_teams_ids).values_list('id', flat=True).distinct()
 
@@ -283,14 +286,12 @@ class EmployeeDashboardView(APIView):
         involved_projects = Project.objects.filter(id__in=all_involved_project_ids)
         projects_data = ProjectSerializer(involved_projects, many=True, context={'request': request}).data
 
-        # user_teams_data = TeamSimpleSerializer(user.team.all(), many=True).data # You'll need TeamSimpleSerializer
-
         current_tasks = Task.objects.filter(assignee=user, status__in=['TODO', 'IN_PROGRESS'])
         current_tasks_data = TaskSerializer(current_tasks, many=True, context={'request': request}).data
 
         dashboard_data = {
             'my_projects': projects_data,
-            'my_teams': [], # user_teams_data (if TeamSimpleSerializer is available and tested)
+            'my_teams': [],
             'my_current_tasks': current_tasks_data,
         }
         return Response(dashboard_data)
@@ -308,7 +309,7 @@ class UserProfileView(APIView):
             'email': user.email,
             'first_name': user.first_name,
             'last_name': user.last_name,
-            'phone_number': getattr(user, 'phone_number', None), # getattr for safety
-            'role': getattr(user, 'role', None), # getattr for safety
+            'phone_number': getattr(user, 'phone_number', None),
+            'role': getattr(user, 'role', None),
         }
         return Response(user_data)
