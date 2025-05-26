@@ -29,7 +29,7 @@ DEBUG = True
 
 
 #CORS CONFIGURATION
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'localhost:3000']
 
 
 # Application definition
