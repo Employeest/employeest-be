@@ -2,4 +2,10 @@
 .idea
 .venv
 
+
+#Some python staff idk tbh
 __pycache__
+
+
+#We r not exposing the db from our local setup. S - SECURITY
+db.sqlite3
