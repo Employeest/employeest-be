@@ -1,16 +1,19 @@
 from django.db.models import Count, Sum
 from django.utils import timezone
 from django.db.models.functions import TruncMonth, TruncWeek
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-from .models import Project, Task, WorkLog
+
+from .models import Project, Task, WorkLog, User
 from .permissions import IsProjectOwner, IsAssigneeOrProjectOwner, IsWorkLogOwner
-from .serializers import ProjectSerializer, TaskSerializer, WorkLogSerializer
+from .serializers import ProjectSerializer, TaskSerializer, WorkLogSerializer, UserSimpleSerializer
 from .filters import TaskFilter
 from .quickchart_helper import get_chart_url
 from .chart_templates import (
@@ -34,16 +37,16 @@ class ProjectViewSet(viewsets.ModelViewSet):
         elif self.action == 'task_status_chart':
             self.permission_classes = [permissions.IsAuthenticated,
                                        IsProjectOwner]
+        elif self.action == 'project_velocity_chart':
+            self.permission_classes = [permissions.IsAuthenticated, IsProjectOwner]
         else:
             self.permission_classes = [
                 permissions.IsAuthenticated]
         return super().get_permissions()
 
-    @action(detail=True, methods=['get'], url_path='velocity-chart',
-            permission_classes=[permissions.IsAuthenticated, IsProjectOwner])
+    @action(detail=True, methods=['get'], url_path='velocity-chart')
     def project_velocity_chart(self, request, pk=None):
         project = self.get_object()
-        # За замовчуванням - щотижнева швидкість за останні 3 місяці
         three_months_ago = timezone.now() - timezone.timedelta(days=90)
 
         velocity_data = Task.objects.filter(
@@ -58,7 +61,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         ).order_by('period_start')
 
         if not velocity_data:
-            return Response({"message": "Not enough data to calculate project velocity."}, status=404)
+            return Response({"message": "Not enough data to calculate project velocity."}, status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['period_start'].strftime('%Y-W%W') for item in velocity_data]
         data = [item['total_story_points'] for item in velocity_data]
@@ -73,7 +76,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         if chart_url:
             return Response({'chart_url': chart_url})
         else:
-            return Response({'error': 'Could not generate chart URL.'}, status=500)
+            return Response({'error': 'Could not generate chart URL.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['get'], url_path='task-status-chart')
     def task_status_chart(self, request, pk=None):
@@ -81,7 +84,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         task_statuses = project.tasks.values('status').annotate(count=Count('status')).order_by('status')
 
         if not task_statuses:
-            return Response({"message": "No tasks found for this project to generate a chart."}, status=404)
+            return Response({"message": "No tasks found for this project to generate a chart."}, status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['status'] for item in task_statuses]
         data = [item['count'] for item in task_statuses]
@@ -90,15 +93,12 @@ class ProjectViewSet(viewsets.ModelViewSet):
         chart_config['data']['labels'] = labels
         chart_config['data']['datasets'][0]['data'] = data
         chart_config['options']['plugins']['title']['text'] = f'Task Status Distribution for {project.name}'
-        # Can customize color
-        # default_colors = chart_config['data']['datasets'][0]['backgroundColor']
-        # chart_config['data']['datasets'][0]['backgroundColor'] = [default_colors[i % len(default_colors)] for i in range(len(labels))]
 
         chart_url = get_chart_url(chart_config)
         if chart_url:
             return Response({'chart_url': chart_url})
         else:
-            return Response({'error': 'Could not generate chart URL.'}, status=500)
+            return Response({'error': 'Could not generate chart URL.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class BusinessStatisticsViews(APIView):
@@ -118,7 +118,7 @@ class BusinessStatisticsViews(APIView):
         ).order_by('month')
 
         if not completed_tasks_monthly:
-            return Response({"message": "No completed tasks with story points found for the last year."}, status=404)
+            return Response({"message": "No completed tasks with story points found for the last year."}, status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['month'].strftime('%Y-%m') for item in completed_tasks_monthly]
         data = [item['total_story_points'] for item in completed_tasks_monthly]
@@ -128,15 +128,12 @@ class BusinessStatisticsViews(APIView):
         chart_config['data']['datasets'][0]['label'] = 'Completed Story Points'
         chart_config['data']['datasets'][0]['data'] = data
         chart_config['options']['plugins']['title']['text'] = 'Monthly Completed Story Points (Last Year)'
-        # Can customize color
-        # chart_config['data']['datasets'][0]['backgroundColor'] = 'rgba(54, 162, 235, 0.7)'
-        # chart_config['data']['datasets'][0]['borderColor'] = 'rgba(54, 162, 235, 1)'
 
         chart_url = get_chart_url(chart_config)
         if chart_url:
             return Response({'chart_url': chart_url})
         else:
-            return Response({'error': 'Could not generate chart URL.'}, status=500)
+            return Response({'error': 'Could not generate chart URL.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class UserPersonalStatsView(APIView):
@@ -157,7 +154,7 @@ class UserPersonalStatsView(APIView):
         ).order_by('month')
 
         if not completed_tasks_monthly:
-            return Response({"message": "You have no completed tasks in the last year."}, status=404)
+            return Response({"message": "You have no completed tasks in the last year."}, status=status.HTTP_404_NOT_FOUND)
 
         labels = [item['month'].strftime('%Y-%m') for item in completed_tasks_monthly]
         data = [item['tasks_count'] for item in completed_tasks_monthly]
@@ -167,15 +164,12 @@ class UserPersonalStatsView(APIView):
         chart_config['data']['datasets'][0]['label'] = 'My Completed Tasks'
         chart_config['data']['datasets'][0]['data'] = data
         chart_config['options']['plugins']['title']['text'] = 'My Monthly Task Completions (Last Year)'
-        # Can customize color
-        # chart_config['data']['datasets'][0]['borderColor'] = 'rgba(255, 99, 132, 0.9)'
-        # chart_config['data']['datasets'][0]['backgroundColor'] = 'rgba(255, 99, 132, 0.2)'
 
         chart_url = get_chart_url(chart_config)
         if chart_url:
             return Response({'chart_url': chart_url})
         else:
-            return Response({'error': 'Could not generate chart URL.'}, status=500)
+            return Response({'error': 'Could not generate chart URL.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -188,35 +182,34 @@ class TaskViewSet(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'deadline', 'status', 'name']
     ordering = ['-created_at']
 
-    # def get_permissions(self):
-    #     if self.action in ['update', 'partial_update', 'destroy']:
-    #             self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
-    #         elif self.action in ['start_progress', 'mark_as_done']:
-    #             self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
-    #         else:
-    #             self.permission_classes = [permissions.IsAuthenticated]
-    #         return super().get_permissions()
+    def get_permissions(self):
+        if self.action in ['update', 'partial_update', 'destroy']:
+            self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
+        elif self.action in ['start_progress', 'mark_as_done']:
+            self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
+        else:
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
 
-    @action(detail=True, methods=['post'], url_path='start-progress',
-            permission_classes=[permissions.IsAuthenticated, IsAssigneeOrProjectOwner])
+    @action(detail=True, methods=['post'], url_path='start-progress')
     def start_progress(self, request, pk=None):
         task = self.get_object()
         if task.status == 'TODO':
             task.status = 'IN_PROGRESS'
             task.save()
             return Response({'status': 'Task moved to In Progress', 'task_status': task.status})
-        return Response({'status': 'Task cannot be moved to In Progress from current state'}, status=400)
+        return Response({'status': 'Task cannot be moved to In Progress from current state'}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=['post'], url_path='mark-as-done', permission_classes=[permissions.IsAuthenticated, IsAssigneeOrProjectOwner])
+    @action(detail=True, methods=['post'], url_path='mark-as-done')
     def mark_as_done(self, request, pk=None):
         task = self.get_object()
         if task.status == 'IN_PROGRESS':
             task.status = 'DONE'
-            task.completed_at = timezone.now()
             task.updated_at = timezone.now()
             task.save()
             return Response({'status': 'Task marked as Done', 'task_status': task.status})
-        return Response({'status': 'Task cannot be marked as Done from current state'}, status=400)
+        return Response({'status': 'Task cannot be marked as Done from current state'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class WorkLogViewSet(viewsets.ModelViewSet):
     queryset = WorkLog.objects.all()
@@ -224,9 +217,10 @@ class WorkLogViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        if self.request.user.is_staff:
+        user = self.request.user
+        if user.is_staff or (hasattr(user, 'role') and user.role == 'admin'):
             return WorkLog.objects.all()
-        return WorkLog.objects.filter(user=self.request.user)
+        return WorkLog.objects.filter(user=user)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -238,12 +232,12 @@ class WorkLogViewSet(viewsets.ModelViewSet):
 
 
 class OwnerDashboardView(APIView):
-    permission_classes = [permissions.IsAuthenticated] # switch to IsBusinessOwner later
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         user = request.user
-        if not user.profile.is_owner:
-            return Response({"detail": "Not authorized"}, status=403)
+        if not (user.is_staff or (hasattr(user, 'role') and user.role == 'owner')):
+            return Response({"detail": "Not authorized. Owner access required."}, status=status.HTTP_403_FORBIDDEN)
 
         owned_projects = Project.objects.filter(owner=user)
         active_projects_count = owned_projects.filter(tasks__status__in=['TODO', 'IN_PROGRESS']).distinct().count()
@@ -256,8 +250,6 @@ class OwnerDashboardView(APIView):
         done_tasks = tasks_in_owned_projects.filter(status='DONE').count()
 
         projects_data = ProjectSerializer(owned_projects, many=True, context={'request': request}).data
-        # business_stats_chart_url = request.build_absolute_uri(reverse('business-stats-story-points'))
-
 
         dashboard_data = {
             'summary_stats': {
@@ -269,9 +261,6 @@ class OwnerDashboardView(APIView):
                 'tasks_done': done_tasks,
             },
             'projects_list': projects_data,
-            # 'charts': {
-            #     'business_story_points_monthly_url': business_stats_chart_url,
-            # }
         }
         return Response(dashboard_data)
 
@@ -283,23 +272,38 @@ class EmployeeDashboardView(APIView):
         user = request.user
 
         assigned_task_projects_ids = Task.objects.filter(assignee=user).values_list('project_id', flat=True).distinct()
-        involved_projects = Project.objects.filter(id__in=assigned_task_projects_ids)
+        team_projects_ids = Project.objects.filter(team__members=user).values_list('id', flat=True).distinct()
+        all_involved_project_ids = set(list(assigned_task_projects_ids) + list(team_projects_ids))
+
+        involved_projects = Project.objects.filter(id__in=all_involved_project_ids)
         projects_data = ProjectSerializer(involved_projects, many=True, context={'request': request}).data
 
-        # add logic for Team
+        user_teams = user.team.all()
 
         current_tasks = Task.objects.filter(assignee=user, status__in=['TODO', 'IN_PROGRESS'])
         current_tasks_data = TaskSerializer(current_tasks, many=True, context={'request': request}).data
-
-        # personal_task_completion_chart_url = request.build_absolute_uri(reverse('user-personal-task-stats'))
-
 
         dashboard_data = {
             'my_projects': projects_data,
             'my_teams': [],
             'my_current_tasks': current_tasks_data,
-            # 'charts': {
-            #     'task_completion_url': personal_task_completion_chart_url,
-            # }
         }
         return Response(dashboard_data)
+
+
+@method_decorator(login_required, name='dispatch')
+class UserProfileView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        user_data = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'phone_number': user.phone_number,
+            'role': user.role,
+        }
+        return Response(user_data)
