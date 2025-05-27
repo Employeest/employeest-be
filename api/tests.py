@@ -1,9 +1,8 @@
 import json
-
 import requests
 from django.test import TestCase
 from django.urls import reverse
-from .models import User, Team, Project, Task, WorkLog
+from .models import User, Team, Project, Task, WorkLog, TeamMember, TaskComment, TaskHistory
 from rest_framework import status
 from rest_framework.test import APITestCase
 from rest_framework.authtoken.models import Token
@@ -13,7 +12,8 @@ from decimal import Decimal
 from unittest.mock import patch
 
 from .quickchart_helper import get_chart_url
-from .serializers import UserRegistrationSerializer, AssigneeUserSerializer, TaskSerializer, WorkLogSerializer
+from .serializers import UserRegistrationSerializer, AssigneeUserSerializer, TaskSerializer, \
+    WorkLogSerializer
 
 
 class UserModelTest(TestCase):
@@ -33,12 +33,12 @@ class UserModelTest(TestCase):
         self.user_employee = User.objects.create_user(
             username='employee_user_model',
             email='employee_model@example.com',
-            password='password123',
+            password='aVeryComplexPassword!123',
             role='employee',
             first_name='Employee',
             last_name='User'
         )
-        self.user_admin.team.add(self.team)
+        TeamMember.objects.create(user=self.user_admin, team=self.team, role='member')
 
     def test_user_creation(self):
         self.assertEqual(self.user_admin.username, 'admin_user_model')
@@ -60,17 +60,17 @@ class UserModelTest(TestCase):
         self.assertEqual(self.user_employee.role, 'employee')
 
     def test_user_team_membership(self):
-        self.assertIn(self.team, self.user_admin.team.all())
-        self.assertEqual(self.team.members.count(), 1)
-        self.assertEqual(self.team.members.first(), self.user_admin)
-        self.assertEqual(self.user_employee.team.count(), 0)
+        self.assertIn(self.team, self.user_admin.member_of_teams.all())
+        self.assertEqual(self.team.memberships.count(), 1)
+        self.assertEqual(self.team.memberships.first().user, self.user_admin)
+        self.assertEqual(self.user_employee.member_of_teams.count(), 0)
 
 
 class UserRegistrationSerializerTest(APITestCase):
     def test_registration_password_mismatch(self):
         data = {
             "username": "testuser_pwmiss", "email": "pwmiss@example.com",
-            "password": "password123", "password2": "password456"
+            "password": "aVeryComplexPassword!123", "password2": "password456Different"
         }
         serializer = UserRegistrationSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -80,7 +80,7 @@ class UserRegistrationSerializerTest(APITestCase):
         User.objects.create_user(username='existinguser', email='unique@example.com', password='password123')
         data = {
             "username": "ExistingUser", "email": "newemail@example.com",
-            "password": "password123", "password2": "password123"
+            "password": "aVeryComplexPassword!123", "password2": "aVeryComplexPassword!123"
         }
         serializer = UserRegistrationSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -90,7 +90,7 @@ class UserRegistrationSerializerTest(APITestCase):
         User.objects.create_user(username='anotheruser', email='existing@example.com', password='password123')
         data = {
             "username": "newuser_email", "email": "EXISTING@example.com",
-            "password": "password123", "password2": "password123"
+            "password": "aVeryComplexPassword!123", "password2": "aVeryComplexPassword!123"
         }
         serializer = UserRegistrationSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -135,13 +135,15 @@ class TeamModelTest(TestCase):
 class TaskSerializerValidationTest(APITestCase):
     def setUp(self):
         self.owner = User.objects.create_user(username='task_ser_owner', password='password')
-        self.project = Project.objects.create(name='Task Serializer Project', owner=self.owner)
+        self.project = Project.objects.create(name='Task Serializer Project', owner=self.owner,
+                                              status='active')
         self.user_for_assignee = User.objects.create_user(username='task_ser_assignee', password='password')
+        self.task_for_parent = Task.objects.create(project=self.project, name='Parent Task For Validation')
 
     def test_task_serializer_invalid_project_id(self):
         data = {
             "name": "Task with bad project", "project_id": 99999,
-            "status": "TODO", "assignee_id": self.user_for_assignee.id
+            "status": "TODO", "assignee_id": self.user_for_assignee.id, "priority": "medium"
         }
         serializer = TaskSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -150,7 +152,7 @@ class TaskSerializerValidationTest(APITestCase):
     def test_task_serializer_invalid_assignee_id(self):
         data = {
             "name": "Task with bad assignee", "project_id": self.project.id,
-            "status": "TODO", "assignee_id": 999995
+            "status": "TODO", "assignee_id": 99999, "priority": "medium"
         }
         serializer = TaskSerializer(data=data)
         self.assertFalse(serializer.is_valid())
@@ -159,12 +161,31 @@ class TaskSerializerValidationTest(APITestCase):
     def test_task_serializer_assignee_id_null(self):
         data = {
             "name": "Task no assignee", "project_id": self.project.id,
-            "status": "TODO", "assignee_id": None
+            "status": "TODO", "assignee_id": None, "priority": "high"
         }
-        serializer = TaskSerializer(data=data)
+        mock_request = type('Request', (), {'user': self.owner})()
+        serializer = TaskSerializer(data=data, context={'request': mock_request})
         self.assertTrue(serializer.is_valid(), serializer.errors)
         task = serializer.save()
         self.assertIsNone(task.assignee)
+
+    def test_task_serializer_invalid_parent_task_id(self):
+        data = {
+            "name": "Task with bad parent", "project_id": self.project.id,
+            "status": "TODO", "priority": "low", "parent_task_id": 99999
+        }
+        mock_request = type('Request', (), {'user': self.owner})()
+        serializer = TaskSerializer(data=data, context={'request': mock_request})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('parent_task_id', serializer.errors)
+
+    def test_task_serializer_parent_task_is_self_on_update(self):
+        task_instance = Task.objects.create(project=self.project, name="Self Parent Task", priority="medium")
+        data = {"parent_task_id": task_instance.id}
+        mock_request = type('Request', (), {'user': self.owner})()
+        serializer = TaskSerializer(instance=task_instance, data=data, partial=True, context={'request': mock_request})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('parent_task_id', serializer.errors)
 
 
 class UserProfileViewTest(APITestCase):
@@ -199,13 +220,17 @@ class ProjectAPITests(APITestCase):
         self.owner_token = Token.objects.create(user=self.user_owner)
         self.user_employee = User.objects.create_user(username='api_employee', password='password123', role='employee')
         self.employee_token = Token.objects.create(user=self.user_employee)
+        self.manager_user = User.objects.create_user(username='api_manager', password='password123', role='employee')
+        self.manager_token = Token.objects.create(user=self.manager_user)
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.owner_token.key)
 
         self.project1 = Project.objects.create(name='Project Alpha API', description='Description Alpha API',
-                                               owner=self.user_owner)
+                                               owner=self.user_owner, status='active')
+        self.project1.managers.add(self.user_owner)
         self.project2 = Project.objects.create(name='Project Beta API', description='Description Beta API',
-                                               owner=self.user_owner)
+                                               owner=self.user_owner, status='on_hold')
+        self.project2.managers.add(self.user_owner)
 
         self.project_list_url = reverse('project-list')
 
@@ -213,12 +238,15 @@ class ProjectAPITests(APITestCase):
         return reverse('project-detail', kwargs={'pk': pk})
 
     def test_create_project_as_owner(self):
-        data = {'name': 'Project Gamma API', 'description': 'New project API'}
+        data = {'name': 'Project Gamma API', 'description': 'New project API', 'status': 'active',
+                'manager_ids': [self.manager_user.id]}
         response = self.client.post(self.project_list_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Project.objects.count(), 3)
         created_project = Project.objects.get(name='Project Gamma API')
         self.assertEqual(created_project.owner, self.user_owner)
+        self.assertIn(self.user_owner, created_project.managers.all())
+        self.assertIn(self.manager_user, created_project.managers.all())
 
     def test_list_projects_as_owner(self):
         response = self.client.get(self.project_list_url, format='json')
@@ -231,20 +259,23 @@ class ProjectAPITests(APITestCase):
         response = self.client.get(self._get_project_detail_url(self.project1.pk), format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json().get('name'), self.project1.name)
+        self.assertEqual(response.json().get('status'), 'active')
 
     def test_update_project_by_owner(self):
-        data = {'name': 'Project Alpha Updated API', 'description': 'Updated Description API'}
+        data = {'name': 'Project Alpha Updated API', 'description': 'Updated Description API', 'status': 'completed'}
         response = self.client.put(self._get_project_detail_url(self.project1.pk), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.project1.refresh_from_db()
         self.assertEqual(self.project1.name, 'Project Alpha Updated API')
+        self.assertEqual(self.project1.status, 'completed')
 
     def test_partial_update_project_by_owner(self):
-        data = {'description': 'Partially Updated Description API'}
+        data = {'description': 'Partially Updated Description API', 'status': 'on_hold'}
         response = self.client.patch(self._get_project_detail_url(self.project1.pk), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.project1.refresh_from_db()
         self.assertEqual(self.project1.description, 'Partially Updated Description API')
+        self.assertEqual(self.project1.status, 'on_hold')
 
     def test_update_project_by_non_owner_forbidden(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.employee_token.key)
@@ -278,7 +309,8 @@ class ProjectAPITests(APITestCase):
     @patch('api.views.get_chart_url')
     def test_project_task_status_chart_by_owner(self, mock_get_chart_url):
         mock_get_chart_url.return_value = 'http://fakechart.url/pie_owner'
-        Task.objects.create(project=self.project1, name="Chart Task Owner", status="TODO", assignee=self.user_owner)
+        Task.objects.create(project=self.project1, name="Chart Task Owner", status="TODO", assignee=self.user_owner,
+                            priority="medium")
         url = reverse('project-task-status-chart', kwargs={'pk': self.project1.pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -305,6 +337,7 @@ class ProjectAPITests(APITestCase):
     def test_project_velocity_chart_by_owner(self, mock_get_chart_url):
         mock_get_chart_url.return_value = 'http://fakechart.url/velocity_owner'
         Task.objects.create(project=self.project1, name="Vel Task Owner", status="DONE", assignee=self.user_owner,
+                            priority="high",
                             story_points=5, updated_at=timezone.now())
         url = reverse('project-velocity-chart', kwargs={'pk': self.project1.pk})
         response = self.client.get(url, format='json')
@@ -341,6 +374,7 @@ class ProjectAPITests(APITestCase):
     def test_project_velocity_chart_api_failure(self, mock_get_chart_url):
         mock_get_chart_url.return_value = None
         Task.objects.create(project=self.project1, name="Vel Task For Fail", status="DONE", assignee=self.user_owner,
+                            priority="medium",
                             story_points=5, updated_at=timezone.now())
         url = reverse('project-velocity-chart', kwargs={'pk': self.project1.pk})
         response = self.client.get(url, format='json')
@@ -351,7 +385,8 @@ class ProjectAPITests(APITestCase):
     @patch('api.views.get_chart_url')
     def test_project_task_status_chart_api_failure(self, mock_get_chart_url):
         mock_get_chart_url.return_value = None
-        Task.objects.create(project=self.project1, name="Status Task For Fail", status="TODO", assignee=self.user_owner)
+        Task.objects.create(project=self.project1, name="Status Task For Fail", status="TODO", assignee=self.user_owner,
+                            priority="low")
         url = reverse('project-task-status-chart', kwargs={'pk': self.project1.pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -368,11 +403,17 @@ class TaskAPITests(APITestCase):
         self.assignee_token = Token.objects.create(user=self.assignee)
         self.other_user = User.objects.create_user(username='task_other_perms', password='password123', role='employee')
         self.other_user_token = Token.objects.create(user=self.other_user)
+        self.project_manager = User.objects.create_user(username='task_proj_manager', password='password123',
+                                                        role='employee')
+        self.manager_token = Token.objects.create(user=self.project_manager)
 
-        self.project = Project.objects.create(name='Task Project Perms', owner=self.owner)
-        self.task1 = Task.objects.create(project=self.project, name='Task One Perms', status='TODO',
+        self.project = Project.objects.create(name='Task Project Perms', owner=self.owner, status='active')
+        self.project.managers.add(self.project_manager)
+
+        self.task1 = Task.objects.create(project=self.project, name='Task One Perms', status='TODO', priority="high",
                                          assignee=self.assignee, story_points=5, deadline=datetime_date(2025, 12, 1))
         self.task2 = Task.objects.create(project=self.project, name='Task Two Perms', status='IN_PROGRESS',
+                                         priority="medium",
                                          assignee=self.owner, deadline=datetime_date(2025, 11, 1))
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.owner_token.key)
@@ -381,12 +422,14 @@ class TaskAPITests(APITestCase):
     def _get_task_detail_url(self, pk):
         return reverse('task-detail', kwargs={'pk': pk})
 
-    def test_create_task_as_authenticated_user(self):  # e.g., owner
-        data = {'name': 'Task Three Perms', 'project_id': self.project.id, 'status': 'TODO',
+    def test_create_task_as_authenticated_user(self):
+        data = {'name': 'Task Three Perms', 'project_id': self.project.id, 'status': 'TODO', 'priority': 'low',
                 'assignee_id': self.assignee.id, 'story_points': 3}
         response = self.client.post(self.task_list_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Task.objects.count(), 3)
+        self.assertTrue(
+            TaskHistory.objects.filter(task__name='Task Three Perms', change_description__icontains='created').exists())
 
     def test_list_tasks_as_authenticated_user(self):
         response = self.client.get(self.task_list_url, format='json')
@@ -404,18 +447,38 @@ class TaskAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json().get('name'), self.task1.name)
 
+    def test_retrieve_task_as_project_manager(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.manager_token.key)
+        response = self.client.get(self._get_task_detail_url(self.task1.pk), format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json().get('name'), self.task1.name)
+
     def test_update_task_by_owner(self):
         data = {'name': 'Task Updated by Owner Perms', 'status': 'DONE', 'project_id': self.project.id,
+                'priority': 'high',
                 'assignee_id': self.assignee.id}
         response = self.client.put(self._get_task_detail_url(self.task1.pk), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(TaskHistory.objects.filter(task=self.task1, field_changed='status', new_value='DONE').exists())
 
     def test_update_task_by_assignee(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.assignee_token.key)
         data = {'name': 'Task Updated by Assignee Perms', 'status': 'IN_PROGRESS', 'project_id': self.project.id,
+                'priority': 'low',
                 'assignee_id': self.assignee.id}
         response = self.client.put(self._get_task_detail_url(self.task1.pk), data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(
+            TaskHistory.objects.filter(task=self.task1, field_changed='status', new_value='IN_PROGRESS').exists())
+
+    def test_update_task_by_project_manager(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.manager_token.key)
+        data = {'name': 'Task Updated by Manager Perms', 'status': 'IN_PROGRESS', 'project_id': self.project.id,
+                'priority': 'medium',
+                'assignee_id': self.assignee.id}
+        response = self.client.put(self._get_task_detail_url(self.task1.pk), data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
 
     def test_update_task_by_other_user_forbidden(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.other_user_token.key)
@@ -452,47 +515,45 @@ class TaskAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.task1.refresh_from_db()
         self.assertEqual(self.task1.status, 'IN_PROGRESS')
+        self.assertTrue(TaskHistory.objects.filter(task=self.task1, new_value='IN_PROGRESS').exists())
 
     def test_task_action_mark_as_done_by_owner_of_task_assigned_to_owner(self):
-        # task2 is assigned to owner, status is IN_PROGRESS
         url = reverse('task-mark-as-done', kwargs={'pk': self.task2.pk})
         response = self.client.post(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.task2.refresh_from_db()
         self.assertEqual(self.task2.status, 'DONE')
+        self.assertTrue(TaskHistory.objects.filter(task=self.task2, new_value='DONE').exists())
 
     def test_task_filter_by_status_as_owner(self):
         response = self.client.get(self.task_list_url + '?status=TODO', format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
-        self.assertEqual(data.get('count'), 1)  # task1 is TODO
+        self.assertEqual(data.get('count'), 1)
         if data.get('results'):
             self.assertEqual(data['results'][0].get('name'), self.task1.name)
 
     def test_retrieve_task_as_staff_member(self):
-        # staff_user is not owner of project, not assignee of task1
         staff_user = User.objects.create_user(username='staff_task_user', password='password123', is_staff=True)
         staff_token = Token.objects.create(user=staff_user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + staff_token.key)
-
-        # task1 is owned by self.owner, assigned to self.assignee
         response = self.client.get(self._get_task_detail_url(self.task1.pk), format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code,
+                         status.HTTP_200_OK)
         self.assertEqual(response.json().get('name'), self.task1.name)
 
     def test_update_task_by_staff_member_forbidden(self):
-        # staff_user is not owner of project, not assignee of task1
         staff_user = User.objects.create_user(username='staff_task_user_perm', password='password123', is_staff=True)
         staff_token = Token.objects.create(user=staff_user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + staff_token.key)
-
         data = {'name': 'Attempt Update by Staff'}
         response = self.client.put(self._get_task_detail_url(self.task1.pk), data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code,
+                         status.HTTP_403_FORBIDDEN)
 
     def test_task_action_start_progress_invalid_state(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.assignee_token.key)
-        self.task1.status = 'IN_PROGRESS'  # Change state from TODO
+        self.task1.status = 'IN_PROGRESS'
         self.task1.save()
         url = reverse('task-start-progress', kwargs={'pk': self.task1.pk})
         response = self.client.post(url, format='json')
@@ -501,13 +562,24 @@ class TaskAPITests(APITestCase):
 
     def test_task_action_mark_as_done_invalid_state(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.assignee_token.key)
-        # self.task1 is initially TODO. For this test, it needs to be NOT IN_PROGRESS.
         self.task1.status = 'TODO'
         self.task1.save()
         url = reverse('task-mark-as-done', kwargs={'pk': self.task1.pk})
         response = self.client.post(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("cannot be marked as Done", response.json().get('status'))
+
+    def test_get_task_history(self):
+        TaskHistory.objects.create(task=self.task1, user=self.owner, change_description="Initial creation note.")
+        TaskHistory.objects.create(task=self.task1, user=self.assignee, field_changed="status", old_value="TODO",
+                                   new_value="REVIEW", change_description="Status updated.")
+
+        url = reverse('task-task-history', kwargs={'pk': self.task1.pk})
+
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+        self.assertEqual(response.data[0]['field_changed'], 'status')
 
 
 class ChartViewTests(APITestCase):
@@ -519,18 +591,23 @@ class ChartViewTests(APITestCase):
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.owner_token.key)
 
-        self.project = Project.objects.create(name='Chart Project Views Test', owner=self.owner)
+        self.project = Project.objects.create(name='Chart Project Views Test', owner=self.owner, status='active')
         Task.objects.create(project=self.project, name='Task A', status='TODO', assignee=self.assignee, story_points=5,
+                            priority="high",
                             updated_at=timezone.now() - timedelta(days=70))
         Task.objects.create(project=self.project, name='Task B', status='IN_PROGRESS', assignee=self.owner,
+                            priority="medium",
                             story_points=3, updated_at=timezone.now() - timedelta(days=60))
         Task.objects.create(project=self.project, name='Task C', status='DONE', assignee=self.assignee, story_points=8,
+                            priority="low",
                             updated_at=timezone.now() - timedelta(days=50))
         Task.objects.create(project=self.project, name='Task D', status='DONE', assignee=self.owner, story_points=2,
+                            priority="high",
                             updated_at=timezone.now() - timedelta(days=40))
         Task.objects.create(project=self.project, name='Task E', status='DONE', assignee=self.owner, story_points=1,
+                            priority="medium",
                             updated_at=timezone.now() - timedelta(days=10))
-        Task.objects.create(project=self.project, name='Assignee Task Done ForChart', status='DONE',
+        Task.objects.create(project=self.project, name='Assignee Task Done ForChart', status='DONE', priority="low",
                             assignee=self.assignee, updated_at=timezone.now() - timedelta(days=5))
 
     @patch('api.views.get_chart_url')
@@ -545,7 +622,6 @@ class ChartViewTests(APITestCase):
         chart_config = args[0]
         self.assertEqual(chart_config['options']['plugins']['title']['text'],
                          f'Task Status Distribution for {self.project.name}')
-        # Counts: TODO:1 (A), IN_PROGRESS:1 (B), DONE:4 (C,D,E, Assignee Task Done ForChart)
         labels = chart_config.get('data', {}).get('labels', [])
         data_values = chart_config.get('data', {}).get('datasets', [{}])[0].get('data', [])
         data_dict = dict(zip(labels, data_values))
@@ -562,7 +638,6 @@ class ChartViewTests(APITestCase):
                                                                         story_points=2)
         Task.objects.filter(project=self.project, name='Task E').update(updated_at=timezone.now() - timedelta(days=10),
                                                                         story_points=1)
-        # Assignee Task Done ForChart has no story_points, so not included in velocity. Sum = 8+2+1=11
         url = reverse('project-velocity-chart', kwargs={'pk': self.project.pk})
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -574,10 +649,9 @@ class ChartViewTests(APITestCase):
     @patch('api.views.get_chart_url')
     def test_business_statistics_story_points_monthly(self, mock_get_chart_url):
         mock_get_chart_url.return_value = 'http://fakechart.url/business_stats_cv'
-        # Tasks C(8), D(2), E(1) = 11 SP.
         Task.objects.create(project=self.project, name='Biz Task Old Month CV', status='DONE', assignee=self.owner,
+                            priority="high",
                             story_points=10, updated_at=timezone.now() - timedelta(days=35))
-        # Total = 11 + 10 = 21
         url = reverse('business-stats-story-points')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -592,30 +666,31 @@ class ChartViewTests(APITestCase):
         url = reverse('user-personal-task-stats')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # Owner: Task B (IN_PROGRESS), Task D (DONE), Task E (DONE). Count = 2
         args, _ = mock_get_chart_url.call_args
         chart_config = args[0]
-        self.assertEqual(sum(chart_config.get('data', {}).get('datasets', [{}])[0].get('data', [])), 2)
+        self.assertEqual(sum(chart_config.get('data', {}).get('datasets', [{}])[0].get('data', [])),
+                         2)
 
     @patch('api.views.get_chart_url')
     def test_user_personal_task_stats_for_assignee(self, mock_get_chart_url):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.assignee_token.key)
         mock_get_chart_url.return_value = 'http://fakechart.url/personal_stats_assignee_cv'
-        # Assignee: Task A (TODO), Task C (DONE), Assignee Task Done ForChart (DONE).
         Task.objects.create(project=self.project, name='Assignee Task Done 2 CV', status='DONE', assignee=self.assignee,
+                            priority="low",
                             updated_at=timezone.now() - timedelta(days=3))
         url = reverse('user-personal-task-stats')
         response = self.client.get(url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         args, _ = mock_get_chart_url.call_args
         chart_config = args[0]
-        self.assertEqual(sum(chart_config.get('data', {}).get('datasets', [{}])[0].get('data', [])), 3)
+        self.assertEqual(sum(chart_config.get('data', {}).get('datasets', [{}])[0].get('data', [])),
+                         3)
 
     @patch('api.views.get_chart_url')
     def test_project_task_status_chart_no_tasks(self, mock_get_chart_url):
         no_task_owner = User.objects.create_user(username='notaskowner', password='password123', role='owner')
         no_task_token = Token.objects.create(user=no_task_owner)
-        no_task_project = Project.objects.create(name='No Task Project', owner=no_task_owner)
+        no_task_project = Project.objects.create(name='No Task Project', owner=no_task_owner, status='active')
 
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + no_task_token.key)
         url = reverse('project-task-status-chart', kwargs={'pk': no_task_project.pk})
@@ -636,6 +711,7 @@ class ChartViewTests(APITestCase):
     def test_business_statistics_api_failure(self, mock_get_chart_url):
         mock_get_chart_url.return_value = None
         Task.objects.create(project=self.project, name='Biz Task For Fail Chart', status='DONE', assignee=self.owner,
+                            priority="high",
                             story_points=10, updated_at=timezone.now() - timedelta(days=35))
         url = reverse('business-stats-story-points')
         response = self.client.get(url, format='json')
@@ -655,6 +731,7 @@ class ChartViewTests(APITestCase):
     def test_user_personal_stats_api_failure(self, mock_get_chart_url):
         mock_get_chart_url.return_value = None
         Task.objects.create(project=self.project, name='My Task For Fail Chart', status='DONE', assignee=self.owner,
+                            priority="medium",
                             updated_at=timezone.now() - timedelta(days=10))
         url = reverse('user-personal-task-stats')
         response = self.client.get(url, format='json')
@@ -679,37 +756,41 @@ class QuickChartHelperTests(APITestCase):
         self.assertEqual(actual_payload_sent_to_post['chart'], expected_chart_json_str)
         self.assertEqual(actual_payload_sent_to_post['width'], 500)
 
-        @patch('api.quickchart_helper.requests.post')
-        def test_get_chart_url_json_decode_error(self, mock_post):
-            mock_response = mock_post.return_value
-            mock_response.raise_for_status.return_value = None
-            mock_response.json.side_effect = json.JSONDecodeError("Test decode error", "doc",
-                                                                  0)
+    @patch('api.quickchart_helper.requests.post')
+    def test_get_chart_url_request_exception(self, mock_post):
+        mock_post.side_effect = requests.RequestException("Test API error")
+        chart_config = {'type': 'bar', 'data': {}}
+        url = get_chart_url(chart_config)
+        self.assertIsNone(url)
 
-            chart_config = {'type': 'bar', 'data': {}}
-            url = get_chart_url(chart_config)
+    @patch('api.quickchart_helper.requests.post')
+    def test_get_chart_url_json_decode_error(self, mock_post):
+        mock_response = mock_post.return_value
+        mock_response.raise_for_status.return_value = None
+        mock_response.json.side_effect = json.JSONDecodeError("Test decode error", "doc", 0)
+        chart_config = {'type': 'bar', 'data': {}}
+        url = get_chart_url(chart_config)
+        self.assertIsNone(url)
 
-            self.assertIsNone(url)
+    @patch('api.quickchart_helper.requests.post')
+    def test_get_chart_url_chart_config_as_string(self, mock_post):
+        mock_response = mock_post.return_value
+        mock_response.raise_for_status.return_value = None
+        mock_response.json.return_value = {'url': 'http://string.config.url'}
 
-        @patch('api.quickchart_helper.requests.post')
-        def test_get_chart_url_chart_config_as_string(self, mock_post):
-            mock_response = mock_post.return_value
-            mock_response.raise_for_status.return_value = None
-            mock_response.json.return_value = {'url': 'http://string.config.url'}
+        chart_config_str = '{"type": "line", "data": {}}'
+        url = get_chart_url(chart_config_str, width=300, height=150, device_pixel_ratio=2.0, format='svg',
+                            background_color='#FFFFFF')
 
-            chart_config_str = '{"type": "line", "data": {}}'
-            url = get_chart_url(chart_config_str, width=300, height=150, device_pixel_ratio=2.0, format='svg',
-                                background_color='#FFFFFF')
-
-            self.assertEqual(url, 'http://string.config.url')
-            mock_post.assert_called_once()
-            call_args_json = mock_post.call_args[1]['json']
-            self.assertEqual(call_args_json['chart'], chart_config_str)
-            self.assertEqual(call_args_json['width'], 300)
-            self.assertEqual(call_args_json['height'], 150)
-            self.assertEqual(call_args_json['devicePixelRatio'], 2.0)
-            self.assertEqual(call_args_json['format'], 'svg')
-            self.assertEqual(call_args_json['bkg'], '#FFFFFF')
+        self.assertEqual(url, 'http://string.config.url')
+        mock_post.assert_called_once()
+        call_args_json = mock_post.call_args[1]['json']
+        self.assertEqual(call_args_json['chart'], chart_config_str)
+        self.assertEqual(call_args_json['width'], 300)
+        self.assertEqual(call_args_json['height'], 150)
+        self.assertEqual(call_args_json['devicePixelRatio'], 2.0)
+        self.assertEqual(call_args_json['format'], 'svg')
+        self.assertEqual(call_args_json['bkg'], '#FFFFFF')
 
 
 class WorkLogAPITests(APITestCase):
@@ -723,8 +804,9 @@ class WorkLogAPITests(APITestCase):
 
         self.project_owner = User.objects.create_user(username='worklogprojowner', password='password123', role='owner')
 
-        self.project = Project.objects.create(name='WorkLog Project', owner=self.project_owner)
-        self.task = Task.objects.create(project=self.project, name='WorkLog Task', assignee=self.loguser1)
+        self.project = Project.objects.create(name='WorkLog Project', owner=self.project_owner, status='active')
+        self.task = Task.objects.create(project=self.project, name='WorkLog Task', assignee=self.loguser1,
+                                        priority="medium")
 
         self.worklog_of_loguser1 = WorkLog.objects.create(
             user=self.loguser1, task=self.task,
@@ -751,7 +833,7 @@ class WorkLogAPITests(APITestCase):
         self.assertEqual(new_log.description, 'New worklog')
 
     def test_create_worklog_unauthenticated(self):
-        self.client.credentials()  # Clear auth
+        self.client.credentials()
         data = {'task_id': self.task.id, 'hours_spent': '1.00'}
         response = self.client.post(self.list_create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -805,8 +887,9 @@ class WorkLogAPITests(APITestCase):
 class WorkLogSerializerValidationTest(APITestCase):
     def setUp(self):
         self.owner = User.objects.create_user(username='wl_ser_owner', password='password')
-        self.project = Project.objects.create(name='WL Serializer Project', owner=self.owner)
-        self.task = Task.objects.create(project=self.project, name='WL Serializer Task', assignee=self.owner)
+        self.project = Project.objects.create(name='WL Serializer Project', owner=self.owner, status='active')
+        self.task = Task.objects.create(project=self.project, name='WL Serializer Task', assignee=self.owner,
+                                        priority="medium")
         self.user = self.owner
 
     def test_worklog_serializer_both_task_and_project(self):
@@ -838,7 +921,6 @@ class WorkLogSerializerValidationTest(APITestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('non_field_errors', serializer.errors)
 
-
     def test_worklog_serializer_create_with_project_only(self):
         data = {
             "project_id": self.project.id,
@@ -857,9 +939,17 @@ class WorkLogSerializerValidationTest(APITestCase):
 class ModelStrRepresentationTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='str_user', password='password')
-        self.project = Project.objects.create(name='Test Project Str', owner=self.user)
-        self.task = Task.objects.create(project=self.project, name='Test Task Str')
-        self.worklog = WorkLog.objects.create(user=self.user, task=self.task, hours_spent=Decimal(1.0), date=timezone.now().date())
+        self.project = Project.objects.create(name='Test Project Str', owner=self.user, status='active')
+        self.task = Task.objects.create(project=self.project, name='Test Task Str', priority="medium")
+        self.fixed_date = datetime_date(2023, 1, 15)
+        self.worklog = WorkLog.objects.create(user=self.user, task=self.task, hours_spent=Decimal('1.00'),
+                                              date=self.fixed_date)
+        self.team = Team.objects.create(name="Str Team", owner=self.user)
+        self.team_member = TeamMember.objects.create(user=self.user, team=self.team, role='lead')
+        self.task_comment = TaskComment.objects.create(task=self.task, user=self.user, comment="Test comment")
+        self.task_history = TaskHistory.objects.create(task=self.task, user=self.user, field_changed="status",
+                                                       old_value="TODO", new_value="IN_PROGRESS",
+                                                       change_description="Status updated")
 
     def test_project_str_representation(self):
         self.assertEqual(str(self.project), 'Test Project Str')
@@ -869,9 +959,24 @@ class ModelStrRepresentationTests(TestCase):
         self.assertEqual(str(self.task), expected_str)
 
     def test_worklog_str_representation(self):
-        expected_str = f"{self.user.username} - 1.00h on {timezone.now().date()}"
-        self.assertTrue(str(self.worklog).startswith(f"{self.user.username} - 1.00h on"))
+        expected_str = f"{self.user.username} - 1.00h on {self.fixed_date.isoformat()}"
         self.assertEqual(str(self.worklog), expected_str)
+
+    def test_team_member_str_representation(self):
+        expected_str = f"{self.user.username} in {self.team.name} as Team Lead"
+        self.assertEqual(str(self.team_member), expected_str)
+
+    def test_task_comment_str_representation(self):
+        self.assertTrue(str(self.task_comment).startswith(f"Comment by {self.user.username} on {self.task.name} at"))
+
+    def test_task_history_str_representation(self):
+        self.assertTrue(str(self.task_history).startswith(
+            f"{self.task.name} - 'status' changed from 'TODO' to 'IN_PROGRESS' by {self.user.username} at"))
+
+        history_no_field = TaskHistory.objects.create(task=self.task, user=self.user,
+                                                      change_description="Task created action")
+        self.assertTrue(
+            str(history_no_field).startswith(f"{self.task.name} - Task created action by {self.user.username} at"))
 
 
 class OwnerDashboardViewTest(APITestCase):
@@ -884,10 +989,11 @@ class OwnerDashboardViewTest(APITestCase):
 
     def test_owner_dashboard_access_by_owner(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.owner_token.key)
-        Project.objects.create(name="Owner's Project", owner=self.owner)
+        Project.objects.create(name="Owner's Project", owner=self.owner, status='active')
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('summary_stats', response.data)
+        self.assertEqual(response.data['summary_stats']['active_projects'], 1)
 
     def test_owner_dashboard_access_by_employee_forbidden(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.employee_token.key)
@@ -909,12 +1015,13 @@ class EmployeeDashboardViewTest(APITestCase):
 
         self.team_owner = User.objects.create_user(username='emp_dash_team_owner', password='password', role='owner')
         self.team1 = Team.objects.create(name='Team Alpha', owner=self.team_owner)
-        self.employee.team.add(self.team1)
+        TeamMember.objects.create(user=self.employee, team=self.team1, role='member')
 
-        self.project1 = Project.objects.create(name="Assigned Project", owner=self.owner)
-        Task.objects.create(project=self.project1, name="Employee Task", assignee=self.employee, status='TODO')
+        self.project1 = Project.objects.create(name="Assigned Project", owner=self.owner, status='active')
+        Task.objects.create(project=self.project1, name="Employee Task", assignee=self.employee, status='TODO',
+                            priority="medium")
 
-        self.project2 = Project.objects.create(name="Team Project", owner=self.owner)
+        self.project2 = Project.objects.create(name="Team Project", owner=self.owner, status='active')
         self.project2.team.add(self.team1)
 
         self.url = reverse('employee-dashboard')
@@ -930,6 +1037,7 @@ class EmployeeDashboardViewTest(APITestCase):
 
         self.assertEqual(len(data['my_projects']), 2)
         self.assertEqual(len(data['my_teams']), 1)
+        self.assertIsNotNone(data['my_teams'][0].get('memberships'))
         self.assertEqual(data['my_teams'][0]['name'], 'Team Alpha')
         self.assertEqual(len(data['my_current_tasks']), 1)
         self.assertEqual(data['my_current_tasks'][0]['name'], 'Employee Task')
@@ -968,11 +1076,10 @@ class LogoutAPIViewTest(APITestCase):
     def test_logout_invalid_token_or_already_logged_out(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         self.client.post(self.url)
-        self.client.credentials(
-            HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertIn("Invalid token", response.data.get('detail'))
+        self.assertEqual(response.data.get('detail'), "Invalid token.")
 
     def test_logout_unauthenticated(self):
         self.client.credentials()
@@ -1019,3 +1126,262 @@ class UserListViewSetTest(APITestCase):
         self.client.credentials()
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class TeamAPITests(APITestCase):
+    def setUp(self):
+        self.user_owner = User.objects.create_user(username='team_api_owner', password='password123', role='owner')
+        self.owner_token = Token.objects.create(user=self.user_owner)
+        self.other_user = User.objects.create_user(username='team_api_other', password='password123', role='employee')
+        self.other_user_token = Token.objects.create(user=self.other_user)
+
+        self.team_list_create_url = reverse('team-list')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.owner_token.key)
+
+    def test_create_team(self):
+        data = {'name': 'New Awesome Team', 'description': 'A truly awesome team.'}
+        response = self.client.post(self.team_list_create_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Team.objects.count(), 1)
+        new_team = Team.objects.get(name='New Awesome Team')
+        self.assertEqual(new_team.owner, self.user_owner)
+        self.assertTrue(TeamMember.objects.filter(team=new_team, user=self.user_owner, role='lead').exists())
+
+    def test_create_team_unauthenticated(self):
+        self.client.credentials()
+        data = {'name': 'Unauth Team'}
+        response = self.client.post(self.team_list_create_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_list_teams(self):
+        Team.objects.create(name='Team One', owner=self.user_owner)
+        Team.objects.create(name='Team Two', owner=self.other_user)
+        response = self.client.get(self.team_list_create_url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 2)
+
+    def test_retrieve_team(self):
+        team = Team.objects.create(name='Retrieve Me Team', owner=self.user_owner)
+        url = reverse('team-detail', kwargs={'pk': team.pk})
+        response = self.client.get(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], 'Retrieve Me Team')
+        self.assertIsNotNone(response.data.get('memberships'))
+
+    def test_update_team_by_owner(self):
+        team = Team.objects.create(name='Update Me Team', owner=self.user_owner)
+        url = reverse('team-detail', kwargs={'pk': team.pk})
+        data = {'name': 'Updated Team Name', 'description': 'Updated description.'}
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        team.refresh_from_db()
+        self.assertEqual(team.name, 'Updated Team Name')
+
+    def test_update_team_by_non_owner_forbidden(self):
+        team = Team.objects.create(name='Cant Update This Team', owner=self.user_owner)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.other_user_token.key)
+        url = reverse('team-detail', kwargs={'pk': team.pk})
+        data = {'name': 'Failed Update'}
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_partial_update_team_by_owner(self):
+        team = Team.objects.create(name='Partial Update Team', owner=self.user_owner)
+        url = reverse('team-detail', kwargs={'pk': team.pk})
+        data = {'description': 'New partial description.'}
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        team.refresh_from_db()
+        self.assertEqual(team.description, 'New partial description.')
+
+    def test_delete_team_by_owner(self):
+        team = Team.objects.create(name='Delete Me Team', owner=self.user_owner)
+        url = reverse('team-detail', kwargs={'pk': team.pk})
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Team.objects.count(), 0)
+
+    def test_delete_team_by_non_owner_forbidden(self):
+        team = Team.objects.create(name='Cant Delete This Team', owner=self.user_owner)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.other_user_token.key)
+        url = reverse('team-detail', kwargs={'pk': team.pk})
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class TeamMemberAPITests(APITestCase):
+    def setUp(self):
+        self.team_owner = User.objects.create_user(username='tm_owner', password='password123', role='owner')
+        self.owner_token = Token.objects.create(user=self.team_owner)
+
+        self.member_user1 = User.objects.create_user(username='tm_member1', password='password123', role='employee')
+        self.member1_token = Token.objects.create(user=self.member_user1)
+        self.member_user2 = User.objects.create_user(username='tm_member2', password='password123', role='employee')
+
+        self.team = Team.objects.create(name='Membership Test Team', owner=self.team_owner)
+        self.owner_membership = TeamMember.objects.create(team=self.team, user=self.team_owner, role='lead')
+
+        self.list_create_url = reverse('team-members-list', kwargs={'team_pk': self.team.pk})
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.owner_token.key)
+
+    def _get_detail_url(self, member_pk):
+        return reverse('team-members-detail', kwargs={'team_pk': self.team.pk, 'pk': member_pk})
+
+    def test_list_team_members(self):
+        TeamMember.objects.create(team=self.team, user=self.member_user1, role='member')
+        response = self.client.get(self.list_create_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 2)
+
+    def test_add_member_to_team_by_owner(self):
+        data = {'user_id': self.member_user2.id, 'role': 'member'}
+        response = self.client.post(self.list_create_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(TeamMember.objects.filter(team=self.team, user=self.member_user2, role='member').exists())
+        self.assertEqual(self.team.memberships.count(), 2)
+
+    def test_add_existing_member_to_team_fails(self):
+        TeamMember.objects.create(team=self.team, user=self.member_user1, role='member')
+        data = {'user_id': self.member_user1.id, 'role': 'member'}
+        response = self.client.post(self.list_create_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_add_member_to_team_by_non_owner_forbidden(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.member1_token.key)
+        data = {'user_id': self.member_user2.id, 'role': 'member'}
+        response = self.client.post(self.list_create_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_update_member_role_by_owner(self):
+        membership = TeamMember.objects.create(team=self.team, user=self.member_user1, role='member')
+        url = self._get_detail_url(membership.pk)
+        data = {'role': 'lead'}
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        membership.refresh_from_db()
+        self.assertEqual(membership.role, 'lead')
+
+    def test_update_own_member_role_by_member(self):
+        membership = TeamMember.objects.create(team=self.team, user=self.member_user1, role='member')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.member1_token.key)
+        url = self._get_detail_url(membership.pk)
+        data = {'role': 'lead'}
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        membership.refresh_from_db()
+        self.assertEqual(membership.role, 'lead')
+
+    def test_update_other_member_role_by_member_forbidden(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.member1_token.key)
+        url = self._get_detail_url(self.owner_membership.pk)
+        data = {'role': 'member'}
+        response = self.client.patch(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_remove_member_by_owner(self):
+        membership = TeamMember.objects.create(team=self.team, user=self.member_user1, role='member')
+        initial_count = self.team.memberships.count()
+        url = self._get_detail_url(membership.pk)
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(self.team.memberships.count(), initial_count - 1)
+
+    def test_remove_member_by_non_owner_forbidden(self):
+        membership = TeamMember.objects.create(team=self.team, user=self.member_user1, role='member')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.member1_token.key)
+        url = self._get_detail_url(membership.pk)
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_remove_last_lead_owner_fails(self):
+        TeamMember.objects.filter(team=self.team, role='lead').exclude(pk=self.owner_membership.pk).delete()
+        self.assertEqual(self.team.memberships.filter(role='lead').count(), 1)
+
+        url = self._get_detail_url(self.owner_membership.pk)
+        response = self.client.delete(url, format='json')
+        self.assertEqual(response.status_code,
+                         status.HTTP_400_BAD_REQUEST)
+        self.assertTrue(TeamMember.objects.filter(pk=self.owner_membership.pk).exists())
+
+
+class TaskCommentAPITests(APITestCase):
+    def setUp(self):
+        self.user1 = User.objects.create_user(username='commenter1', password='password123')
+        self.user1_token = Token.objects.create(user=self.user1)
+        self.user2 = User.objects.create_user(username='commenter2', password='password123')
+        self.user2_token = Token.objects.create(user=self.user2)
+
+        self.project_owner = User.objects.create_user(username='comment_proj_owner', password='password123',
+                                                      role='owner')
+        self.project = Project.objects.create(name='Comment Test Project', owner=self.project_owner, status='active')
+        self.task = Task.objects.create(project=self.project, name='Comment Test Task', priority='medium')
+
+        self.list_create_url = reverse('task-comments-list', kwargs={'task_pk': self.task.pk})
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.user1_token.key)
+
+    def _get_detail_url(self, comment_pk):
+        return reverse('task-comments-detail', kwargs={'task_pk': self.task.pk, 'pk': comment_pk})
+
+    def test_create_comment(self):
+        data = {'comment': 'This is a test comment.'}
+        response = self.client.post(self.list_create_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(TaskComment.objects.count(), 1)
+        new_comment = TaskComment.objects.first()
+        self.assertEqual(new_comment.user, self.user1)
+        self.assertEqual(new_comment.task, self.task)
+        self.assertEqual(new_comment.comment, 'This is a test comment.')
+
+    def test_create_comment_unauthenticated(self):
+        self.client.credentials()
+        data = {'comment': 'Unauth comment.'}
+        response = self.client.post(self.list_create_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_list_comments_for_task(self):
+        TaskComment.objects.create(task=self.task, user=self.user1, comment='First comment')
+        TaskComment.objects.create(task=self.task, user=self.user2, comment='Second comment')
+
+        other_task = Task.objects.create(project=self.project, name='Another Task For Comments', priority='low')
+        TaskComment.objects.create(task=other_task, user=self.user1, comment='Comment on other task')
+
+        response = self.client.get(self.list_create_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['count'], 2)
+
+    def test_retrieve_comment(self):
+        comment = TaskComment.objects.create(task=self.task, user=self.user1, comment='Retrieve me')
+        url = self._get_detail_url(comment.pk)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['comment'], 'Retrieve me')
+
+    def test_update_own_comment(self):
+        comment = TaskComment.objects.create(task=self.task, user=self.user1, comment='Original comment')
+        url = self._get_detail_url(comment.pk)
+        data = {'comment': 'Updated comment text.'}
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        comment.refresh_from_db()
+        self.assertEqual(comment.comment, 'Updated comment text.')
+
+    def test_update_others_comment_forbidden(self):
+        comment = TaskComment.objects.create(task=self.task, user=self.user2,
+                                             comment="Other's comment")
+        url = self._get_detail_url(comment.pk)
+        data = {'comment': 'Attempted update.'}
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_delete_own_comment(self):
+        comment = TaskComment.objects.create(task=self.task, user=self.user1, comment='To be deleted')
+        url = self._get_detail_url(comment.pk)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(TaskComment.objects.filter(pk=comment.pk).exists())
+
+    def test_delete_others_comment_forbidden(self):
+        comment = TaskComment.objects.create(task=self.task, user=self.user2, comment="Other's comment to delete")
+        url = self._get_detail_url(comment.pk)
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
