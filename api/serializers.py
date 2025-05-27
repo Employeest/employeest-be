@@ -1,18 +1,13 @@
 from rest_framework import serializers
-from .models import Project, Task, WorkLog, Team, User
-
-
-# api/serializers.py
-from rest_framework import serializers
-from .models import Project, Task, WorkLog, Team, User # User is already imported
-from django.contrib.auth.password_validation import validate_password # For password strength
+from .models import Project, Task, WorkLog, Team, User, TeamMember, TaskComment, TaskHistory
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
 
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'first_name', 'last_name']
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -23,10 +18,12 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(required=False, allow_blank=True)
     phone_number = serializers.CharField(required=False, allow_blank=True)
 
-
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'password2', 'first_name', 'last_name', 'phone_number')
+        fields = ('username', 'email', 'password', 'password2', 'first_name', 'last_name', 'phone_number', 'role')
+        extra_kwargs = {
+            'role': {'read_only': True}
+        }
 
     def validate_username(self, value):
         if User.objects.filter(username__iexact=value).exists():
@@ -51,12 +48,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             first_name=validated_data.get('first_name', ''),
             last_name=validated_data.get('last_name', ''),
             phone_number=validated_data.get('phone_number', '')
-            # role defaults to 'employee' as per your User model
         )
-        # Note: Tokens are not automatically created here.
-        # The user will need to log in to get a token.
-        # Or, you can explicitly create one: Token.objects.create(user=user)
         return user
+
 
 class AssigneeUserSerializer(serializers.ModelSerializer):
     display_name = serializers.SerializerMethodField()
@@ -70,63 +64,106 @@ class AssigneeUserSerializer(serializers.ModelSerializer):
             return f"{obj.first_name} {obj.last_name} ({obj.username})"
         return obj.username
 
-class TeamSimpleSerializer(serializers.ModelSerializer):
+
+class TeamMemberSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), source='user', write_only=True)
+    team_id = serializers.IntegerField(write_only=True, required=False)
+
+    class Meta:
+        model = TeamMember
+        fields = ['id', 'user', 'user_id', 'team', 'team_id', 'role', 'date_joined']
+        read_only_fields = ['team', 'date_joined']
+
+    def create(self, validated_data):
+        team_id = self.context['view'].kwargs.get('team_pk')
+        validated_data['team_id'] = team_id
+        try:
+            return super().create(validated_data)
+        except Exception as e:  # IntegrityError for unique_together
+            raise serializers.ValidationError(str(e))
+
+
+class TeamSerializer(serializers.ModelSerializer):
+    owner = UserSimpleSerializer(read_only=True)
+    memberships = TeamMemberSerializer(many=True, read_only=True)
+
     class Meta:
         model = Team
-        fields = ['id', 'name', 'owner']
+        fields = ['id', 'name', 'description', 'owner', 'memberships']
+
 
 class TeamDetailSerializer(serializers.ModelSerializer):
     owner = UserSimpleSerializer(read_only=True)
-    members = UserSimpleSerializer(many=True, read_only=True) # Crucial: list of members
+    memberships = TeamMemberSerializer(many=True, read_only=True)
 
     class Meta:
         model = Team
-        fields = ['id', 'name', 'description', 'owner', 'members']
-
-
-class TaskSimpleSerializer(serializers.ModelSerializer):
-    assignee = UserSimpleSerializer(read_only=True, required=False)
-
-    class Meta:
-        model = Task
-        fields = ['id', 'name', 'status', 'assignee', 'deadline']
+        fields = ['id', 'name', 'description', 'owner', 'memberships']
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    owner = UserSimpleSerializer(read_only=True) # Correct for displaying owner information
-
-    # Make owner_id not required for input, as perform_create handles it.
-    # It's still write_only, meaning if provided, it would attempt to set the 'owner' field.
-    # But since perform_create overrides it, making it not required is key.
+    owner = UserSimpleSerializer(read_only=True)
     owner_id = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(),
         source='owner',
         write_only=True,
-        required=False, # <--- KEY CHANGE: Make it not required
-        allow_null=True  # <--- Also good to add if it can be null before perform_create sets it
+        required=False,
+        allow_null=True
+    )
+    managers = UserSimpleSerializer(many=True, read_only=True)
+    manager_ids = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        source='managers',
+        write_only=True,
+        many=True,
+        required=False
     )
     tasks_count = serializers.SerializerMethodField()
-    tasks = TaskSimpleSerializer(many=True, read_only=True)
+    team_details = TeamSerializer(source='team', many=True, read_only=True)
 
     class Meta:
         model = Project
         fields = [
             'id', 'name', 'description', 'owner', 'owner_id',
+            'managers', 'manager_ids', 'status',
             'created_at', 'updated_at',
-            'tasks_count',
-            'tasks'
+            'tasks_count', 'team', 'team_details'
         ]
-        # 'owner' field is correctly read-only for output as defined by UserSimpleSerializer(read_only=True)
-        # For input, owner_id is handled.
-        read_only_fields = ['id', 'created_at', 'updated_at'] # 'owner' is handled by its own read_only=True
+        read_only_fields = ['id', 'created_at', 'updated_at', 'tasks_count', 'owner', 'team_details']
 
     def get_tasks_count(self, obj):
         return obj.tasks.count()
 
 
+class TaskCommentSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = TaskComment
+        fields = ['id', 'task', 'user', 'comment', 'created_at', 'updated_at']
+        read_only_fields = ['task', 'user', 'created_at', 'updated_at']
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        validated_data['task'] = self.context['view'].get_task_object()
+        return super().create(validated_data)
+
+
+class TaskHistorySerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = TaskHistory
+        fields = ['id', 'task', 'user', 'timestamp', 'field_changed', 'old_value', 'new_value', 'change_description']
+
+
 class TaskSerializer(serializers.ModelSerializer):
     assignee = UserSimpleSerializer(read_only=True, required=False)
     project_name = serializers.CharField(source='project.name', read_only=True)
+    project_status = serializers.CharField(source='project.status', read_only=True)
+    subtasks = serializers.SerializerMethodField(read_only=True)
+    comments_count = serializers.SerializerMethodField(read_only=True)
 
     assignee_id = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), source='assignee', write_only=True, allow_null=True, required=False
@@ -134,16 +171,29 @@ class TaskSerializer(serializers.ModelSerializer):
     project_id = serializers.PrimaryKeyRelatedField(
         queryset=Project.objects.all(), source='project', write_only=True
     )
+    parent_task_id = serializers.PrimaryKeyRelatedField(
+        queryset=Task.objects.all(), source='parent_task', write_only=True, allow_null=True, required=False
+    )
 
     class Meta:
         model = Task
         fields = [
-            'id', 'name', 'description', 'status', 'story_points', 'deadline', 'estimation_hours',
-            'project_id', 'project_name',
+            'id', 'name', 'description', 'status', 'priority', 'story_points', 'deadline', 'estimation_hours',
+            'project_id', 'project_name', 'project_status',
             'assignee_id', 'assignee',
+            'parent_task_id', 'parent_task', 'subtasks',
+            'comments_count',
             'created_at', 'updated_at'
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at', 'project_name', 'assignee']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'project_name', 'project_status', 'assignee',
+                            'parent_task', 'subtasks', 'comments_count']
+
+    def get_subtasks(self, obj):
+        subtasks = Task.objects.filter(parent_task=obj)
+        return TaskSimpleSerializer(subtasks, many=True, context=self.context).data
+
+    def get_comments_count(self, obj):
+        return obj.comments.count()
 
     def validate_project_id(self, value):
         if not Project.objects.filter(pk=value.id).exists():
@@ -154,6 +204,68 @@ class TaskSerializer(serializers.ModelSerializer):
         if value and not User.objects.filter(pk=value.id).exists():
             raise serializers.ValidationError("Assignee (User) does not exist.")
         return value
+
+    def validate_parent_task_id(self, value):
+        if value and not Task.objects.filter(pk=value.id).exists():
+            raise serializers.ValidationError("Parent task does not exist.")
+        if value and self.instance and value.id == self.instance.id:
+            raise serializers.ValidationError("A task cannot be its own parent.")
+        return value
+
+    def _log_history(self, instance, old_data, user):
+        changes = []
+        for field, new_value in self.validated_data.items():
+            if field in ['assignee_id', 'project_id', 'parent_task_id']:
+                old_fk_id = old_data.get(field + '_id', None)
+                new_fk_id = new_value.id if new_value else None
+                if old_fk_id != new_fk_id:
+                    changes.append({
+                        'field_changed': field.replace('_id', ''),
+                        'old_value': str(
+                            User.objects.get(id=old_fk_id) if field == 'assignee_id' and old_fk_id else old_fk_id),
+                        'new_value': str(new_value),
+                        'change_description': f"{field.replace('_id', '').capitalize()} changed."
+                    })
+            elif field not in ['updated_at', 'created_at'] and hasattr(instance, field):
+                old_value = old_data.get(field, getattr(instance, field))
+                if old_value != new_value:
+                    changes.append({
+                        'field_changed': field,
+                        'old_value': str(old_value),
+                        'new_value': str(new_value),
+                        'change_description': f"{field.capitalize()} changed to '{new_value}'."
+                    })
+
+        for change in changes:
+            TaskHistory.objects.create(task=instance, user=user, **change)
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+        TaskHistory.objects.create(task=instance, user=self.context['request'].user,
+                                   change_description=f"Task '{instance.name}' created.")
+        return instance
+
+    def update(self, instance, validated_data):
+        old_data = TaskSerializer(instance).data
+
+        old_fk_data = {
+            'assignee_id': instance.assignee_id,
+            'project_id': instance.project_id,
+            'parent_task_id': instance.parent_task_id,
+        }
+        old_data.update(old_fk_data)
+
+        updated_instance = super().update(instance, validated_data)
+        self._log_history(updated_instance, old_data, self.context['request'].user)
+        return updated_instance
+
+
+class TaskSimpleSerializer(serializers.ModelSerializer):
+    assignee = UserSimpleSerializer(read_only=True, required=False)
+
+    class Meta:
+        model = Task
+        fields = ['id', 'name', 'status', 'priority', 'assignee', 'deadline']
 
 
 class WorkLogSerializer(serializers.ModelSerializer):
