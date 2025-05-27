@@ -6,4 +6,6 @@ python-dotenv
 requests
 gunicorn
 django-cors-headers
-django-xmlrunner
+pytest
+pytest-django
+pytest-cov
