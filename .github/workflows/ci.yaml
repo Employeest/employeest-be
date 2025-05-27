@@ -11,37 +11,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.13'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
 
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        # For test reporting
-        pip install django-nose nose-xunitmp
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # This will install django-xmlrunner
+          
+          - name: Prepare Environment File for Tests
+            run: |
+              echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
+              echo "QUICK_CHART_API_URL=${{ secrets.QUICK_CHART_API_URL }}" >> .env
+          echo "DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}" >> .env
+          echo "DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}" >> .env
+          echo "DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}" >> .env
 
-    - name: Prepare Environment File for Tests
-      run: |
-        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
-        echo "QUICK_CHART_API_URL=${{ secrets.QUICK_CHART_API_URL }}" >> .env
-        echo "DJANGO_SUPERUSER_EMAIL=${{ secrets.DJANGO_SUPERUSER_EMAIL }}" >> .env
-        echo "DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}" >> .env
-        echo "DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}" >> .env
+      - name: Run Tests # Ensure this is updated
+        run: |
+          python manage.py test # THIS IS THE CORRECT COMMAND NOW
 
-    - name: Run Tests
-      run: |
-        python manage.py test --testrunner=django_nose.NoseTestSuiteRunner --with-xunit --xunit-file=test-results/results.xml
-
-    - name: Upload test report
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: django-test-report
-        path: ./test-results/results.xml
-        retention-days: 7
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: django-test-report
+          path: test-results/
+          retention-days: 7
