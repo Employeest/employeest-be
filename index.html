@@ -260,13 +260,35 @@ h1 {
                 <li>api.tests.UserModelTest
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#f11bfc10-54ce-4dbd-9bc2-8e5672fed432">test_user_creation</a></li>
+                    <li class="outcome outcome-passed"><a href="#17511129-f3de-415d-832e-184561bc2e71">test_user_creation</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#56f88999-e9bc-4b74-a690-4be9966c9020">test_user_default_role</a></li>
+                    <li class="outcome outcome-passed"><a href="#a57e551d-3fbc-43a3-ad6c-f3d6c83876a3">test_user_default_role</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#b30cb31f-b725-43aa-8408-3315719d0f1c">test_user_str_representation</a></li>
+                    <li class="outcome outcome-passed"><a href="#2cd0cfac-6e34-4a71-a62f-17be50973007">test_user_str_representation</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#2160f513-8759-4ecf-9b21-32f8e6d6c3d1">test_user_team_membership</a></li>
+                    <li class="outcome outcome-passed"><a href="#3f5e83c1-1704-41c7-95d6-11974974b8ab">test_user_team_membership</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.UserRegistrationSerializerTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#f564725a-7c41-4486-a4fe-db9a75c8e87c">test_registration_existing_email</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#2228de1c-25c5-40d3-b3d6-a9a04fccc79b">test_registration_existing_username</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#f1b5a1e3-8919-4885-9629-06f434fbd0c5">test_registration_optional_fields_not_provided</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#8f7007c3-d416-4fe8-abd5-8293aa9ba2a9">test_registration_password_mismatch</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.AssigneeUserSerializerTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#bcd08fd3-1e82-4647-a221-8a92d7e3eda6">test_assignee_display_name_username_only</a></li>
                     
                 </ul>
                 </li>
@@ -274,9 +296,21 @@ h1 {
                 <li>api.tests.TeamModelTest
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#4b50d16a-ce89-407a-97eb-57a1c0b912fb">test_team_creation</a></li>
+                    <li class="outcome outcome-passed"><a href="#e3f95e8d-9a4d-4a03-8c4a-cf69d9f9472d">test_team_creation</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#df6c74b3-2213-4649-a924-8e66a8cbca7c">test_team_str_representation</a></li>
+                    <li class="outcome outcome-passed"><a href="#458a2b0c-de34-4de8-9be5-66de3cd35ff7">test_team_str_representation</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.TaskSerializerValidationTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#1b8b193a-1dca-46aa-94c6-92d6136913d3">test_task_serializer_assignee_id_null</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#bf43c229-d372-426d-8372-4acf68cc5e0e">test_task_serializer_invalid_assignee_id</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#16ddc1b5-cee6-4ff9-ba3b-7ade0cf36385">test_task_serializer_invalid_project_id</a></li>
                     
                 </ul>
                 </li>
@@ -284,9 +318,9 @@ h1 {
                 <li>api.tests.UserProfileViewTest
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#5d42fc21-3bd0-4dfd-a40c-c5045052caa5">test_user_profile_view_authenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#738ccf39-5798-4699-9014-19c5f7885fc9">test_user_profile_view_authenticated</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#89b3e431-8bb1-4350-ade0-2528587a67e3">test_user_profile_view_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#51dfb7b3-be99-4779-89c3-381c6cb43248">test_user_profile_view_unauthenticated</a></li>
                     
                 </ul>
                 </li>
@@ -294,35 +328,41 @@ h1 {
                 <li>api.tests.ProjectAPITests
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#79e48346-5ccc-489c-af5f-dd4de56a04f6">test_create_project_as_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#51ef8b3f-92a5-4826-ae5c-07b6cf6e9b95">test_create_project_as_owner</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#c994a675-2be7-41b9-a3ec-095798215642">test_delete_project_by_non_owner_forbidden</a></li>
+                    <li class="outcome outcome-passed"><a href="#0beda9fa-e1f7-48e4-ab2a-fe16e266eb9a">test_delete_project_by_non_owner_forbidden</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#bfc0cb5d-8d10-409b-b582-33581ed75a2e">test_delete_project_by_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#21caeddb-de18-46e7-ac4c-acebfbd40715">test_delete_project_by_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#afef741c-b8b0-415c-82a9-15ed77c06e9e">test_list_projects_as_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#8fc8b9fd-cf28-45cf-afdb-79f7c6a2c125">test_list_projects_as_owner</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#d8dc1db9-cf30-459f-9f49-bc7216509d2a">test_partial_update_project_by_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#52d7a54a-ba1c-466e-a161-a5ff8d55ff0e">test_partial_update_project_by_owner</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#02436bfc-e0ac-4325-9175-b88c4a0d2dd3">test_project_endpoints_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#c8179807-e71c-420e-9b3f-482c43d026a4">test_project_endpoints_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#b6cc7150-fd69-4ab4-b71d-428eff86b998">test_project_task_status_chart_by_employee_forbidden</a></li>
+                    <li class="outcome outcome-passed"><a href="#526590b3-0759-44d8-99e6-4bc55eee7d76">test_project_task_status_chart_api_failure</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#a499f93e-7993-4264-8aff-f94b24c27514">test_project_task_status_chart_by_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#da3bb3c4-5430-4e72-b42a-0df9f84a411b">test_project_task_status_chart_by_employee_forbidden</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#6eef6995-2358-41e6-9714-493b00693b03">test_project_task_status_chart_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#c0938ae3-d825-4a14-b629-343229a2ce95">test_project_task_status_chart_by_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#136a5598-a12e-4203-815f-b31e4bccea6f">test_project_velocity_chart_by_employee_forbidden</a></li>
+                    <li class="outcome outcome-passed"><a href="#c4331677-32cd-4943-bbdf-fbd2aafd9358">test_project_task_status_chart_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#55526465-1e94-45d1-b073-99c193b4fa74">test_project_velocity_chart_by_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#22e91a3b-0e1d-4278-b594-20f1d4950ef2">test_project_velocity_chart_api_failure</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#1792eeff-83a8-4613-a998-d48898efbf6a">test_project_velocity_chart_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#4dd5b2bf-a50a-4d91-b950-dda82c98d47c">test_project_velocity_chart_by_employee_forbidden</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#a78abafc-9dba-4b9f-8191-63c476d0bed1">test_retrieve_project_as_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#48be058a-5a68-4a60-b562-afd75d3d37cf">test_project_velocity_chart_by_owner</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#65cbac74-5b82-4c9c-9864-55451ffc634b">test_update_project_by_non_owner_forbidden</a></li>
+                    <li class="outcome outcome-passed"><a href="#5dfa16c3-096c-491d-9560-65b6f139b156">test_project_velocity_chart_no_data</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#5b69c45e-165b-478c-b35d-2684a927781a">test_update_project_by_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#65bd4db5-09b6-4563-b5c3-0a1df740f56c">test_project_velocity_chart_unauthenticated</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#e5a4be5f-4d2d-4e11-b1b3-0546f90ee22a">test_retrieve_project_as_owner</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#56eeaaa5-9aa3-42ec-96bf-db5b112d7e17">test_update_project_by_non_owner_forbidden</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#70b7397d-505e-4c8c-8783-19acf6fe8bb4">test_update_project_by_owner</a></li>
                     
                 </ul>
                 </li>
@@ -330,33 +370,41 @@ h1 {
                 <li>api.tests.TaskAPITests
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#65e9f0a9-448f-4836-9c33-625444b518a8">test_create_task_as_authenticated_user</a></li>
+                    <li class="outcome outcome-passed"><a href="#72810a8c-8514-4d2a-bf05-e78c7652647a">test_create_task_as_authenticated_user</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#bb136ede-d0cf-499d-9f00-e3b7fba2bdd4">test_delete_task_by_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#0d6dd569-19ad-43cd-aec5-30445fc7da04">test_delete_task_by_assignee</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#ab229c51-ea48-4567-8d51-9efdf129cc17">test_delete_task_by_other_user_forbidden</a></li>
+                    <li class="outcome outcome-passed"><a href="#ed92ea46-fbb0-4edf-977a-aef981b52879">test_delete_task_by_other_user_forbidden</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#9e12e2dd-655e-4e5b-91d2-397271092218">test_delete_task_by_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#02362401-7ff3-41fb-83d0-e5839557116e">test_delete_task_by_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#5af75b66-ce07-422d-ab85-a7406b42c373">test_list_tasks_as_authenticated_user</a></li>
+                    <li class="outcome outcome-passed"><a href="#20301bec-71fb-4884-824a-b7ac3619bad0">test_list_tasks_as_authenticated_user</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#6916e84d-bac6-4563-8824-1fefefbfed33">test_retrieve_task_as_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#23b1c187-ee94-476f-908e-ebc648988401">test_retrieve_task_as_assignee</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#33254e44-2fde-49ae-8204-ee434901b4f4">test_retrieve_task_as_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#dff85170-9ef9-4453-9826-b4933d5f85cb">test_retrieve_task_as_owner</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#d99fd6c3-73be-4862-8d3a-5a267ed6fc84">test_task_action_mark_as_done_by_owner_of_task_assigned_to_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#0b60a962-943c-4787-920e-5c138728464f">test_retrieve_task_as_staff_member</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#5807d2cc-4e50-40f4-b6b4-0a8d55bb3b0c">test_task_action_start_progress_by_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#7c079f8c-f546-46a8-a092-8602c440e131">test_task_action_mark_as_done_by_owner_of_task_assigned_to_owner</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#14a83f00-0c09-45bf-9898-66bab956f412">test_task_endpoints_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#326efaff-8b76-4545-a6a7-e616cb051cda">test_task_action_mark_as_done_invalid_state</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#ffa23f1e-d3e1-4ee4-b4cb-f6cf2eea3834">test_task_filter_by_status_as_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#9a5770cb-af4b-4169-87cd-ea71ea0b83c9">test_task_action_start_progress_by_assignee</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#8affe7c1-c2ba-4328-a84d-208b044940db">test_update_task_by_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#ac040100-ae6e-4a0d-805d-178d61e44b87">test_task_action_start_progress_invalid_state</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#218728f5-4300-4522-8f04-047f0d8b1b12">test_update_task_by_other_user_forbidden</a></li>
+                    <li class="outcome outcome-passed"><a href="#7918c76e-b263-474e-acb8-a8b82206db70">test_task_endpoints_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#5f5104ed-b7ea-417e-bcda-fc313cca1880">test_update_task_by_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#b4fd6c5a-8f9c-4180-8b45-b065d0f6bddf">test_task_filter_by_status_as_owner</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#4a5654f0-de9c-451f-bc1d-1c9239e0d86e">test_update_task_by_assignee</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#22083e56-1ab9-4e44-b7c8-acccbf098db4">test_update_task_by_other_user_forbidden</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#bbfcb9f8-6417-4ae7-ab04-6ec313f004bf">test_update_task_by_owner</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#34c63715-8ba4-418f-8319-e0deac8e75aa">test_update_task_by_staff_member_forbidden</a></li>
                     
                 </ul>
                 </li>
@@ -364,17 +412,33 @@ h1 {
                 <li>api.tests.ChartViewTests
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#aad6ef3f-1858-4ba3-84bb-b9b1c469fb54">test_business_statistics_story_points_monthly</a></li>
+                    <li class="outcome outcome-passed"><a href="#8aabd5b7-badd-45ba-b5e2-01c172274679">test_business_statistics_api_failure</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#53a5f2d7-9f7c-4bae-a452-1b21d211b198">test_project_task_status_chart_as_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#4db1e738-1637-4da8-8508-6c5a17f27629">test_business_statistics_no_data</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#21519f88-b72f-44ac-98c5-cb4081608efe">test_project_task_status_chart_no_tasks</a></li>
+                    <li class="outcome outcome-passed"><a href="#7325956c-a81d-4b5f-b0d0-3a21f991e053">test_business_statistics_story_points_monthly</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#e529030f-f792-4420-822b-69000b1fd0b7">test_project_velocity_chart_as_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#4d9829d2-2e1b-4131-a3df-42086807fd83">test_project_task_status_chart_as_owner</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#2273acde-6a03-43c2-b5f6-41127103e108">test_user_personal_task_stats_for_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#487060bd-2d0e-4ee5-82fe-ded99add6267">test_project_task_status_chart_no_tasks</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#0b8521f2-13e9-49f4-a185-171b1aa3bdcd">test_user_personal_task_stats_for_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#34b48085-cdb0-488e-945a-6395da63754c">test_project_velocity_chart_as_owner</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#75ed2b25-151e-446f-9e34-37a681f5a477">test_user_personal_stats_api_failure</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#13d602c5-9d9e-48f4-a432-af5df9c6f5da">test_user_personal_stats_no_data</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#ee293b44-3e9e-4e2c-8adf-1c3349a93044">test_user_personal_task_stats_for_assignee</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#84b2c41b-b348-4f91-a8ec-68c5a9ddeca4">test_user_personal_task_stats_for_owner</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.QuickChartHelperTests
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#65216aa6-05dc-4481-8b85-0b88b4635b7b">test_get_chart_url_success</a></li>
                     
                 </ul>
                 </li>
@@ -382,23 +446,101 @@ h1 {
                 <li>api.tests.WorkLogAPITests
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#9c34966d-1961-4901-8a43-9102e9ea9d26">test_create_worklog_for_task_as_loguser1</a></li>
+                    <li class="outcome outcome-passed"><a href="#16eb2e17-3140-48ed-9437-4433034c39f5">test_create_worklog_for_task_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#593eb031-c44a-4127-b7e3-9f66153dc272">test_create_worklog_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#d952d8b0-49ba-41f0-bdaa-5fa07cac1a1b">test_create_worklog_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#4039f97c-f08c-43e8-8901-bb7279ce5d4e">test_delete_own_worklog_as_loguser1</a></li>
+                    <li class="outcome outcome-passed"><a href="#c18ea99b-6b96-467e-ba80-2b63d0378a5b">test_delete_own_worklog_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#d5f689e1-a38c-46d8-91e7-dc9eee6696b1">test_list_all_worklogs_as_admin</a></li>
+                    <li class="outcome outcome-passed"><a href="#760a04d7-313c-4485-b4de-17ce7e176819">test_list_all_worklogs_as_admin</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#c6653773-a2e7-4c3d-bcd5-ada2108d4cfd">test_list_own_worklogs_as_loguser1</a></li>
+                    <li class="outcome outcome-passed"><a href="#4883a39d-e035-4ba1-b924-23a64a2c4b0a">test_list_own_worklogs_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#d74cb0ee-623d-40ff-9afa-459491d18b5a">test_retrieve_others_worklog_as_loguser1_not_found</a></li>
+                    <li class="outcome outcome-passed"><a href="#105a9eea-70f7-4a8f-95dc-3b8399ce8839">test_retrieve_others_worklog_as_loguser1_not_found</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#7cd99a26-ec90-4aed-90b4-ea2cf5cbdb74">test_retrieve_own_worklog_as_loguser1</a></li>
+                    <li class="outcome outcome-passed"><a href="#76f91108-c004-44e7-99d0-b8704c1af7e6">test_retrieve_own_worklog_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#af45ba11-e01c-457c-a650-d4060be7e54b">test_update_others_worklog_as_loguser1_forbidden</a></li>
+                    <li class="outcome outcome-passed"><a href="#8da3209a-5b68-4dd5-9156-8adbf3a0c31a">test_update_others_worklog_as_loguser1_forbidden</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#aa66a02c-9c34-46e4-9640-975966e04528">test_update_own_worklog_as_loguser1</a></li>
+                    <li class="outcome outcome-passed"><a href="#137ba1bf-cfc0-4780-a344-b6cde2197a7a">test_update_own_worklog_as_loguser1</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.WorkLogSerializerValidationTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#204ada68-78b5-4603-8444-32c5b9eca8dd">test_worklog_serializer_both_task_and_project</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#3747b477-3e5b-4897-bfe6-0f9b2ff15256">test_worklog_serializer_create_with_project_only</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#f40c5e8b-81b9-4248-8a1d-74c12169afd5">test_worklog_serializer_neither_task_nor_project</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#7e64c16e-b822-4925-93b3-43839ae66142">test_worklog_serializer_update_task_to_none_no_project</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.ModelStrRepresentationTests
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#48b453ee-2508-4bde-92a4-29dfb4432eca">test_project_str_representation</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#41b32bd9-6620-4647-90d9-5c5579a1eaf5">test_task_str_representation</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#4dbdc94b-c143-4700-b3ae-e198c0fb5356">test_worklog_str_representation</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.OwnerDashboardViewTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#9be69b34-d10f-4400-baff-0297324e1867">test_owner_dashboard_access_by_employee_forbidden</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#80e6fe4d-fee3-4ba5-bfda-2f685e21b663">test_owner_dashboard_access_by_owner</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#8025b004-d312-4718-8a45-0da92f70f8cf">test_owner_dashboard_access_unauthenticated</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.EmployeeDashboardViewTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#f8e0f255-f73f-41a7-83b1-5d64466937e6">test_employee_dashboard_access_unauthenticated</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#2e377eca-7606-4423-bb1f-daa3b406aaa1">test_employee_dashboard_no_teams_no_project_tasks</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#3d38c49d-fd19-43d0-8a79-f1e16ad85d76">test_employee_dashboard_structure</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.LogoutAPIViewTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#604b5902-c919-40ae-acd3-6510916058bd">test_logout_invalid_token_or_already_logged_out</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#c69c5de2-5753-43b0-a174-711826fdf366">test_logout_successful</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#e3331a1c-3a74-45d9-a073-61cf7ecf2467">test_logout_unauthenticated</a></li>
+                    
+                </ul>
+                </li>
+                
+                <li>api.tests.UserListViewSetTest
+                <ul>
+                    
+                    <li class="outcome outcome-passed"><a href="#a721ac86-c5c6-4b4c-9c0b-4d2d32ed687f">test_list_users</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#5acede0f-c648-4b67-b9d1-ca942c63d6db">test_list_users_search_firstname</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#02c7e8ae-2d5b-471a-8dc9-92fbb68cf5f4">test_list_users_search_no_results</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#f5b82cc4-4770-4795-bc32-7f1822b307bc">test_list_users_search_username</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#f5b60210-f44a-49e5-8b7e-10cb37122943">test_list_users_unauthenticated</a></li>
                     
                 </ul>
                 </li>
@@ -425,6 +567,28 @@ h1 {
                     
                     
                     
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 
                     
                     
@@ -440,47 +604,6 @@ h1 {
                     
                     
                     
-                    <li><a href="#afef741c-b8b0-415c-82a9-15ed77c06e9e">[F] api.tests.ProjectAPITests : test_list_projects_as_owner</a></li>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="#b6cc7150-fd69-4ab4-b71d-428eff86b998">[F] api.tests.ProjectAPITests : test_project_task_status_chart_by_employee_forbidden</a></li>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="#136a5598-a12e-4203-815f-b31e4bccea6f">[F] api.tests.ProjectAPITests : test_project_velocity_chart_by_employee_forbidden</a></li>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <li><a href="#5af75b66-ce07-422d-ab85-a7406b42c373">[F] api.tests.TaskAPITests : test_list_tasks_as_authenticated_user</a></li>
                     
                     
                     
@@ -494,7 +617,14 @@ h1 {
                     
                     
                     
-                    <li><a href="#ffa23f1e-d3e1-4ee4-b4cb-f6cf2eea3834">[F] api.tests.TaskAPITests : test_task_filter_by_status_as_owner</a></li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     
                     
@@ -517,6 +647,30 @@ h1 {
                     
                     
                     
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 
                     
                     
@@ -526,11 +680,87 @@ h1 {
                     
                     
                     
-                    <li><a href="#d5f689e1-a38c-46d8-91e7-dc9eee6696b1">[F] api.tests.WorkLogAPITests : test_list_all_worklogs_as_admin</a></li>
                     
                     
                     
-                    <li><a href="#c6653773-a2e7-4c3d-bcd5-ada2108d4cfd">[F] api.tests.WorkLogAPITests : test_list_own_worklogs_as_loguser1</a></li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                
+                    
                     
                     
                     
@@ -552,19 +782,19 @@ h1 {
 
     <div class="testsuite">
         <h2>Test Suite: pytest</h2>
-        <a id="ebcc9b3e-d672-42a0-ae6d-3ecca67d9457"></a>
+        <a id="2980f661-1345-4555-8bc1-382db205c2de"></a>
         
         
         <h3>Results</h3>
         <table class="proplist">
             <tr>
-                <th>Duration</th><td>40.667 sec</td>
+                <th>Duration</th><td>65.642 sec</td>
             </tr>
             <tr>
-                <th>Tests</th><td>52</td>
+                <th>Tests</th><td>93</td>
             </tr>
             <tr>
-                <th>Failures</th><td>7</td>
+                <th>Failures</th><td>0</td>
             </tr>
         </table>
 
@@ -576,11 +806,11 @@ h1 {
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="f11bfc10-54ce-4dbd-9bc2-8e5672fed432"></a>
+                        <a id="17511129-f3de-415d-832e-184561bc2e71"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_creation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>1.449 sec</td></tr>
+                            <tr><th>Duration:</th><td>1.45 sec</td></tr>
                         
                         
                         </table>
@@ -594,11 +824,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="56f88999-e9bc-4b74-a690-4be9966c9020"></a>
+                        <a id="a57e551d-3fbc-43a3-ad6c-f3d6c83876a3"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_default_role</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.938 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.917 sec</td></tr>
                         
                         
                         </table>
@@ -612,11 +842,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="b30cb31f-b725-43aa-8408-3315719d0f1c"></a>
+                        <a id="2cd0cfac-6e34-4a71-a62f-17be50973007"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_str_representation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.934 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.937 sec</td></tr>
                         
                         
                         </table>
@@ -630,11 +860,115 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="2160f513-8759-4ecf-9b21-32f8e6d6c3d1"></a>
+                        <a id="3f5e83c1-1704-41c7-95d6-11974974b8ab"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_team_membership</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.945 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.923 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.UserRegistrationSerializerTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="f564725a-7c41-4486-a4fe-db9a75c8e87c"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_registration_existing_email</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.35 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="2228de1c-25c5-40d3-b3d6-a9a04fccc79b"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_registration_existing_username</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.311 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="f1b5a1e3-8919-4885-9629-06f434fbd0c5"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_registration_optional_fields_not_provided</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.309 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="8f7007c3-d416-4fe8-abd5-8293aa9ba2a9"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_registration_password_mismatch</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.003 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.AssigneeUserSerializerTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="bcd08fd3-1e82-4647-a221-8a92d7e3eda6"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_assignee_display_name_username_only</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.003 sec</td></tr>
                         
                         
                         </table>
@@ -655,11 +989,11 @@ h1 {
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="4b50d16a-ce89-407a-97eb-57a1c0b912fb"></a>
+                        <a id="e3f95e8d-9a4d-4a03-8c4a-cf69d9f9472d"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_team_creation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.307 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.312 sec</td></tr>
                         
                         
                         </table>
@@ -673,11 +1007,72 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="df6c74b3-2213-4649-a924-8e66a8cbca7c"></a>
+                        <a id="458a2b0c-de34-4de8-9be5-66de3cd35ff7"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_team_str_representation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.306 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.308 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.TaskSerializerValidationTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="1b8b193a-1dca-46aa-94c6-92d6136913d3"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_serializer_assignee_id_null</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.625 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="bf43c229-d372-426d-8372-4acf68cc5e0e"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_serializer_invalid_assignee_id</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.65 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="16ddc1b5-cee6-4ff9-ba3b-7ade0cf36385"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_serializer_invalid_project_id</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.614 sec</td></tr>
                         
                         
                         </table>
@@ -698,11 +1093,11 @@ h1 {
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="5d42fc21-3bd0-4dfd-a40c-c5045052caa5"></a>
+                        <a id="738ccf39-5798-4699-9014-19c5f7885fc9"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_profile_view_authenticated</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.35 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.349 sec</td></tr>
                         
                         
                         </table>
@@ -716,11 +1111,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="89b3e431-8bb1-4350-ade0-2528587a67e3"></a>
+                        <a id="51dfb7b3-be99-4779-89c3-381c6cb43248"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_profile_view_unauthenticated</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.308 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.307 sec</td></tr>
                         
                         
                         </table>
@@ -741,11 +1136,11 @@ h1 {
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="79e48346-5ccc-489c-af5f-dd4de56a04f6"></a>
+                        <a id="51ef8b3f-92a5-4826-ae5c-07b6cf6e9b95"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_create_project_as_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.618 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.622 sec</td></tr>
                         
                         
                         </table>
@@ -759,11 +1154,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="c994a675-2be7-41b9-a3ec-095798215642"></a>
+                        <a id="0beda9fa-e1f7-48e4-ab2a-fe16e266eb9a"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_delete_project_by_non_owner_forbidden</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.619 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.613 sec</td></tr>
                         
                         
                         </table>
@@ -777,11 +1172,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="bfc0cb5d-8d10-409b-b582-33581ed75a2e"></a>
+                        <a id="21caeddb-de18-46e7-ac4c-acebfbd40715"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_delete_project_by_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.62 sec</td></tr>
                         
                         
                         </table>
@@ -794,59 +1189,10 @@ h1 {
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="afef741c-b8b0-415c-82a9-15ed77c06e9e"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="8fc8b9fd-cf28-45cf-afdb-79f7c6a2c125"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_list_projects_as_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.618 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_list_projects_as_owner&gt;
-
-    def test_list_projects_as_owner(self):
-        response = self.client.get(self.project_list_url, format=&#39;json&#39;)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        response_data = response.json()  # Use .json() for DRF APITestCase
-&gt;       self.assertEqual(response_data.get(&#39;count&#39;), 2)  # Use .get for safer dict access
-E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
-
-api/tests.py:139: AttributeError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="d8dc1db9-cf30-459f-9f49-bc7216509d2a"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_partial_update_project_by_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.623 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="02436bfc-e0ac-4325-9175-b88c4a0d2dd3"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_endpoints_unauthenticated</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
                             <tr><th>Duration:</th><td>0.619 sec</td></tr>
                         
@@ -861,31 +1207,16 @@ api/tests.py:139: AttributeError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="b6cc7150-fd69-4ab4-b71d-428eff86b998"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="52d7a54a-ba1c-466e-a161-a5ff8d55ff0e"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_by_employee_forbidden</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.62 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 404 != 403</td></tr>
+                            <tr><th>Test case:</th><td><b>test_partial_update_project_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.619 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_project_task_status_chart_by_employee_forbidden&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;139721787706736&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_task_status_chart_by_employee_forbidden(self, mock_get_chart_url):
-        self.client.credentials(HTTP_AUTHORIZATION=&#39;Token &#39; + self.employee_token.key)
-        url = reverse(&#39;project-task-status-chart&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-E       AssertionError: 404 != 403
-
-api/tests.py:210: AssertionError</pre>
                         
                         
 
@@ -895,11 +1226,65 @@ api/tests.py:210: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="a499f93e-7993-4264-8aff-f94b24c27514"></a>
+                        <a id="c8179807-e71c-420e-9b3f-482c43d026a4"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_endpoints_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="526590b3-0759-44d8-99e6-4bc55eee7d76"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_api_failure</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.615 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="da3bb3c4-5430-4e72-b42a-0df9f84a411b"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_by_employee_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.671 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="c0938ae3-d825-4a14-b629-343229a2ce95"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_project_task_status_chart_by_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.618 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.616 sec</td></tr>
                         
                         
                         </table>
@@ -913,48 +1298,15 @@ api/tests.py:210: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="6eef6995-2358-41e6-9714-493b00693b03"></a>
+                        <a id="c4331677-32cd-4943-bbdf-fbd2aafd9358"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_project_task_status_chart_unauthenticated</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.612 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="136a5598-a12e-4203-815f-b31e4bccea6f"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_by_employee_forbidden</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 404 != 403</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_project_velocity_chart_by_employee_forbidden&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;139721787705392&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_velocity_chart_by_employee_forbidden(self, mock_get_chart_url):
-        self.client.credentials(HTTP_AUTHORIZATION=&#39;Token &#39; + self.employee_token.key)
-        url = reverse(&#39;project-velocity-chart&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-E       AssertionError: 404 != 403
-
-api/tests.py:237: AssertionError</pre>
                         
                         
 
@@ -964,7 +1316,43 @@ api/tests.py:237: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="55526465-1e94-45d1-b073-99c193b4fa74"></a>
+                        <a id="22e91a3b-0e1d-4278-b594-20f1d4950ef2"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_api_failure</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.622 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="4dd5b2bf-a50a-4d91-b950-dda82c98d47c"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_by_employee_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.663 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="48be058a-5a68-4a60-b562-afd75d3d37cf"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_project_velocity_chart_by_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
@@ -982,7 +1370,25 @@ api/tests.py:237: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="1792eeff-83a8-4613-a998-d48898efbf6a"></a>
+                        <a id="5dfa16c3-096c-491d-9560-65b6f139b156"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_no_data</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="65bd4db5-09b6-4563-b5c3-0a1df740f56c"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_project_velocity_chart_unauthenticated</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
@@ -1000,7 +1406,7 @@ api/tests.py:237: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="a78abafc-9dba-4b9f-8191-63c476d0bed1"></a>
+                        <a id="e5a4be5f-4d2d-4e11-b1b3-0546f90ee22a"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_retrieve_project_as_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
@@ -1018,11 +1424,11 @@ api/tests.py:237: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="65cbac74-5b82-4c9c-9864-55451ffc634b"></a>
+                        <a id="56eeaaa5-9aa3-42ec-96bf-db5b112d7e17"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_update_project_by_non_owner_forbidden</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.62 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.614 sec</td></tr>
                         
                         
                         </table>
@@ -1036,11 +1442,11 @@ api/tests.py:237: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="5b69c45e-165b-478c-b35d-2684a927781a"></a>
+                        <a id="70b7397d-505e-4c8c-8783-19acf6fe8bb4"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_update_project_by_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.626 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.618 sec</td></tr>
                         
                         
                         </table>
@@ -1061,9 +1467,261 @@ api/tests.py:237: AssertionError</pre>
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="65e9f0a9-448f-4836-9c33-625444b518a8"></a>
+                        <a id="72810a8c-8514-4d2a-bf05-e78c7652647a"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_create_task_as_authenticated_user</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.923 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="0d6dd569-19ad-43cd-aec5-30445fc7da04"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_task_by_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.944 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="ed92ea46-fbb0-4edf-977a-aef981b52879"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_task_by_other_user_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.944 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="02362401-7ff3-41fb-83d0-e5839557116e"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_task_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.949 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="20301bec-71fb-4884-824a-b7ac3619bad0"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_list_tasks_as_authenticated_user</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.95 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="23b1c187-ee94-476f-908e-ebc648988401"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_task_as_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.957 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="dff85170-9ef9-4453-9826-b4933d5f85cb"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_task_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.942 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="0b60a962-943c-4787-920e-5c138728464f"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_task_as_staff_member</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>1.273 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="7c079f8c-f546-46a8-a092-8602c440e131"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_action_mark_as_done_by_owner_of_task_assigned_to_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.927 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="326efaff-8b76-4545-a6a7-e616cb051cda"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_action_mark_as_done_invalid_state</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.949 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="9a5770cb-af4b-4169-87cd-ea71ea0b83c9"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_action_start_progress_by_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.935 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="ac040100-ae6e-4a0d-805d-178d61e44b87"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_action_start_progress_invalid_state</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.953 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="7918c76e-b263-474e-acb8-a8b82206db70"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_endpoints_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.921 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="b4fd6c5a-8f9c-4180-8b45-b065d0f6bddf"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_filter_by_status_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.924 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="4a5654f0-de9c-451f-bc1d-1c9239e0d86e"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_update_task_by_assignee</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
                             <tr><th>Duration:</th><td>0.928 sec</td></tr>
                         
@@ -1079,11 +1737,11 @@ api/tests.py:237: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="bb136ede-d0cf-499d-9f00-e3b7fba2bdd4"></a>
+                        <a id="22083e56-1ab9-4e44-b7c8-acccbf098db4"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_task_by_assignee</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_task_by_other_user_forbidden</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.929 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.928 sec</td></tr>
                         
                         
                         </table>
@@ -1097,111 +1755,9 @@ api/tests.py:237: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="ab229c51-ea48-4567-8d51-9efdf129cc17"></a>
+                        <a id="bbfcb9f8-6417-4ae7-ab04-6ec313f004bf"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_task_by_other_user_forbidden</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="9e12e2dd-655e-4e5b-91d2-397271092218"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_task_by_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.921 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="5af75b66-ce07-422d-ab85-a7406b42c373"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_list_tasks_as_authenticated_user</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.924 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_list_tasks_as_authenticated_user&gt;
-
-    def test_list_tasks_as_authenticated_user(self):
-        response = self.client.get(self.task_list_url, format=&#39;json&#39;)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-&gt;       self.assertEqual(response.json().get(&#39;count&#39;), 2)
-E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
-
-api/tests.py:281: AttributeError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="6916e84d-bac6-4563-8824-1fefefbfed33"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_task_as_assignee</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="33254e44-2fde-49ae-8204-ee434901b4f4"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_task_as_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="d99fd6c3-73be-4862-8d3a-5a267ed6fc84"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_action_mark_as_done_by_owner_of_task_assigned_to_owner</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_task_by_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
                             <tr><th>Duration:</th><td>0.926 sec</td></tr>
                         
@@ -1217,117 +1773,11 @@ api/tests.py:281: AttributeError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="5807d2cc-4e50-40f4-b6b4-0a8d55bb3b0c"></a>
+                        <a id="34c63715-8ba4-418f-8319-e0deac8e75aa"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_action_start_progress_by_assignee</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_task_by_staff_member_forbidden</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="14a83f00-0c09-45bf-9898-66bab956f412"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_endpoints_unauthenticated</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="ffa23f1e-d3e1-4ee4-b4cb-f6cf2eea3834"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_filter_by_status_as_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_status_as_owner&gt;
-
-    def test_task_filter_by_status_as_owner(self):
-        response = self.client.get(self.task_list_url + &#39;?status=TODO&#39;, format=&#39;json&#39;)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # Assuming owner can see task1 (assigned to &#39;assignee&#39;)
-        # This depends on the default queryset of TaskViewSet, which is Task.objects.all()
-        # If filtering by assignee or project ownership is applied at queryset level for list, this might change
-        data = response.json()
-&gt;       self.assertEqual(data.get(&#39;count&#39;), 1)  # task1 is TODO
-E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
-
-api/tests.py:362: AttributeError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="8affe7c1-c2ba-4328-a84d-208b044940db"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_task_by_assignee</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.929 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="218728f5-4300-4522-8f04-047f0d8b1b12"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_task_by_other_user_forbidden</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.956 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="5f5104ed-b7ea-417e-bcda-fc313cca1880"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_task_by_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.932 sec</td></tr>
+                            <tr><th>Duration:</th><td>1.238 sec</td></tr>
                         
                         
                         </table>
@@ -1348,11 +1798,11 @@ api/tests.py:362: AttributeError</pre>
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="aad6ef3f-1858-4ba3-84bb-b9b1c469fb54"></a>
+                        <a id="8aabd5b7-badd-45ba-b5e2-01c172274679"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_business_statistics_story_points_monthly</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_business_statistics_api_failure</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.624 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.623 sec</td></tr>
                         
                         
                         </table>
@@ -1366,45 +1816,9 @@ api/tests.py:362: AttributeError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="53a5f2d7-9f7c-4bae-a452-1b21d211b198"></a>
+                        <a id="4db1e738-1637-4da8-8508-6c5a17f27629"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_as_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="21519f88-b72f-44ac-98c5-cb4081608efe"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_no_tasks</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.921 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="e529030f-f792-4420-822b-69000b1fd0b7"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_as_owner</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_business_statistics_no_data</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
                             <tr><th>Duration:</th><td>0.619 sec</td></tr>
                         
@@ -1420,7 +1834,115 @@ api/tests.py:362: AttributeError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="2273acde-6a03-43c2-b5f6-41127103e108"></a>
+                        <a id="7325956c-a81d-4b5f-b0d0-3a21f991e053"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_business_statistics_story_points_monthly</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.616 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="4d9829d2-2e1b-4131-a3df-42086807fd83"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.616 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="487060bd-2d0e-4ee5-82fe-ded99add6267"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_no_tasks</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.923 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="34b48085-cdb0-488e-945a-6395da63754c"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.62 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="75ed2b25-151e-446f-9e34-37a681f5a477"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_user_personal_stats_api_failure</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.616 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="13d602c5-9d9e-48f4-a432-af5df9c6f5da"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_user_personal_stats_no_data</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.622 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="ee293b44-3e9e-4e2c-8adf-1c3349a93044"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_personal_task_stats_for_assignee</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
@@ -1438,11 +1960,36 @@ api/tests.py:362: AttributeError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="0b8521f2-13e9-49f4-a185-171b1aa3bdcd"></a>
+                        <a id="84b2c41b-b348-4f91-a8ec-68c5a9ddeca4"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_personal_task_stats_for_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.614 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.QuickChartHelperTests</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="65216aa6-05dc-4481-8b85-0b88b4635b7b"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_get_chart_url_success</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.002 sec</td></tr>
                         
                         
                         </table>
@@ -1463,9 +2010,519 @@ api/tests.py:362: AttributeError</pre>
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="9c34966d-1961-4901-8a43-9102e9ea9d26"></a>
+                        <a id="16eb2e17-3140-48ed-9437-4433034c39f5"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_create_worklog_for_task_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="d952d8b0-49ba-41f0-bdaa-5fa07cac1a1b"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_create_worklog_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.919 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="c18ea99b-6b96-467e-ba80-2b63d0378a5b"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_own_worklog_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="760a04d7-313c-4485-b4de-17ce7e176819"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_list_all_worklogs_as_admin</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.927 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="4883a39d-e035-4ba1-b924-23a64a2c4b0a"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_list_own_worklogs_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.925 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="105a9eea-70f7-4a8f-95dc-3b8399ce8839"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_others_worklog_as_loguser1_not_found</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.949 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="76f91108-c004-44e7-99d0-b8704c1af7e6"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_own_worklog_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.925 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="8da3209a-5b68-4dd5-9156-8adbf3a0c31a"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_update_others_worklog_as_loguser1_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.919 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="137ba1bf-cfc0-4780-a344-b6cde2197a7a"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_update_own_worklog_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.WorkLogSerializerValidationTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="204ada68-78b5-4603-8444-32c5b9eca8dd"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_worklog_serializer_both_task_and_project</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.308 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="3747b477-3e5b-4897-bfe6-0f9b2ff15256"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_worklog_serializer_create_with_project_only</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.307 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="f40c5e8b-81b9-4248-8a1d-74c12169afd5"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_worklog_serializer_neither_task_nor_project</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.307 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="7e64c16e-b822-4925-93b3-43839ae66142"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_worklog_serializer_update_task_to_none_no_project</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.31 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.ModelStrRepresentationTests</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="48b453ee-2508-4bde-92a4-29dfb4432eca"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_str_representation</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.308 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="41b32bd9-6620-4647-90d9-5c5579a1eaf5"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_str_representation</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.307 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="4dbdc94b-c143-4700-b3ae-e198c0fb5356"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_worklog_str_representation</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.309 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.OwnerDashboardViewTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="9be69b34-d10f-4400-baff-0297324e1867"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_owner_dashboard_access_by_employee_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.63 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="80e6fe4d-fee3-4ba5-bfda-2f685e21b663"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_owner_dashboard_access_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.629 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="8025b004-d312-4718-8a45-0da92f70f8cf"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_owner_dashboard_access_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.713 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.EmployeeDashboardViewTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="f8e0f255-f73f-41a7-83b1-5d64466937e6"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_employee_dashboard_access_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>1.184 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="2e377eca-7606-4423-bb1f-daa3b406aaa1"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_employee_dashboard_no_teams_no_project_tasks</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>1.575 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="3d38c49d-fd19-43d0-8a79-f1e16ad85d76"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_employee_dashboard_structure</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.93 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.LogoutAPIViewTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="604b5902-c919-40ae-acd3-6510916058bd"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_logout_invalid_token_or_already_logged_out</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.376 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="c69c5de2-5753-43b0-a174-711826fdf366"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_logout_successful</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.307 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="e3331a1c-3a74-45d9-a073-61cf7ecf2467"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_logout_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.308 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            <div class="testclass">
+                <h4>api.tests.UserListViewSetTest</h4>
+                <div class="testcases">
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="a721ac86-c5c6-4b4c-9c0b-4d2d32ed687f"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_list_users</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="5acede0f-c648-4b67-b9d1-ca942c63d6db"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_list_users_search_firstname</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
                             <tr><th>Duration:</th><td>0.921 sec</td></tr>
                         
@@ -1481,11 +2538,11 @@ api/tests.py:362: AttributeError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="593eb031-c44a-4127-b7e3-9f66153dc272"></a>
+                        <a id="02c7e8ae-2d5b-471a-8dc9-92fbb68cf5f4"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_worklog_unauthenticated</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_list_users_search_no_results</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.917 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.928 sec</td></tr>
                         
                         
                         </table>
@@ -1499,9 +2556,9 @@ api/tests.py:362: AttributeError</pre>
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="4039f97c-f08c-43e8-8901-bb7279ce5d4e"></a>
+                        <a id="f5b82cc4-4770-4795-bc32-7f1822b307bc"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_own_worklog_as_loguser1</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_list_users_search_username</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
                             <tr><th>Duration:</th><td>0.919 sec</td></tr>
                         
@@ -1516,130 +2573,12 @@ api/tests.py:362: AttributeError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="d5f689e1-a38c-46d8-91e7-dc9eee6696b1"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_list_all_worklogs_as_admin</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_list_all_worklogs_as_admin&gt;
-
-    def test_list_all_worklogs_as_admin(self):
-        self.client.credentials(HTTP_AUTHORIZATION=&#39;Token &#39; + self.admin_token.key)
-        # Create another worklog by admin to make it 2 total
-        WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
-                               hours_spent=&#39;1.00&#39;)
-        response = self.client.get(self.list_create_url, format=&#39;json&#39;)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-&gt;       self.assertEqual(response.json().get(&#39;count&#39;), 2)
-E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
-
-api/tests.py:555: AttributeError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="c6653773-a2e7-4c3d-bcd5-ada2108d4cfd"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_list_own_worklogs_as_loguser1</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_list_own_worklogs_as_loguser1&gt;
-
-    def test_list_own_worklogs_as_loguser1(self):
-        response = self.client.get(self.list_create_url, format=&#39;json&#39;)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-&gt;       self.assertEqual(response.json().get(&#39;count&#39;), 1)
-E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
-
-api/tests.py:545: AttributeError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
                     <div class="test outcome outcome-passed">
-                        <a id="d74cb0ee-623d-40ff-9afa-459491d18b5a"></a>
+                        <a id="f5b60210-f44a-49e5-8b7e-10cb37122943"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_others_worklog_as_loguser1_not_found</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_list_users_unauthenticated</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.916 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="7cd99a26-ec90-4aed-90b4-ea2cf5cbdb74"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_own_worklog_as_loguser1</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="af45ba11-e01c-457c-a650-d4060be7e54b"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_others_worklog_as_loguser1_forbidden</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.969 sec</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-passed">
-                        <a id="aa66a02c-9c34-46e4-9640-975966e04528"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_own_worklog_as_loguser1</b></td></tr>
-                            <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.941 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.917 sec</td></tr>
                         
                         
                         </table>
