@@ -260,13 +260,13 @@ h1 {
                 <li>api.tests.UserModelTest
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#9518f05e-55d3-4658-a776-46b738b14815">test_user_creation</a></li>
+                    <li class="outcome outcome-passed"><a href="#98dddcad-02c7-4686-af21-0d12eaca2d1a">test_user_creation</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#6816b0bf-5214-4443-8bda-916b57cd9d8f">test_user_default_role</a></li>
+                    <li class="outcome outcome-passed"><a href="#ac488660-baf9-4a67-b858-3f3de53d39b4">test_user_default_role</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#a40c00dd-178c-412e-8cf8-757560d54018">test_user_str_representation</a></li>
+                    <li class="outcome outcome-passed"><a href="#36b9832c-e633-4a0c-a7a8-e3f820feaa53">test_user_str_representation</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#e74eadd3-3631-4591-b67a-6523e9c9995a">test_user_team_membership</a></li>
+                    <li class="outcome outcome-passed"><a href="#24872ada-f48a-4a4a-bffd-5a00aad33313">test_user_team_membership</a></li>
                     
                 </ul>
                 </li>
@@ -274,9 +274,9 @@ h1 {
                 <li>api.tests.TeamModelTest
                 <ul>
                     
-                    <li class="outcome outcome-passed"><a href="#1df8792a-c3f9-4b77-b575-61dca56feeba">test_team_creation</a></li>
+                    <li class="outcome outcome-passed"><a href="#0c8f2a54-f0c3-454c-89d4-1b56c251b91a">test_team_creation</a></li>
                     
-                    <li class="outcome outcome-passed"><a href="#813115d3-0365-4552-b4ee-aa3d2cdb4f75">test_team_str_representation</a></li>
+                    <li class="outcome outcome-passed"><a href="#7853fcee-2a81-4b9f-a84c-34b98f5a601e">test_team_str_representation</a></li>
                     
                 </ul>
                 </li>
@@ -284,9 +284,9 @@ h1 {
                 <li>api.tests.UserProfileViewTest
                 <ul>
                     
-                    <li class="outcome outcome-failed"><a href="#09d55626-2834-4565-bad5-53ee6c5291a7">test_user_profile_view_accessible_returns_json</a></li>
+                    <li class="outcome outcome-passed"><a href="#931e9448-a68b-4a5a-8889-bb34fdf536af">test_user_profile_view_authenticated</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#ec4088dd-3b3f-431a-9fe2-3934be7b5b15">test_user_profile_view_redirects_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#5057a642-581e-4234-bee4-1cc212626cce">test_user_profile_view_unauthenticated</a></li>
                     
                 </ul>
                 </li>
@@ -294,25 +294,35 @@ h1 {
                 <li>api.tests.ProjectAPITests
                 <ul>
                     
-                    <li class="outcome outcome-failed"><a href="#4dd4d7aa-2300-4690-bdb4-33360d223641">test_create_project</a></li>
+                    <li class="outcome outcome-passed"><a href="#bf44c007-f813-4524-94fc-91cc890c45d8">test_create_project_as_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#2461fc97-1574-44cd-a764-173090e36cbe">test_delete_project_not_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#7081445c-dcde-49dd-b6bd-d158a30d668e">test_delete_project_by_non_owner_forbidden</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#2409a176-6126-4d79-9fe2-e7add3bbfff2">test_delete_project_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#ac4234a2-d7e1-4496-866a-e372c8f7e99d">test_delete_project_by_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#9a9af269-f173-42cd-9c8e-f89b95385d5c">test_list_projects</a></li>
+                    <li class="outcome outcome-failed"><a href="#3a8bf08d-69b7-466d-96aa-219a2b8b2442">test_list_projects_as_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#fb1fe20c-68fa-40dd-8ecf-2d0e221425da">test_partial_update_project_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#0cc22e99-a81b-4423-adac-dce276b21056">test_partial_update_project_by_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#3142681d-ce64-45e6-8edc-dc150af48d42">test_project_task_status_chart_permission_denied_for_employee</a></li>
+                    <li class="outcome outcome-passed"><a href="#3cb4eb99-8e2c-470b-9120-51298e055af9">test_project_endpoints_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#b75cc0dd-d17e-43ca-a41d-ce4df76b90f3">test_project_velocity_chart_permission_denied_for_employee</a></li>
+                    <li class="outcome outcome-failed"><a href="#7402c972-db24-43e1-95b6-89896706169f">test_project_task_status_chart_by_employee_forbidden</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#bd8b890b-cb6c-4ce7-b8e0-d4ec7d751688">test_retrieve_project</a></li>
+                    <li class="outcome outcome-passed"><a href="#bb9a7307-ecd3-4d9a-8bbc-022164dac68d">test_project_task_status_chart_by_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#bc0dc416-c4e3-407a-90fd-56ae4092b0a9">test_update_project_not_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#c5a6b356-f55c-4c0d-a7a6-0333d3ab872f">test_project_task_status_chart_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#cef476d4-0c11-40ee-8e03-0568ca9644d9">test_update_project_owner</a></li>
+                    <li class="outcome outcome-failed"><a href="#2190d412-5cee-4dfb-ad7e-d99c8f77ba34">test_project_velocity_chart_by_employee_forbidden</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#7ae126c7-3b97-41e2-b3b8-c6a83ba119c8">test_project_velocity_chart_by_owner</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#d90440f7-686a-406f-921c-d79e24f1fde1">test_project_velocity_chart_unauthenticated</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#5e540c1f-26e6-4de4-965f-660439a4a5e8">test_retrieve_project_as_owner</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#b6fbb32d-29c7-4fdc-aca0-5fd6f1421394">test_update_project_by_non_owner_forbidden</a></li>
+                    
+                    <li class="outcome outcome-passed"><a href="#a6d1583e-b555-4d82-8fdc-81e49a9d337a">test_update_project_by_owner</a></li>
                     
                 </ul>
                 </li>
@@ -320,37 +330,33 @@ h1 {
                 <li>api.tests.TaskAPITests
                 <ul>
                     
-                    <li class="outcome outcome-failed"><a href="#c064c2ae-02cb-4a8b-a365-4b6cb422161a">test_create_task</a></li>
+                    <li class="outcome outcome-passed"><a href="#c2635e95-0f9e-49f1-8f6e-816ab6761367">test_create_task_as_authenticated_user</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#11add3a3-edef-48d7-ba14-e6ec95acaf29">test_delete_task_assignee_permission_check</a></li>
+                    <li class="outcome outcome-passed"><a href="#5b24758f-9b88-43b1-9705-8cd892a2e007">test_delete_task_by_assignee</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#c9ba040f-4909-45ec-93a6-097acf07eb27">test_delete_task_not_owner_nor_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#92e33732-25d8-4834-8af8-37e403f07688">test_delete_task_by_other_user_forbidden</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#8a3c9fe1-f11e-4451-ba91-e4534f129fd7">test_delete_task_owner</a></li>
+                    <li class="outcome outcome-passed"><a href="#05b8f88a-8d84-424c-8141-89b3125da843">test_delete_task_by_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#3a20f2ee-cea7-434b-911c-fa15fa7f55eb">test_list_tasks</a></li>
+                    <li class="outcome outcome-failed"><a href="#7bdc78a6-c47c-409d-a6c1-03fc9028c908">test_list_tasks_as_authenticated_user</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#e55438d6-477b-4230-a183-62a17971cac2">test_partial_update_task_owner_or_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#032cbfba-bc86-4350-be92-531fbb1f74b8">test_retrieve_task_as_assignee</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#a510eb5b-9b7d-4ffb-81d8-637ed3e34cc4">test_retrieve_task</a></li>
+                    <li class="outcome outcome-passed"><a href="#6ac1cffd-ef19-40b1-8df7-752755aa60d5">test_retrieve_task_as_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#a78793e6-3cc6-4c6a-882e-ecca99e907da">test_task_filter_by_deadline_range</a></li>
+                    <li class="outcome outcome-passed"><a href="#1483fbcb-97aa-433b-be57-36e21251c45d">test_task_action_mark_as_done_by_owner_of_task_assigned_to_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#38cec865-c6e3-4458-84dd-5fdbf2f73f39">test_task_filter_by_project_name</a></li>
+                    <li class="outcome outcome-passed"><a href="#9763d27d-7c8a-4514-a98a-0ec1a8ff1220">test_task_action_start_progress_by_assignee</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#5f4bc2ec-632f-4c7d-b8de-7a8b35202bbf">test_task_filter_by_status</a></li>
+                    <li class="outcome outcome-passed"><a href="#d0180232-18ed-419f-a995-15552d9ef1d3">test_task_endpoints_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#c4140cf0-6e4a-4d4e-9fe8-f992eaa73c36">test_task_mark_as_done_action</a></li>
+                    <li class="outcome outcome-failed"><a href="#6a9c4803-e8b5-4a74-955c-a84d086dc7b7">test_task_filter_by_status_as_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#32eb966a-d758-4976-9f65-a5ba2d3c21cb">test_task_mark_as_done_action_from_todo</a></li>
+                    <li class="outcome outcome-passed"><a href="#bc592a3d-d972-4f47-a516-125f0d332773">test_update_task_by_assignee</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#cc6ad821-ddc7-4b11-ab64-5a8256811400">test_task_start_progress_action</a></li>
+                    <li class="outcome outcome-passed"><a href="#04940f96-0c9f-42ff-a962-76f2989ffaab">test_update_task_by_other_user_forbidden</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#1d692f96-c1e2-4ff4-af35-6f822c8729fb">test_task_start_progress_action_already_in_progress</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#9e0c3e84-c11d-48e6-8007-0e75a0affe8f">test_update_task_not_owner_nor_assignee</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#8cfa821b-04b9-46c1-b7d4-f75b79de8c27">test_update_task_owner_or_assignee</a></li>
+                    <li class="outcome outcome-passed"><a href="#a3441125-c7b9-4861-8750-f2c6d3db5f48">test_update_task_by_owner</a></li>
                     
                 </ul>
                 </li>
@@ -358,23 +364,17 @@ h1 {
                 <li>api.tests.ChartViewTests
                 <ul>
                     
-                    <li class="outcome outcome-failed"><a href="#4461c8b8-6e9b-4f44-a9ff-3b033672d762">test_business_statistics_story_points_monthly</a></li>
+                    <li class="outcome outcome-passed"><a href="#2ad57820-1f20-4e03-b73a-a8c32234d195">test_business_statistics_story_points_monthly</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#c7e637eb-6569-4296-a830-64cbde2e85eb">test_business_stats_no_data</a></li>
+                    <li class="outcome outcome-passed"><a href="#0deb9fb8-0623-4e64-8099-08aa6b6584a6">test_project_task_status_chart_as_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#dc9aed07-ed1a-4d05-8880-4c6e82f8e331">test_get_chart_url_api_failure</a></li>
+                    <li class="outcome outcome-passed"><a href="#d6eb023a-ad42-4c5f-848d-fc21bd6c3e97">test_project_task_status_chart_no_tasks</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#8fa1add0-abcb-40d7-9c77-65a7c59be8bc">test_project_task_status_chart</a></li>
+                    <li class="outcome outcome-passed"><a href="#f856317c-b03f-4c5f-9d99-63c99fd6c71c">test_project_velocity_chart_as_owner</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#d4e50046-17e2-4d15-a91d-4357712a97d0">test_project_task_status_chart_no_tasks</a></li>
+                    <li class="outcome outcome-passed"><a href="#da5db9c4-1056-4a24-9ebb-a52b97b19f08">test_user_personal_task_stats_for_assignee</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#4dae90b7-8267-4e97-82c3-ad7750ec6a11">test_project_velocity_chart</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#e8822c98-4358-41bd-9605-4c6e9a211280">test_project_velocity_chart_no_data</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#99d3743b-3908-4267-ba26-afb2e2894cf5">test_user_personal_stats_no_data</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#9dfed9fd-5c9c-4c49-a9ad-31b601bca7fe">test_user_personal_task_stats</a></li>
+                    <li class="outcome outcome-passed"><a href="#076969d5-437f-432b-9659-c0813f5e2f71">test_user_personal_task_stats_for_owner</a></li>
                     
                 </ul>
                 </li>
@@ -382,39 +382,23 @@ h1 {
                 <li>api.tests.WorkLogAPITests
                 <ul>
                     
-                    <li class="outcome outcome-failed"><a href="#dba2da1d-eaa9-4810-9798-b363ebabbcec">test_create_worklog_for_neither_task_nor_project_fails</a></li>
+                    <li class="outcome outcome-passed"><a href="#80cfb1ad-1531-42bb-ac6b-a545534dca86">test_create_worklog_for_task_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#65ea37e6-4e82-4677-90dc-b8a6aab17026">test_create_worklog_for_project</a></li>
+                    <li class="outcome outcome-passed"><a href="#e3b9195c-e438-4055-9645-b1da3bc38c17">test_create_worklog_unauthenticated</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#ea9ff217-7e2e-41bf-a6f8-1fbd5d0441e0">test_create_worklog_for_task</a></li>
+                    <li class="outcome outcome-passed"><a href="#e9b94d1e-e3fb-457c-8215-17305df47164">test_delete_own_worklog_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#4c440fa6-015e-40b4-8b2a-022415a47a02">test_create_worklog_for_task_and_project_fails</a></li>
+                    <li class="outcome outcome-failed"><a href="#70fc9b30-9257-473f-b1d3-f6eb822b93e6">test_list_all_worklogs_as_admin</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#af7b30db-776e-4dfc-9467-1bf367345823">test_create_worklog_missing_date</a></li>
+                    <li class="outcome outcome-failed"><a href="#ac6277d6-b81b-442d-852d-8c8872eeb9bb">test_list_own_worklogs_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#9eea6e7f-ca90-4fa8-9c45-a571e05dc04c">test_create_worklog_missing_hours_spent</a></li>
+                    <li class="outcome outcome-passed"><a href="#1ad31f92-cd83-4b2b-8857-c960b0ac2e5c">test_retrieve_others_worklog_as_loguser1_not_found</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#95242c0a-aa6a-4dcd-a6fb-5da8685e7fca">test_create_worklog_unauthenticated</a></li>
+                    <li class="outcome outcome-passed"><a href="#e67f2683-8756-45ac-85e9-749cea0782e1">test_retrieve_own_worklog_as_loguser1</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#a81e1dbc-1d20-4f37-9830-b544318dbcc5">test_delete_others_worklog_by_user_fails</a></li>
+                    <li class="outcome outcome-passed"><a href="#75f47795-2f68-4daf-965d-2e86610efae9">test_update_others_worklog_as_loguser1_forbidden</a></li>
                     
-                    <li class="outcome outcome-failed"><a href="#ab645813-14ec-47bd-ba1a-00d074151561">test_delete_own_worklog</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#3a4ac044-19c8-48f3-b2be-9314e520de1b">test_list_all_worklogs_as_admin</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#d2e34f90-9c25-4e93-83db-24fcf39a910d">test_list_own_worklogs</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#4c2325fb-a176-4269-bf6b-9fa20e3226c8">test_partial_update_own_worklog</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#1bb8c963-6504-46c4-96ac-14195c61d834">test_retrieve_others_worklog_by_admin_succeeds</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#e5be2264-fa4a-4301-9603-e5868b50f0e5">test_retrieve_others_worklog_by_user_fails</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#001596b9-6814-4d16-ad55-f58171c2476e">test_retrieve_own_worklog</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#60645203-0f99-4634-8e37-acff51f91438">test_update_others_worklog_by_user_fails</a></li>
-                    
-                    <li class="outcome outcome-failed"><a href="#ced28208-8f46-49dc-b607-491cbe18c90b">test_update_own_worklog</a></li>
+                    <li class="outcome outcome-passed"><a href="#c2906d29-10fa-4b83-a549-a7ee7960dc58">test_update_own_worklog_as_loguser1</a></li>
                     
                 </ul>
                 </li>
@@ -444,227 +428,117 @@ h1 {
                 
                     
                     
-                    <li><a href="#09d55626-2834-4565-bad5-53ee6c5291a7">[F] api.tests.UserProfileViewTest : test_user_profile_view_accessible_returns_json</a></li>
                     
-                    
-                    
-                    <li><a href="#ec4088dd-3b3f-431a-9fe2-3934be7b5b15">[F] api.tests.UserProfileViewTest : test_user_profile_view_redirects_unauthenticated</a></li>
                     
                     
                 
                     
                     
-                    <li><a href="#4dd4d7aa-2300-4690-bdb4-33360d223641">[F] api.tests.ProjectAPITests : test_create_project</a></li>
                     
                     
                     
-                    <li><a href="#2461fc97-1574-44cd-a764-173090e36cbe">[F] api.tests.ProjectAPITests : test_delete_project_not_owner</a></li>
                     
                     
                     
-                    <li><a href="#2409a176-6126-4d79-9fe2-e7add3bbfff2">[F] api.tests.ProjectAPITests : test_delete_project_owner</a></li>
+                    <li><a href="#3a8bf08d-69b7-466d-96aa-219a2b8b2442">[F] api.tests.ProjectAPITests : test_list_projects_as_owner</a></li>
                     
                     
                     
-                    <li><a href="#9a9af269-f173-42cd-9c8e-f89b95385d5c">[F] api.tests.ProjectAPITests : test_list_projects</a></li>
                     
                     
                     
-                    <li><a href="#fb1fe20c-68fa-40dd-8ecf-2d0e221425da">[F] api.tests.ProjectAPITests : test_partial_update_project_owner</a></li>
+                    
+                    <li><a href="#7402c972-db24-43e1-95b6-89896706169f">[F] api.tests.ProjectAPITests : test_project_task_status_chart_by_employee_forbidden</a></li>
                     
                     
                     
-                    <li><a href="#3142681d-ce64-45e6-8edc-dc150af48d42">[F] api.tests.ProjectAPITests : test_project_task_status_chart_permission_denied_for_employee</a></li>
                     
                     
                     
-                    <li><a href="#b75cc0dd-d17e-43ca-a41d-ce4df76b90f3">[F] api.tests.ProjectAPITests : test_project_velocity_chart_permission_denied_for_employee</a></li>
+                    
+                    <li><a href="#2190d412-5cee-4dfb-ad7e-d99c8f77ba34">[F] api.tests.ProjectAPITests : test_project_velocity_chart_by_employee_forbidden</a></li>
                     
                     
                     
-                    <li><a href="#bd8b890b-cb6c-4ce7-b8e0-d4ec7d751688">[F] api.tests.ProjectAPITests : test_retrieve_project</a></li>
                     
                     
                     
-                    <li><a href="#bc0dc416-c4e3-407a-90fd-56ae4092b0a9">[F] api.tests.ProjectAPITests : test_update_project_not_owner</a></li>
                     
                     
                     
-                    <li><a href="#cef476d4-0c11-40ee-8e03-0568ca9644d9">[F] api.tests.ProjectAPITests : test_update_project_owner</a></li>
+                    
                     
                     
                 
                     
                     
-                    <li><a href="#c064c2ae-02cb-4a8b-a365-4b6cb422161a">[F] api.tests.TaskAPITests : test_create_task</a></li>
                     
                     
                     
-                    <li><a href="#11add3a3-edef-48d7-ba14-e6ec95acaf29">[F] api.tests.TaskAPITests : test_delete_task_assignee_permission_check</a></li>
                     
                     
                     
-                    <li><a href="#c9ba040f-4909-45ec-93a6-097acf07eb27">[F] api.tests.TaskAPITests : test_delete_task_not_owner_nor_assignee</a></li>
+                    
+                    
+                    <li><a href="#7bdc78a6-c47c-409d-a6c1-03fc9028c908">[F] api.tests.TaskAPITests : test_list_tasks_as_authenticated_user</a></li>
                     
                     
                     
-                    <li><a href="#8a3c9fe1-f11e-4451-ba91-e4534f129fd7">[F] api.tests.TaskAPITests : test_delete_task_owner</a></li>
                     
                     
                     
-                    <li><a href="#3a20f2ee-cea7-434b-911c-fa15fa7f55eb">[F] api.tests.TaskAPITests : test_list_tasks</a></li>
                     
                     
                     
-                    <li><a href="#e55438d6-477b-4230-a183-62a17971cac2">[F] api.tests.TaskAPITests : test_partial_update_task_owner_or_assignee</a></li>
                     
                     
                     
-                    <li><a href="#a510eb5b-9b7d-4ffb-81d8-637ed3e34cc4">[F] api.tests.TaskAPITests : test_retrieve_task</a></li>
+                    
+                    <li><a href="#6a9c4803-e8b5-4a74-955c-a84d086dc7b7">[F] api.tests.TaskAPITests : test_task_filter_by_status_as_owner</a></li>
                     
                     
                     
-                    <li><a href="#a78793e6-3cc6-4c6a-882e-ecca99e907da">[F] api.tests.TaskAPITests : test_task_filter_by_deadline_range</a></li>
                     
                     
                     
-                    <li><a href="#38cec865-c6e3-4458-84dd-5fdbf2f73f39">[F] api.tests.TaskAPITests : test_task_filter_by_project_name</a></li>
-                    
-                    
-                    
-                    <li><a href="#5f4bc2ec-632f-4c7d-b8de-7a8b35202bbf">[F] api.tests.TaskAPITests : test_task_filter_by_status</a></li>
-                    
-                    
-                    
-                    <li><a href="#c4140cf0-6e4a-4d4e-9fe8-f992eaa73c36">[F] api.tests.TaskAPITests : test_task_mark_as_done_action</a></li>
-                    
-                    
-                    
-                    <li><a href="#32eb966a-d758-4976-9f65-a5ba2d3c21cb">[F] api.tests.TaskAPITests : test_task_mark_as_done_action_from_todo</a></li>
-                    
-                    
-                    
-                    <li><a href="#cc6ad821-ddc7-4b11-ab64-5a8256811400">[F] api.tests.TaskAPITests : test_task_start_progress_action</a></li>
-                    
-                    
-                    
-                    <li><a href="#1d692f96-c1e2-4ff4-af35-6f822c8729fb">[F] api.tests.TaskAPITests : test_task_start_progress_action_already_in_progress</a></li>
-                    
-                    
-                    
-                    <li><a href="#9e0c3e84-c11d-48e6-8007-0e75a0affe8f">[F] api.tests.TaskAPITests : test_update_task_not_owner_nor_assignee</a></li>
-                    
-                    
-                    
-                    <li><a href="#8cfa821b-04b9-46c1-b7d4-f75b79de8c27">[F] api.tests.TaskAPITests : test_update_task_owner_or_assignee</a></li>
                     
                     
                 
                     
                     
-                    <li><a href="#4461c8b8-6e9b-4f44-a9ff-3b033672d762">[F] api.tests.ChartViewTests : test_business_statistics_story_points_monthly</a></li>
                     
                     
                     
-                    <li><a href="#c7e637eb-6569-4296-a830-64cbde2e85eb">[F] api.tests.ChartViewTests : test_business_stats_no_data</a></li>
                     
                     
                     
-                    <li><a href="#dc9aed07-ed1a-4d05-8880-4c6e82f8e331">[F] api.tests.ChartViewTests : test_get_chart_url_api_failure</a></li>
                     
                     
                     
-                    <li><a href="#8fa1add0-abcb-40d7-9c77-65a7c59be8bc">[F] api.tests.ChartViewTests : test_project_task_status_chart</a></li>
-                    
-                    
-                    
-                    <li><a href="#d4e50046-17e2-4d15-a91d-4357712a97d0">[F] api.tests.ChartViewTests : test_project_task_status_chart_no_tasks</a></li>
-                    
-                    
-                    
-                    <li><a href="#4dae90b7-8267-4e97-82c3-ad7750ec6a11">[F] api.tests.ChartViewTests : test_project_velocity_chart</a></li>
-                    
-                    
-                    
-                    <li><a href="#e8822c98-4358-41bd-9605-4c6e9a211280">[F] api.tests.ChartViewTests : test_project_velocity_chart_no_data</a></li>
-                    
-                    
-                    
-                    <li><a href="#99d3743b-3908-4267-ba26-afb2e2894cf5">[F] api.tests.ChartViewTests : test_user_personal_stats_no_data</a></li>
-                    
-                    
-                    
-                    <li><a href="#9dfed9fd-5c9c-4c49-a9ad-31b601bca7fe">[F] api.tests.ChartViewTests : test_user_personal_task_stats</a></li>
                     
                     
                 
                     
                     
-                    <li><a href="#dba2da1d-eaa9-4810-9798-b363ebabbcec">[F] api.tests.WorkLogAPITests : test_create_worklog_for_neither_task_nor_project_fails</a></li>
                     
                     
                     
-                    <li><a href="#65ea37e6-4e82-4677-90dc-b8a6aab17026">[F] api.tests.WorkLogAPITests : test_create_worklog_for_project</a></li>
                     
                     
                     
-                    <li><a href="#ea9ff217-7e2e-41bf-a6f8-1fbd5d0441e0">[F] api.tests.WorkLogAPITests : test_create_worklog_for_task</a></li>
+                    <li><a href="#70fc9b30-9257-473f-b1d3-f6eb822b93e6">[F] api.tests.WorkLogAPITests : test_list_all_worklogs_as_admin</a></li>
                     
                     
                     
-                    <li><a href="#4c440fa6-015e-40b4-8b2a-022415a47a02">[F] api.tests.WorkLogAPITests : test_create_worklog_for_task_and_project_fails</a></li>
+                    <li><a href="#ac6277d6-b81b-442d-852d-8c8872eeb9bb">[F] api.tests.WorkLogAPITests : test_list_own_worklogs_as_loguser1</a></li>
                     
                     
                     
-                    <li><a href="#af7b30db-776e-4dfc-9467-1bf367345823">[F] api.tests.WorkLogAPITests : test_create_worklog_missing_date</a></li>
                     
                     
                     
-                    <li><a href="#9eea6e7f-ca90-4fa8-9c45-a571e05dc04c">[F] api.tests.WorkLogAPITests : test_create_worklog_missing_hours_spent</a></li>
                     
                     
-                    
-                    <li><a href="#95242c0a-aa6a-4dcd-a6fb-5da8685e7fca">[F] api.tests.WorkLogAPITests : test_create_worklog_unauthenticated</a></li>
-                    
-                    
-                    
-                    <li><a href="#a81e1dbc-1d20-4f37-9830-b544318dbcc5">[F] api.tests.WorkLogAPITests : test_delete_others_worklog_by_user_fails</a></li>
-                    
-                    
-                    
-                    <li><a href="#ab645813-14ec-47bd-ba1a-00d074151561">[F] api.tests.WorkLogAPITests : test_delete_own_worklog</a></li>
-                    
-                    
-                    
-                    <li><a href="#3a4ac044-19c8-48f3-b2be-9314e520de1b">[F] api.tests.WorkLogAPITests : test_list_all_worklogs_as_admin</a></li>
-                    
-                    
-                    
-                    <li><a href="#d2e34f90-9c25-4e93-83db-24fcf39a910d">[F] api.tests.WorkLogAPITests : test_list_own_worklogs</a></li>
-                    
-                    
-                    
-                    <li><a href="#4c2325fb-a176-4269-bf6b-9fa20e3226c8">[F] api.tests.WorkLogAPITests : test_partial_update_own_worklog</a></li>
-                    
-                    
-                    
-                    <li><a href="#1bb8c963-6504-46c4-96ac-14195c61d834">[F] api.tests.WorkLogAPITests : test_retrieve_others_worklog_by_admin_succeeds</a></li>
-                    
-                    
-                    
-                    <li><a href="#e5be2264-fa4a-4301-9603-e5868b50f0e5">[F] api.tests.WorkLogAPITests : test_retrieve_others_worklog_by_user_fails</a></li>
-                    
-                    
-                    
-                    <li><a href="#001596b9-6814-4d16-ad55-f58171c2476e">[F] api.tests.WorkLogAPITests : test_retrieve_own_worklog</a></li>
-                    
-                    
-                    
-                    <li><a href="#60645203-0f99-4634-8e37-acff51f91438">[F] api.tests.WorkLogAPITests : test_update_others_worklog_by_user_fails</a></li>
-                    
-                    
-                    
-                    <li><a href="#ced28208-8f46-49dc-b607-491cbe18c90b">[F] api.tests.WorkLogAPITests : test_update_own_worklog</a></li>
                     
                     
                 
@@ -678,19 +552,19 @@ h1 {
 
     <div class="testsuite">
         <h2>Test Suite: pytest</h2>
-        <a id="4411baaa-1cf7-44b4-8013-794a0353e820"></a>
+        <a id="a4fd3e1a-eafd-47ab-81b0-e08e89857597"></a>
         
         
         <h3>Results</h3>
         <table class="proplist">
             <tr>
-                <th>Duration</th><td>72.301 sec</td>
+                <th>Duration</th><td>40.822 sec</td>
             </tr>
             <tr>
-                <th>Tests</th><td>60</td>
+                <th>Tests</th><td>52</td>
             </tr>
             <tr>
-                <th>Failures</th><td>54</td>
+                <th>Failures</th><td>7</td>
             </tr>
         </table>
 
@@ -702,11 +576,11 @@ h1 {
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="9518f05e-55d3-4658-a776-46b738b14815"></a>
+                        <a id="98dddcad-02c7-4686-af21-0d12eaca2d1a"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_creation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>1.446 sec</td></tr>
+                            <tr><th>Duration:</th><td>1.442 sec</td></tr>
                         
                         
                         </table>
@@ -720,11 +594,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="6816b0bf-5214-4443-8bda-916b57cd9d8f"></a>
+                        <a id="ac488660-baf9-4a67-b858-3f3de53d39b4"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_default_role</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.959 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
                         
                         
                         </table>
@@ -738,11 +612,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="a40c00dd-178c-412e-8cf8-757560d54018"></a>
+                        <a id="36b9832c-e633-4a0c-a7a8-e3f820feaa53"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_str_representation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.942 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.917 sec</td></tr>
                         
                         
                         </table>
@@ -756,11 +630,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="e74eadd3-3631-4591-b67a-6523e9c9995a"></a>
+                        <a id="24872ada-f48a-4a4a-bffd-5a00aad33313"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_user_team_membership</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.943 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
                         
                         
                         </table>
@@ -781,11 +655,11 @@ h1 {
                 <div class="testcases">
                 
                     <div class="test outcome outcome-passed">
-                        <a id="1df8792a-c3f9-4b77-b575-61dca56feeba"></a>
+                        <a id="0c8f2a54-f0c3-454c-89d4-1b56c251b91a"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_team_creation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.306 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.308 sec</td></tr>
                         
                         
                         </table>
@@ -799,11 +673,11 @@ h1 {
                     </div>
                 
                     <div class="test outcome outcome-passed">
-                        <a id="813115d3-0365-4552-b4ee-aa3d2cdb4f75"></a>
+                        <a id="7853fcee-2a81-4b9f-a84c-34b98f5a601e"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_team_str_representation</b></td></tr>
                             <tr><th>Outcome:</th><td>Passed</td></tr>
-                            <tr><th>Duration:</th><td>0.307 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.306 sec</td></tr>
                         
                         
                         </table>
@@ -823,27 +697,16 @@ h1 {
                 <h4>api.tests.UserProfileViewTest</h4>
                 <div class="testcases">
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="09d55626-2834-4565-bad5-53ee6c5291a7"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="931e9448-a68b-4a5a-8889-bb34fdf536af"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_user_profile_view_accessible_returns_json</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.661 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Test case:</th><td><b>test_user_profile_view_authenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.354 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.UserProfileViewTest testMethod=test_user_profile_view_accessible_returns_json&gt;
-
-    def test_user_profile_view_accessible_returns_json(self):
-        response = self.client.get(self.profile_url)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:96: AssertionError</pre>
                         
                         
 
@@ -852,28 +715,16 @@ api/tests.py:96: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="ec4088dd-3b3f-431a-9fe2-3934be7b5b15"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="5057a642-581e-4234-bee4-1cc212626cce"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_user_profile_view_redirects_unauthenticated</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.616 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 302</td></tr>
+                            <tr><th>Test case:</th><td><b>test_user_profile_view_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.311 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.UserProfileViewTest testMethod=test_user_profile_view_redirects_unauthenticated&gt;
-
-    def test_user_profile_view_redirects_unauthenticated(self):
-        self.client.logout()
-        response = self.client.get(self.profile_url)
-&gt;       self.assertEqual(response.status_code, status.HTTP_302_FOUND)
-E       AssertionError: 401 != 302
-
-api/tests.py:113: AssertionError</pre>
                         
                         
 
@@ -889,29 +740,52 @@ api/tests.py:113: AssertionError</pre>
                 <h4>api.tests.ProjectAPITests</h4>
                 <div class="testcases">
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="4dd4d7aa-2300-4690-bdb4-33360d223641"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="bf44c007-f813-4524-94fc-91cc890c45d8"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_project</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.926 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 201</td></tr>
+                            <tr><th>Test case:</th><td><b>test_create_project_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.622 sec</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_create_project&gt;
+                        
 
-    def test_create_project(self):
-        url = reverse(&#39;project-list&#39;)
-        data = {&#39;name&#39;: &#39;Project Gamma&#39;, &#39;description&#39;: &#39;New project&#39;, &#39;owner_id&#39;: self.user_owner.id}
-        response = self.client.post(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-E       AssertionError: 401 != 201
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="7081445c-dcde-49dd-b6bd-d158a30d668e"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_project_by_non_owner_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
+                        
+                        
+                        </table>
 
-api/tests.py:131: AssertionError</pre>
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="ac4234a2-d7e1-4496-866a-e372c8f7e99d"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_project_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.616 sec</td></tr>
+                        
+                        
+                        </table>
+
                         
                         
 
@@ -921,29 +795,64 @@ api/tests.py:131: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-failed">
-                        <a id="2461fc97-1574-44cd-a764-173090e36cbe"></a>
+                        <a id="3a8bf08d-69b7-466d-96aa-219a2b8b2442"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_project_not_owner</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_list_projects_as_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.228 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.617 sec</td></tr>
                         
-                            <tr><th>Failed</th><td>AssertionError: 401 != 403</td></tr>
+                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_delete_project_not_owner&gt;
+                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_list_projects_as_owner&gt;
 
-    def test_delete_project_not_owner(self):
-        self.client.logout()
-        self.client.login(username=&#39;employee&#39;, password=&#39;password123&#39;)
-        url = reverse(&#39;project-detail&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        response = self.client.delete(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-E       AssertionError: 401 != 403
+    def test_list_projects_as_owner(self):
+        response = self.client.get(self.project_list_url, format=&#39;json&#39;)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.json()  # Use .json() for DRF APITestCase
+&gt;       self.assertEqual(response_data.get(&#39;count&#39;), 2)  # Use .get for safer dict access
+E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
 
-api/tests.py:187: AssertionError</pre>
+api/tests.py:139: AttributeError</pre>
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="0cc22e99-a81b-4423-adac-dce276b21056"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_partial_update_project_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.619 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="3cb4eb99-8e2c-470b-9120-51298e055af9"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_endpoints_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.614 sec</td></tr>
+                        
+                        
+                        </table>
+
                         
                         
 
@@ -953,123 +862,66 @@ api/tests.py:187: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-failed">
-                        <a id="2409a176-6126-4d79-9fe2-e7add3bbfff2"></a>
+                        <a id="7402c972-db24-43e1-95b6-89896706169f"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_project_owner</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_by_employee_forbidden</b></td></tr>
                             <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.919 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.616 sec</td></tr>
                         
-                            <tr><th>Failed</th><td>AssertionError: 401 != 204</td></tr>
+                            <tr><th>Failed</th><td>AssertionError: 404 != 403</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_delete_project_owner&gt;
-
-    def test_delete_project_owner(self):
-        url = reverse(&#39;project-detail&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        response = self.client.delete(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-E       AssertionError: 401 != 204
-
-api/tests.py:179: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="9a9af269-f173-42cd-9c8e-f89b95385d5c"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_list_projects</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.917 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_list_projects&gt;
-
-    def test_list_projects(self):
-        url = reverse(&#39;project-list&#39;)
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:138: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="fb1fe20c-68fa-40dd-8ecf-2d0e221425da"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_partial_update_project_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.92 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_partial_update_project_owner&gt;
-
-    def test_partial_update_project_owner(self):
-        url = reverse(&#39;project-detail&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        data = {&#39;description&#39;: &#39;Partially Updated Description&#39;}
-        response = self.client.patch(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:163: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="3142681d-ce64-45e6-8edc-dc150af48d42"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_permission_denied_for_employee</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.25 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_project_task_status_chart_permission_denied_for_employee&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071778271312&#39;&gt;
+                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_project_task_status_chart_by_employee_forbidden&gt;
+mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;139683106737520&#39;&gt;
 
     @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_task_status_chart_permission_denied_for_employee(self, mock_get_chart_url):
-        self.client.logout()
-        self.client.login(username=&#39;employee&#39;, password=&#39;password123&#39;)
+    def test_project_task_status_chart_by_employee_forbidden(self, mock_get_chart_url):
+        self.client.credentials(HTTP_AUTHORIZATION=&#39;Token &#39; + self.employee_token.key)
         url = reverse(&#39;project-task-status-chart&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
         response = self.client.get(url, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
+&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+E       AssertionError: 404 != 403
 
-api/tests.py:196: AssertionError</pre>
+api/tests.py:210: AssertionError</pre>
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="bb9a7307-ecd3-4d9a-8bbc-022164dac68d"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.615 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="c5a6b356-f55c-4c0d-a7a6-0333d3ab872f"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.614 sec</td></tr>
+                        
+                        
+                        </table>
+
                         
                         
 
@@ -1079,95 +931,30 @@ api/tests.py:196: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-failed">
-                        <a id="b75cc0dd-d17e-43ca-a41d-ce4df76b90f3"></a>
+                        <a id="2190d412-5cee-4dfb-ad7e-d99c8f77ba34"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_permission_denied_for_employee</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_by_employee_forbidden</b></td></tr>
                             <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.227 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.619 sec</td></tr>
                         
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Failed</th><td>AssertionError: 404 != 403</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_project_velocity_chart_permission_denied_for_employee&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071773073632&#39;&gt;
+                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_project_velocity_chart_by_employee_forbidden&gt;
+mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;139683106736176&#39;&gt;
 
     @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_velocity_chart_permission_denied_for_employee(self, mock_get_chart_url):
-        self.client.logout()
-        self.client.login(username=&#39;employee&#39;, password=&#39;password123&#39;)
+    def test_project_velocity_chart_by_employee_forbidden(self, mock_get_chart_url):
+        self.client.credentials(HTTP_AUTHORIZATION=&#39;Token &#39; + self.employee_token.key)
         url = reverse(&#39;project-velocity-chart&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
         response = self.client.get(url, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:206: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="bd8b890b-cb6c-4ce7-b8e0-d4ec7d751688"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_project</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.919 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_retrieve_project&gt;
-
-    def test_retrieve_project(self):
-        url = reverse(&#39;project-detail&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:148: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="bc0dc416-c4e3-407a-90fd-56ae4092b0a9"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_project_not_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.232 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 403</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_update_project_not_owner&gt;
-
-    def test_update_project_not_owner(self):
-        self.client.logout()
-        self.client.login(username=&#39;employee&#39;, password=&#39;password123&#39;)
-        url = reverse(&#39;project-detail&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        data = {&#39;name&#39;: &#39;Attempt Update Fail&#39;, &#39;description&#39;: &#39;Updated Description&#39;, &#39;owner_id&#39;: self.user_owner.id}
-        response = self.client.put(url, data, format=&#39;json&#39;)
 &gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-E       AssertionError: 401 != 403
+E       AssertionError: 404 != 403
 
-api/tests.py:174: AssertionError</pre>
+api/tests.py:237: AssertionError</pre>
                         
                         
 
@@ -1176,29 +963,88 @@ api/tests.py:174: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="cef476d4-0c11-40ee-8e03-0568ca9644d9"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="7ae126c7-3b97-41e2-b3b8-c6a83ba119c8"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_project_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>0.918 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.621 sec</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.ProjectAPITests testMethod=test_update_project_owner&gt;
+                        
 
-    def test_update_project_owner(self):
-        url = reverse(&#39;project-detail&#39;, kwargs={&#39;pk&#39;: self.project1.pk})
-        data = {&#39;name&#39;: &#39;Project Alpha Updated&#39;, &#39;description&#39;: &#39;Updated Description&#39;, &#39;owner_id&#39;: self.user_owner.id}
-        response = self.client.put(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="d90440f7-686a-406f-921c-d79e24f1fde1"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.613 sec</td></tr>
+                        
+                        
+                        </table>
 
-api/tests.py:155: AssertionError</pre>
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="5e540c1f-26e6-4de4-965f-660439a4a5e8"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_project_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.614 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="b6fbb32d-29c7-4fdc-aca0-5fd6f1421394"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_update_project_by_non_owner_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.613 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="a6d1583e-b555-4d82-8fdc-81e49a9d337a"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_update_project_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.621 sec</td></tr>
+                        
+                        
+                        </table>
+
                         
                         
 
@@ -1214,35 +1060,70 @@ api/tests.py:155: AssertionError</pre>
                 <h4>api.tests.TaskAPITests</h4>
                 <div class="testcases">
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="c064c2ae-02cb-4a8b-a365-4b6cb422161a"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="c2635e95-0f9e-49f1-8f6e-816ab6761367"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_task</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.229 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 201</td></tr>
+                            <tr><th>Test case:</th><td><b>test_create_task_as_authenticated_user</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.926 sec</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_create_task&gt;
+                        
 
-    def test_create_task(self):
-        url = reverse(&#39;task-list&#39;)
-        data = {
-            &#39;name&#39;: &#39;Task Three&#39;,
-            &#39;project_id&#39;: self.project.id,
-            &#39;status&#39;: &#39;TODO&#39;,
-            &#39;assignee_id&#39;: self.assignee.id,
-            &#39;story_points&#39;: 3
-        }
-        response = self.client.post(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-E       AssertionError: 401 != 201
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="5b24758f-9b88-43b1-9705-8cd892a2e007"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_task_by_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
+                        
+                        
+                        </table>
 
-api/tests.py:234: AssertionError</pre>
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="92e33732-25d8-4834-8af8-37e403f07688"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_task_by_other_user_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.941 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="05b8f88a-8d84-424c-8141-89b3125da843"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_delete_task_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.941 sec</td></tr>
+                        
+                        
+                        </table>
+
                         
                         
 
@@ -1252,31 +1133,117 @@ api/tests.py:234: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-failed">
-                        <a id="11add3a3-edef-48d7-ba14-e6ec95acaf29"></a>
+                        <a id="7bdc78a6-c47c-409d-a6c1-03fc9028c908"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_task_assignee_permission_check</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_list_tasks_as_authenticated_user</b></td></tr>
                             <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.536 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.923 sec</td></tr>
                         
-                            <tr><th>Failed</th><td>AssertionError: 401 != 204</td></tr>
+                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_delete_task_assignee_permission_check&gt;
+                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_list_tasks_as_authenticated_user&gt;
 
-    def test_delete_task_assignee_permission_check(self):
-        self.client.logout()
-        self.client.login(username=&#39;taskassignee&#39;, password=&#39;password123&#39;)
-        task_to_delete_by_assignee = Task.objects.create(project=self.project, name=&#39;Deletable by Assignee&#39;,
-                                                         assignee=self.assignee)
-        url = reverse(&#39;task-detail&#39;, kwargs={&#39;pk&#39;: task_to_delete_by_assignee.pk})
-        response = self.client.delete(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-E       AssertionError: 401 != 204
+    def test_list_tasks_as_authenticated_user(self):
+        response = self.client.get(self.task_list_url, format=&#39;json&#39;)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+&gt;       self.assertEqual(response.json().get(&#39;count&#39;), 2)
+E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
 
-api/tests.py:309: AssertionError</pre>
+api/tests.py:281: AttributeError</pre>
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="032cbfba-bc86-4350-be92-531fbb1f74b8"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_task_as_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="6ac1cffd-ef19-40b1-8df7-752755aa60d5"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_retrieve_task_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.919 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="1483fbcb-97aa-433b-be57-36e21251c45d"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_action_mark_as_done_by_owner_of_task_assigned_to_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.927 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="9763d27d-7c8a-4514-a98a-0ec1a8ff1220"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_action_start_progress_by_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.922 sec</td></tr>
+                        
+                        
+                        </table>
+
+                        
+                        
+
+                        
+                        
+                        
+                    </div>
+                
+                    <div class="test outcome outcome-passed">
+                        <a id="d0180232-18ed-419f-a995-15552d9ef1d3"></a>
+                        <table class="proplist">
+                            <tr><th>Test case:</th><td><b>test_task_endpoints_unauthenticated</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.923 sec</td></tr>
+                        
+                        
+                        </table>
+
                         
                         
 
@@ -1286,29 +1253,31 @@ api/tests.py:309: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-failed">
-                        <a id="c9ba040f-4909-45ec-93a6-097acf07eb27"></a>
+                        <a id="6a9c4803-e8b5-4a74-955c-a84d086dc7b7"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_task_not_owner_nor_assignee</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_task_filter_by_status_as_owner</b></td></tr>
                             <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.577 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.923 sec</td></tr>
                         
-                            <tr><th>Failed</th><td>AssertionError: 401 != 403</td></tr>
+                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_delete_task_not_owner_nor_assignee&gt;
+                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_status_as_owner&gt;
 
-    def test_delete_task_not_owner_nor_assignee(self):
-        self.client.logout()
-        self.client.login(username=&#39;otheruser&#39;, password=&#39;password123&#39;)
-        url = reverse(&#39;task-detail&#39;, kwargs={&#39;pk&#39;: self.task2.pk})
-        response = self.client.delete(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-E       AssertionError: 401 != 403
+    def test_task_filter_by_status_as_owner(self):
+        response = self.client.get(self.task_list_url + &#39;?status=TODO&#39;, format=&#39;json&#39;)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Assuming owner can see task1 (assigned to &#39;assignee&#39;)
+        # This depends on the default queryset of TaskViewSet, which is Task.objects.all()
+        # If filtering by assignee or project ownership is applied at queryset level for list, this might change
+        data = response.json()
+&gt;       self.assertEqual(data.get(&#39;count&#39;), 1)  # task1 is TODO
+E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
 
-api/tests.py:316: AssertionError</pre>
+api/tests.py:362: AttributeError</pre>
                         
                         
 
@@ -1317,28 +1286,16 @@ api/tests.py:316: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="8a3c9fe1-f11e-4451-ba91-e4534f129fd7"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="bc592a3d-d972-4f47-a516-125f0d332773"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_task_owner</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.228 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 204</td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_task_by_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.961 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_delete_task_owner&gt;
-
-    def test_delete_task_owner(self):
-        url = reverse(&#39;task-detail&#39;, kwargs={&#39;pk&#39;: self.task1.pk})
-        response = self.client.delete(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-E       AssertionError: 401 != 204
-
-api/tests.py:299: AssertionError</pre>
                         
                         
 
@@ -1347,28 +1304,16 @@ api/tests.py:299: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="3a20f2ee-cea7-434b-911c-fa15fa7f55eb"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="04940f96-0c9f-42ff-a962-76f2989ffaab"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_list_tasks</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.228 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_task_by_other_user_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.957 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_list_tasks&gt;
-
-    def test_list_tasks(self):
-        url = reverse(&#39;task-list&#39;)
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:240: AssertionError</pre>
                         
                         
 
@@ -1377,345 +1322,16 @@ api/tests.py:240: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="e55438d6-477b-4230-a183-62a17971cac2"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="a3441125-c7b9-4861-8750-f2c6d3db5f48"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_partial_update_task_owner_or_assignee</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.223 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_task_by_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.962 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_partial_update_task_owner_or_assignee&gt;
-
-    def test_partial_update_task_owner_or_assignee(self):
-        url = reverse(&#39;task-detail&#39;, kwargs={&#39;pk&#39;: self.task1.pk})
-        data = {&#39;story_points&#39;: 10}
-        response = self.client.patch(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:275: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="a510eb5b-9b7d-4ffb-81d8-637ed3e34cc4"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_task</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.231 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_retrieve_task&gt;
-
-    def test_retrieve_task(self):
-        url = reverse(&#39;task-detail&#39;, kwargs={&#39;pk&#39;: self.task1.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:250: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="a78793e6-3cc6-4c6a-882e-ecca99e907da"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_filter_by_deadline_range</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.228 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_deadline_range&gt;
-
-    def test_task_filter_by_deadline_range(self):
-        url = reverse(&#39;task-list&#39;)
-        response_after = self.client.get(url + &#39;?deadline_after=2025-11-15&#39;, format=&#39;json&#39;)
-&gt;       self.assertEqual(response_after.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:379: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="38cec865-c6e3-4458-84dd-5fdbf2f73f39"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_filter_by_project_name</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.531 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_project_name&gt;
-
-    def test_task_filter_by_project_name(self):
-        other_project_owner = User.objects.create_user(username=&#39;otherowner&#39;, password=&#39;password123&#39;)
-        other_project = Project.objects.create(name=&#39;Other Project&#39;, owner=other_project_owner)
-        Task.objects.create(project=other_project, name=&#39;Task in Other Project&#39;, assignee=self.assignee)
-    
-        url = reverse(&#39;task-list&#39;)
-        response = self.client.get(url + f&#39;?project_name={self.project.name}&#39;, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:368: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="5f4bc2ec-632f-4c7d-b8de-7a8b35202bbf"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_filter_by_status</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.228 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_status&gt;
-
-    def test_task_filter_by_status(self):
-        url = reverse(&#39;task-list&#39;)
-        response = self.client.get(url + &#39;?status=TODO&#39;, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:352: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="c4140cf0-6e4a-4d4e-9fe8-f992eaa73c36"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_mark_as_done_action</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.224 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_mark_as_done_action&gt;
-
-    def test_task_mark_as_done_action(self):
-        self.task2.status = &#39;IN_PROGRESS&#39;
-        self.task2.save()
-        url = reverse(&#39;task-mark-as-done&#39;, kwargs={&#39;pk&#39;: self.task2.pk})
-        response = self.client.post(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:337: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="32eb966a-d758-4976-9f65-a5ba2d3c21cb"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_mark_as_done_action_from_todo</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.225 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 400</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_mark_as_done_action_from_todo&gt;
-
-    def test_task_mark_as_done_action_from_todo(self):
-        self.task1.status = &#39;TODO&#39;
-        self.task1.save()
-        url = reverse(&#39;task-mark-as-done&#39;, kwargs={&#39;pk&#39;: self.task1.pk})
-        response = self.client.post(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-E       AssertionError: 401 != 400
-
-api/tests.py:347: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="cc6ad821-ddc7-4b11-ab64-5a8256811400"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_start_progress_action</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.226 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_start_progress_action&gt;
-
-    def test_task_start_progress_action(self):
-        url = reverse(&#39;task-start-progress&#39;, kwargs={&#39;pk&#39;: self.task1.pk})
-        response = self.client.post(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:321: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="1d692f96-c1e2-4ff4-af35-6f822c8729fb"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_task_start_progress_action_already_in_progress</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.229 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 400</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_task_start_progress_action_already_in_progress&gt;
-
-    def test_task_start_progress_action_already_in_progress(self):
-        self.task2.status = &#39;IN_PROGRESS&#39;
-        self.task2.save()
-        url = reverse(&#39;task-start-progress&#39;, kwargs={&#39;pk&#39;: self.task2.pk})
-        response = self.client.post(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-E       AssertionError: 401 != 400
-
-api/tests.py:330: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="9e0c3e84-c11d-48e6-8007-0e75a0affe8f"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_task_not_owner_nor_assignee</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.534 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 403</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_update_task_not_owner_nor_assignee&gt;
-
-    def test_update_task_not_owner_nor_assignee(self):
-        self.client.logout()
-        self.client.login(username=&#39;otheruser&#39;, password=&#39;password123&#39;)
-        url = reverse(&#39;task-detail&#39;, kwargs={&#39;pk&#39;: self.task1.pk})
-        data = {&#39;name&#39;: &#39;Attempt Update Fail&#39;, &#39;status&#39;: &#39;DONE&#39;, &#39;project_id&#39;: self.project.id,
-                &#39;assignee_id&#39;: self.other_user.id}
-        response = self.client.put(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-E       AssertionError: 401 != 403
-
-api/tests.py:294: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="8cfa821b-04b9-46c1-b7d4-f75b79de8c27"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_task_owner_or_assignee</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.226 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.TaskAPITests testMethod=test_update_task_owner_or_assignee&gt;
-
-    def test_update_task_owner_or_assignee(self):
-        url = reverse(&#39;task-detail&#39;, kwargs={&#39;pk&#39;: self.task1.pk})
-        data = {&#39;name&#39;: &#39;Task One Updated by Owner&#39;, &#39;status&#39;: &#39;DONE&#39;, &#39;project_id&#39;: self.project.id,
-                &#39;assignee_id&#39;: self.assignee.id}
-        response = self.client.put(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:258: AssertionError</pre>
                         
                         
 
@@ -1731,35 +1347,16 @@ api/tests.py:258: AssertionError</pre>
                 <h4>api.tests.ChartViewTests</h4>
                 <div class="testcases">
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="4461c8b8-6e9b-4f44-a9ff-3b033672d762"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="2ad57820-1f20-4e03-b73a-a8c32234d195"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_business_statistics_story_points_monthly</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.234 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.646 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_business_statistics_story_points_monthly&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071778271312&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_business_statistics_story_points_monthly(self, mock_get_chart_url):
-        mock_get_chart_url.return_value = &#39;http://fakechart.url/business_stats&#39;
-        Task.objects.create(project=self.project, name=&#39;Biz Task Old Month&#39;, status=&#39;DONE&#39;, assignee=self.owner,
-                            story_points=10, updated_at=timezone.now() - timedelta(days=35))
-    
-        url = reverse(&#39;business-stats-story-points&#39;)
-        response = self.client.get(url, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:478: AssertionError</pre>
                         
                         
 
@@ -1768,31 +1365,16 @@ api/tests.py:478: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="c7e637eb-6569-4296-a830-64cbde2e85eb"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="0deb9fb8-0623-4e64-8099-08aa6b6584a6"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_business_stats_no_data</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.232 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Test case:</th><td><b>test_project_task_status_chart_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.64 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_business_stats_no_data&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071773075984&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_business_stats_no_data(self, mock_get_chart_url):
-        Task.objects.filter(status=&#39;DONE&#39;, story_points__isnull=False).delete()
-        url = reverse(&#39;business-stats-story-points&#39;)
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:543: AssertionError</pre>
                         
                         
 
@@ -1801,100 +1383,16 @@ api/tests.py:543: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="dc9aed07-ed1a-4d05-8880-4c6e82f8e331"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_get_chart_url_api_failure</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.231 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 500</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_get_chart_url_api_failure&gt;
-mock_requests_post = &lt;MagicMock name=&#39;post&#39; id=&#39;140071773076656&#39;&gt;
-
-    @patch(&#39;api.quickchart_helper.requests.post&#39;)
-    def test_get_chart_url_api_failure(self, mock_requests_post):
-        mock_requests_post.side_effect = requests.RequestException(&#34;API Error&#34;)
-        url = reverse(&#39;project-task-status-chart&#39;, kwargs={&#39;pk&#39;: self.project.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
-E       AssertionError: 401 != 500
-
-api/tests.py:562: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="8fa1add0-abcb-40d7-9c77-65a7c59be8bc"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_task_status_chart</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.23 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_project_task_status_chart&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071778286432&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_task_status_chart(self, mock_get_chart_url):
-        mock_get_chart_url.return_value = &#39;http://fakechart.url/piechart&#39;
-        url = reverse(&#39;project-task-status-chart&#39;, kwargs={&#39;pk&#39;: self.project.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:432: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="d4e50046-17e2-4d15-a91d-4357712a97d0"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="d6eb023a-ad42-4c5f-848d-fc21bd6c3e97"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_project_task_status_chart_no_tasks</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.535 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.961 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_project_task_status_chart_no_tasks&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071778277360&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_task_status_chart_no_tasks(self, mock_get_chart_url):
-        empty_project_owner = User.objects.create_user(username=&#39;emptyowner&#39;, password=&#39;password123&#39;)
-        empty_project = Project.objects.create(name=&#39;Empty Project&#39;, owner=empty_project_owner)
-        url = reverse(&#39;project-task-status-chart&#39;, kwargs={&#39;pk&#39;: empty_project.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:519: AssertionError</pre>
                         
                         
 
@@ -1903,39 +1401,16 @@ api/tests.py:519: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="4dae90b7-8267-4e97-82c3-ad7750ec6a11"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="f856317c-b03f-4c5f-9d99-63c99fd6c71c"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_velocity_chart</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.234 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_as_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.643 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_project_velocity_chart&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071778278032&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_velocity_chart(self, mock_get_chart_url):
-        mock_get_chart_url.return_value = &#39;http://fakechart.url/velocitychart&#39;
-        Task.objects.filter(project=self.project, name=&#39;Task C&#39;).update(updated_at=timezone.now() - timedelta(days=80),
-                                                                        story_points=8)
-        Task.objects.filter(project=self.project, name=&#39;Task D&#39;).update(updated_at=timezone.now() - timedelta(days=73),
-                                                                        story_points=2)
-        Task.objects.filter(project=self.project, name=&#39;Task E&#39;).update(updated_at=timezone.now() - timedelta(days=10),
-                                                                        story_points=1)
-    
-        url = reverse(&#39;project-velocity-chart&#39;, kwargs={&#39;pk&#39;: self.project.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:458: AssertionError</pre>
                         
                         
 
@@ -1944,37 +1419,16 @@ api/tests.py:458: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="e8822c98-4358-41bd-9605-4c6e9a211280"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="da5db9c4-1056-4a24-9ebb-a52b97b19f08"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_project_velocity_chart_no_data</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.538 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Test case:</th><td><b>test_user_personal_task_stats_for_assignee</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.643 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_project_velocity_chart_no_data&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071778271312&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_project_velocity_chart_no_data(self, mock_get_chart_url):
-        data_less_project_owner = User.objects.create_user(username=&#39;datalessowner&#39;, password=&#39;password123&#39;)
-        data_less_project = Project.objects.create(name=&#39;Data Less Project&#39;, owner=data_less_project_owner)
-        Task.objects.create(project=data_less_project, name=&#39;No SP Task&#39;, status=&#39;DONE&#39;, assignee=self.assignee,
-                            updated_at=timezone.now() - timedelta(days=10))
-        Task.objects.create(project=data_less_project, name=&#39;Not Done Task&#39;, status=&#39;IN_PROGRESS&#39;, story_points=5,
-                            assignee=self.assignee, updated_at=timezone.now() - timedelta(days=10))
-    
-        url = reverse(&#39;project-velocity-chart&#39;, kwargs={&#39;pk&#39;: data_less_project.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:534: AssertionError</pre>
                         
                         
 
@@ -1983,65 +1437,16 @@ api/tests.py:534: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="99d3743b-3908-4267-ba26-afb2e2894cf5"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="076969d5-437f-432b-9659-c0813f5e2f71"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_user_personal_stats_no_data</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.233 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Test case:</th><td><b>test_user_personal_task_stats_for_owner</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.642 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_user_personal_stats_no_data&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071773076656&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_user_personal_stats_no_data(self, mock_get_chart_url):
-        Task.objects.filter(assignee=self.owner, status=&#39;DONE&#39;).delete()
-        url = reverse(&#39;user-personal-task-stats&#39;)
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:552: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="9dfed9fd-5c9c-4c49-a9ad-31b601bca7fe"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_user_personal_task_stats</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.256 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.ChartViewTests testMethod=test_user_personal_task_stats&gt;
-mock_get_chart_url = &lt;MagicMock name=&#39;get_chart_url&#39; id=&#39;140071773073632&#39;&gt;
-
-    @patch(&#39;api.views.get_chart_url&#39;)
-    def test_user_personal_task_stats(self, mock_get_chart_url):
-        mock_get_chart_url.return_value = &#39;http://fakechart.url/personal_stats&#39;
-        url = reverse(&#39;user-personal-task-stats&#39;)
-        response = self.client.get(url, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:494: AssertionError</pre>
                         
                         
 
@@ -2057,31 +1462,16 @@ api/tests.py:494: AssertionError</pre>
                 <h4>api.tests.WorkLogAPITests</h4>
                 <div class="testcases">
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="dba2da1d-eaa9-4810-9798-b363ebabbcec"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="80cfb1ad-1531-42bb-ac6b-a545534dca86"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_worklog_for_neither_task_nor_project_fails</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.247 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 400</td></tr>
+                            <tr><th>Test case:</th><td><b>test_create_worklog_for_task_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.959 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_neither_task_nor_project_fails&gt;
-
-    def test_create_worklog_for_neither_task_nor_project_fails(self):
-        data = {
-            &#39;date&#39;: timezone.now().date().isoformat(),
-            &#39;hours_spent&#39;: &#39;1.00&#39;,
-        }
-        response = self.client.post(self.list_create_url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-E       AssertionError: 401 != 400
-
-api/tests.py:642: AssertionError</pre>
                         
                         
 
@@ -2090,198 +1480,16 @@ api/tests.py:642: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="65ea37e6-4e82-4677-90dc-b8a6aab17026"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_worklog_for_project</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.244 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 201</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_project&gt;
-
-    def test_create_worklog_for_project(self):
-        log_date = timezone.now().date()
-        data = {
-            &#39;project_id&#39;: self.project.id,
-            &#39;date&#39;: log_date.isoformat(),
-            &#39;hours_spent&#39;: &#39;1.00&#39;,
-            &#39;description&#39;: &#39;General project meeting&#39;
-        }
-        response = self.client.post(self.list_create_url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-E       AssertionError: 401 != 201
-
-api/tests.py:611: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="ea9ff217-7e2e-41bf-a6f8-1fbd5d0441e0"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_worklog_for_task</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.248 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 201</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_task&gt;
-
-    def test_create_worklog_for_task(self):
-        log_date = timezone.now().date()
-        data = {
-            &#39;task_id&#39;: self.task.id,
-            &#39;date&#39;: log_date.isoformat(),
-            &#39;hours_spent&#39;: &#39;2.50&#39;,
-            &#39;description&#39;: &#39;Worked on task logging&#39;
-        }
-        response = self.client.post(self.list_create_url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-E       AssertionError: 401 != 201
-
-api/tests.py:593: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="4c440fa6-015e-40b4-8b2a-022415a47a02"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_worklog_for_task_and_project_fails</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.25 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 400</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_task_and_project_fails&gt;
-
-    def test_create_worklog_for_task_and_project_fails(self):
-        data = {
-            &#39;task_id&#39;: self.task.id,
-            &#39;project_id&#39;: self.project.id,
-            &#39;date&#39;: timezone.now().date().isoformat(),
-            &#39;hours_spent&#39;: &#39;1.00&#39;,
-        }
-        response = self.client.post(self.list_create_url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-E       AssertionError: 401 != 400
-
-api/tests.py:632: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="af7b30db-776e-4dfc-9467-1bf367345823"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_worklog_missing_date</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.249 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 201</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_missing_date&gt;
-
-    def test_create_worklog_missing_date(self):
-    
-        data = {&#39;task_id&#39;: self.task.id, &#39;hours_spent&#39;: &#39;1.50&#39;}
-        response = self.client.post(self.list_create_url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-E       AssertionError: 401 != 201
-
-api/tests.py:655: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="9eea6e7f-ca90-4fa8-9c45-a571e05dc04c"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_create_worklog_missing_hours_spent</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.227 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 400</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_missing_hours_spent&gt;
-
-    def test_create_worklog_missing_hours_spent(self):
-        data = {&#39;task_id&#39;: self.task.id, &#39;date&#39;: timezone.now().date().isoformat()}
-        response = self.client.post(self.list_create_url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-E       AssertionError: 401 != 400
-
-api/tests.py:648: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="95242c0a-aa6a-4dcd-a6fb-5da8685e7fca"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="e3b9195c-e438-4055-9645-b1da3bc38c17"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_create_worklog_unauthenticated</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.234 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 403</td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.954 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_unauthenticated&gt;
-
-    def test_create_worklog_unauthenticated(self):
-        self.client.logout()
-        data = {&#39;task_id&#39;: self.task.id, &#39;date&#39;: timezone.now().date().isoformat(), &#39;hours_spent&#39;: &#39;1.00&#39;}
-        response = self.client.post(self.list_create_url, data, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-E       AssertionError: 401 != 403
-
-api/tests.py:622: AssertionError</pre>
                         
                         
 
@@ -2290,30 +1498,16 @@ api/tests.py:622: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="a81e1dbc-1d20-4f37-9830-b544318dbcc5"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="e9b94d1e-e3fb-457c-8215-17305df47164"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_others_worklog_by_user_fails</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.24 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Test case:</th><td><b>test_delete_own_worklog_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.956 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_delete_others_worklog_by_user_fails&gt;
-
-    def test_delete_others_worklog_by_user_fails(self):
-        other_log = WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
-                                           hours_spent=&#39;1.0&#39;)
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: other_log.pk})
-        response = self.client.delete(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:747: AssertionError</pre>
                         
                         
 
@@ -2323,43 +1517,13 @@ api/tests.py:747: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-failed">
-                        <a id="ab645813-14ec-47bd-ba1a-00d074151561"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_delete_own_worklog</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.236 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 204</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_delete_own_worklog&gt;
-
-    def test_delete_own_worklog(self):
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: self.worklog_user1.pk})
-        response = self.client.delete(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-E       AssertionError: 401 != 204
-
-api/tests.py:739: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="3a4ac044-19c8-48f3-b2be-9314e520de1b"></a>
+                        <a id="70fc9b30-9257-473f-b1d3-f6eb822b93e6"></a>
                         <table class="proplist">
                             <tr><th>Test case:</th><td><b>test_list_all_worklogs_as_admin</b></td></tr>
                             <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.539 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.959 sec</td></tr>
                         
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
                         
                         
                         </table>
@@ -2368,15 +1532,16 @@ api/tests.py:739: AssertionError</pre>
                         <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_list_all_worklogs_as_admin&gt;
 
     def test_list_all_worklogs_as_admin(self):
+        self.client.credentials(HTTP_AUTHORIZATION=&#39;Token &#39; + self.admin_token.key)
+        # Create another worklog by admin to make it 2 total
         WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
-                               hours_spent=&#39;5.00&#39;)
-        self.client.logout()
-        self.client.login(username=&#39;logadmin&#39;, password=&#39;password123&#39;)
+                               hours_spent=&#39;1.00&#39;)
         response = self.client.get(self.list_create_url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+&gt;       self.assertEqual(response.json().get(&#39;count&#39;), 2)
+E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
 
-api/tests.py:676: AssertionError</pre>
+api/tests.py:555: AttributeError</pre>
                         
                         
 
@@ -2386,58 +1551,27 @@ api/tests.py:676: AssertionError</pre>
                     </div>
                 
                     <div class="test outcome outcome-failed">
-                        <a id="d2e34f90-9c25-4e93-83db-24fcf39a910d"></a>
+                        <a id="ac6277d6-b81b-442d-852d-8c8872eeb9bb"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_list_own_worklogs</b></td></tr>
+                            <tr><th>Test case:</th><td><b>test_list_own_worklogs_as_loguser1</b></td></tr>
                             <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.226 sec</td></tr>
+                            <tr><th>Duration:</th><td>0.959 sec</td></tr>
                         
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Failed</th><td>AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;</td></tr>
                         
                         
                         </table>
 
                         
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_list_own_worklogs&gt;
+                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_list_own_worklogs_as_loguser1&gt;
 
-    def test_list_own_worklogs(self):
+    def test_list_own_worklogs_as_loguser1(self):
         response = self.client.get(self.list_create_url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+&gt;       self.assertEqual(response.json().get(&#39;count&#39;), 1)
+E       AttributeError: &#39;list&#39; object has no attribute &#39;get&#39;
 
-api/tests.py:661: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="4c2325fb-a176-4269-bf6b-9fa20e3226c8"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_partial_update_own_worklog</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.234 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200 : Response data: {&#39;detail&#39;: ErrorDetail(string=&#39;Authentication credentials were not provided.&#39;, code=&#39;not_authenticated&#39;)}</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_partial_update_own_worklog&gt;
-
-    def test_partial_update_own_worklog(self):
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: self.worklog_user1.pk})
-        patch_data = {&#39;description&#39;: &#39;Partially updated log&#39;}
-        response = self.client.patch(url, patch_data, format=&#39;json&#39;)
-    
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK, f&#34;Response data: {response.data}&#34;)
-E       AssertionError: 401 != 200 : Response data: {&#39;detail&#39;: ErrorDetail(string=&#39;Authentication credentials were not provided.&#39;, code=&#39;not_authenticated&#39;)}
-
-api/tests.py:724: AssertionError</pre>
+api/tests.py:545: AttributeError</pre>
                         
                         
 
@@ -2446,30 +1580,16 @@ api/tests.py:724: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="1bb8c963-6504-46c4-96ac-14195c61d834"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="1ad31f92-cd83-4b2b-8857-c960b0ac2e5c"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_others_worklog_by_admin_succeeds</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.543 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Test case:</th><td><b>test_retrieve_others_worklog_as_loguser1_not_found</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.925 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_retrieve_others_worklog_by_admin_succeeds&gt;
-
-    def test_retrieve_others_worklog_by_admin_succeeds(self):
-        self.client.logout()
-        self.client.login(username=&#39;logadmin&#39;, password=&#39;password123&#39;)
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: self.worklog_user1.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:701: AssertionError</pre>
                         
                         
 
@@ -2478,30 +1598,16 @@ api/tests.py:701: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="e5be2264-fa4a-4301-9603-e5868b50f0e5"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="e67f2683-8756-45ac-85e9-749cea0782e1"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_others_worklog_by_user_fails</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.231 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Test case:</th><td><b>test_retrieve_own_worklog_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.918 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_retrieve_others_worklog_by_user_fails&gt;
-
-    def test_retrieve_others_worklog_by_user_fails(self):
-        other_log = WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
-                                           hours_spent=&#39;1.0&#39;)
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: other_log.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:694: AssertionError</pre>
                         
                         
 
@@ -2510,28 +1616,16 @@ api/tests.py:694: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="001596b9-6814-4d16-ad55-f58171c2476e"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="75f47795-2f68-4daf-965d-2e86610efae9"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_retrieve_own_worklog</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.229 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_others_worklog_as_loguser1_forbidden</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.918 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_retrieve_own_worklog&gt;
-
-    def test_retrieve_own_worklog(self):
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: self.worklog_user1.pk})
-        response = self.client.get(url, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:686: AssertionError</pre>
                         
                         
 
@@ -2540,68 +1634,16 @@ api/tests.py:686: AssertionError</pre>
                         
                     </div>
                 
-                    <div class="test outcome outcome-failed">
-                        <a id="60645203-0f99-4634-8e37-acff51f91438"></a>
+                    <div class="test outcome outcome-passed">
+                        <a id="c2906d29-10fa-4b83-a549-a7ee7960dc58"></a>
                         <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_others_worklog_by_user_fails</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.232 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 404</td></tr>
+                            <tr><th>Test case:</th><td><b>test_update_own_worklog_as_loguser1</b></td></tr>
+                            <tr><th>Outcome:</th><td>Passed</td></tr>
+                            <tr><th>Duration:</th><td>0.921 sec</td></tr>
                         
                         
                         </table>
 
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_update_others_worklog_by_user_fails&gt;
-
-    def test_update_others_worklog_by_user_fails(self):
-        other_log = WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
-                                           hours_spent=&#39;1.0&#39;)
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: other_log.pk})
-        data = {&#39;hours_spent&#39;: &#39;2.00&#39;, &#39;date&#39;: other_log.date.isoformat(), &#39;project_id&#39;: other_log.project.id}
-        response = self.client.put(url, data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-E       AssertionError: 401 != 404
-
-api/tests.py:734: AssertionError</pre>
-                        
-                        
-
-                        
-                        
-                        
-                    </div>
-                
-                    <div class="test outcome outcome-failed">
-                        <a id="ced28208-8f46-49dc-b607-491cbe18c90b"></a>
-                        <table class="proplist">
-                            <tr><th>Test case:</th><td><b>test_update_own_worklog</b></td></tr>
-                            <tr><th>Outcome:</th><td>Failed</td></tr>
-                            <tr><th>Duration:</th><td>1.242 sec</td></tr>
-                        
-                            <tr><th>Failed</th><td>AssertionError: 401 != 200</td></tr>
-                        
-                        
-                        </table>
-
-                        
-                        <pre>self = &lt;api.tests.WorkLogAPITests testMethod=test_update_own_worklog&gt;
-
-    def test_update_own_worklog(self):
-        url = reverse(&#39;worklog-detail&#39;, kwargs={&#39;pk&#39;: self.worklog_user1.pk})
-    
-        put_data = {
-            &#39;hours_spent&#39;: &#39;4.50&#39;,
-            &#39;description&#39;: &#39;Updated log&#39;,
-            &#39;date&#39;: self.worklog_user1_date.isoformat(),
-            &#39;task_id&#39;: self.task.id
-        }
-        response = self.client.put(url, put_data, format=&#39;json&#39;)
-&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
-E       AssertionError: 401 != 200
-
-api/tests.py:714: AssertionError</pre>
                         
                         
 
