@@ -35,6 +35,9 @@ class Project(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     team = models.ManyToManyField(Team, related_name="projects", blank=True)
 
+    class Meta:
+        ordering = ['updated_at']
+
     def __str__(self):
         return self.name
 
@@ -71,7 +74,7 @@ class WorkLog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.hours_spent}h on {self.date}"
+        return f"{self.user.username} - {self.hours_spent:.2f}h on {self.date}"
 
     class Meta:
         ordering = ['-date', '-created_at']
