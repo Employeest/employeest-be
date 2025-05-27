@@ -45,6 +45,14 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_yasg',
     'api',
+    'django_nose',
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-xunit',
+    '--xunit-file=test-results/results.xml',
 ]
 
 REST_FRAMEWORK = {

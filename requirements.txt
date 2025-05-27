@@ -5,3 +5,5 @@ drf-yasg
 python-dotenv
 requests
 gunicorn
+django-nose
+nose-xunitmp
