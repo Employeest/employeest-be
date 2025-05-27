@@ -1,18 +1,27 @@
 from django.db.models import Count, Sum
 from django.utils import timezone
 from django.db.models.functions import TruncMonth, TruncWeek
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, permissions, status  # permissions is used multiple times
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from rest_framework import viewsets, permissions
+from rest_framework.filters import SearchFilter  # Import SearchFilter
+from .models import User
+from .serializers import AssigneeUserSerializer, TeamDetailSerializer  # Import your new serializer
+# Remove: from django.contrib.auth.decorators import login_required
+# Remove: from django.utils.decorators import method_decorator
+from rest_framework.authtoken.models import Token  # Keep for LogoutAPIView if needed
+from rest_framework import generics  # Keep for UserRegistrationAPIView
 
 from .models import Project, Task, WorkLog, User
 from .permissions import IsProjectOwner, IsAssigneeOrProjectOwner, IsWorkLogOwner
-from .serializers import ProjectSerializer, TaskSerializer, WorkLogSerializer, UserSimpleSerializer
+from .serializers import (
+    ProjectSerializer, TaskSerializer, WorkLogSerializer, UserSimpleSerializer,  # UserSimpleSerializer is used
+    UserRegistrationSerializer  # Keep for UserRegistrationAPIView
+)
 from .filters import TaskFilter
 from .quickchart_helper import get_chart_url
 from .chart_templates import (
@@ -22,10 +31,30 @@ from .chart_templates import (
 )
 
 
+# Note: some imports like 'permissions', 'APIView', 'Response', 'status'
+# were duplicated from the original file. I've kept them where first relevant or used.
+
+class UserRegistrationAPIView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserRegistrationSerializer
+    permission_classes = [permissions.AllowAny]
+
+
+class LogoutAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            request.user.auth_token.delete()
+            return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
+        except (AttributeError, Token.DoesNotExist):
+            return Response({"detail": "Invalid token or user not logged in."}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all().prefetch_related('tasks')
     serializer_class = ProjectSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]  # Default, overridden in get_permissions
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -34,14 +63,12 @@ class ProjectViewSet(viewsets.ModelViewSet):
         if self.action in ['update', 'partial_update', 'destroy']:
             self.permission_classes = [permissions.IsAuthenticated, IsProjectOwner]
         elif self.action == 'task_status_chart':
-            self.permission_classes = [permissions.IsAuthenticated,
-                                       IsProjectOwner]
+            self.permission_classes = [permissions.IsAuthenticated, IsProjectOwner]
         elif self.action == 'project_velocity_chart':
             self.permission_classes = [permissions.IsAuthenticated, IsProjectOwner]
-        else:
-            self.permission_classes = [
-                permissions.IsAuthenticated]
-        return super().get_permissions()
+        # else: # For other actions like list, retrieve, create, it will use the class-level default
+        # self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()  # Ensure default permissions are applied if not matched
 
     @action(detail=True, methods=['get'], url_path='velocity-chart', url_name='velocity-chart')
     def project_velocity_chart(self, request, pk=None):
@@ -106,6 +133,9 @@ class BusinessStatisticsViews(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
+        # Add print statements here if you need to debug this specific view's request
+        # print("BusinessStatisticsViews HEADERS:", request.headers)
+        # print("BusinessStatisticsViews USER:", request.user)
         one_year_ago = timezone.now() - timezone.timedelta(days=365)
 
         completed_tasks_monthly = Task.objects.filter(
@@ -178,7 +208,7 @@ class UserPersonalStatsView(APIView):
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all().select_related('project', 'assignee')
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]  # Default, overridden in get_permissions
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = TaskFilter
     search_fields = ['name', 'description', 'project__name']
@@ -190,8 +220,8 @@ class TaskViewSet(viewsets.ModelViewSet):
             self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
         elif self.action in ['start_progress', 'mark_as_done']:
             self.permission_classes = [permissions.IsAuthenticated, IsAssigneeOrProjectOwner]
-        else:
-            self.permission_classes = [permissions.IsAuthenticated]
+        # else: # For other actions like list, retrieve, create
+        # self.permission_classes = [permissions.IsAuthenticated]
         return super().get_permissions()
 
     @action(detail=True, methods=['post'], url_path='start-progress')
@@ -219,20 +249,24 @@ class TaskViewSet(viewsets.ModelViewSet):
 class WorkLogViewSet(viewsets.ModelViewSet):
     queryset = WorkLog.objects.all()
     serializer_class = WorkLogSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]  # Default, can be overridden
 
     def get_queryset(self):
         user = self.request.user
         if user.is_staff or (hasattr(user, 'role') and user.role == 'admin'):
             return WorkLog.objects.all()
-        return WorkLog.objects.filter(user=user)
+        # Ensure user is authenticated before trying to filter by it
+        if user.is_authenticated:
+            return WorkLog.objects.filter(user=user)
+        return WorkLog.objects.none()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
     def get_permissions(self):
         if self.action in ['update', 'partial_update', 'destroy']:
-            return [permissions.IsAuthenticated(), IsWorkLogOwner()]
+            # Ensure IsWorkLogOwner implies IsAuthenticated or add IsAuthenticated explicitly
+            self.permission_classes = [permissions.IsAuthenticated, IsWorkLogOwner]
         return super().get_permissions()
 
 
@@ -278,7 +312,11 @@ class EmployeeDashboardView(APIView):
 
         assigned_task_projects_ids = Task.objects.filter(assignee=user).values_list('project_id', flat=True).distinct()
 
-        user_teams_ids = user.team.all().values_list('id', flat=True)
+        # Ensure user.team exists and is a manager before calling .all()
+        user_teams_ids = []
+        if hasattr(user, 'team') and hasattr(user.team, 'all'):
+            user_teams_ids = user.team.all().values_list('id', flat=True)
+
         team_projects_ids = Project.objects.filter(team__id__in=user_teams_ids).values_list('id', flat=True).distinct()
 
         all_involved_project_ids = set(list(assigned_task_projects_ids) + list(team_projects_ids))
@@ -291,17 +329,32 @@ class EmployeeDashboardView(APIView):
 
         dashboard_data = {
             'my_projects': projects_data,
-            'my_teams': [],
+            'my_teams': [],  # Placeholder, as team data structure for serializer might be needed
             'my_current_tasks': current_tasks_data,
         }
         return Response(dashboard_data)
 
 
-@method_decorator(login_required, name='dispatch')
+
+
+class UserListViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.filter(is_active=True).order_by('first_name', 'last_name', 'username')
+    serializer_class = AssigneeUserSerializer
+    permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can see other users
+    filter_backends = [SearchFilter]
+    search_fields = ['username', 'first_name', 'last_name', 'email']  # Fields for ?search= query
+
+
+# REMOVE @method_decorator(login_required, name='dispatch')
 class UserProfileView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]  # This is correct and uses DRF auth
 
     def get(self, request, *args, **kwargs):
+        # For debugging, you can add these print statements:
+        # print("UserProfileView HEADERS:", request.headers)
+        # print("UserProfileView META HTTP_AUTHORIZATION:", request.META.get('HTTP_AUTHORIZATION'))
+        # print("UserProfileView USER:", request.user, "Authenticated:", request.user.is_authenticated)
+
         user = request.user
         user_data = {
             'id': user.id,
@@ -313,3 +366,31 @@ class UserProfileView(APIView):
             'role': getattr(user, 'role', None),
         }
         return Response(user_data)
+
+class EmployeeDashboardView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        user = request.user
+
+        assigned_task_projects_ids = Task.objects.filter(assignee=user).values_list('project_id', flat=True).distinct()
+
+        # Get Team objects the user is a member of
+        user_teams = user.team.all().prefetch_related('members', 'owner') # Use the reverse accessor 'team' from User model
+        teams_data = TeamDetailSerializer(user_teams, many=True, context={'request': request}).data
+
+        team_projects_ids = Project.objects.filter(team__in=user_teams).values_list('id', flat=True).distinct()
+
+        all_involved_project_ids = set(list(assigned_task_projects_ids) + list(team_projects_ids))
+        involved_projects = Project.objects.filter(id__in=all_involved_project_ids)
+        projects_data = ProjectSerializer(involved_projects, many=True, context={'request': request}).data
+
+        current_tasks = Task.objects.filter(assignee=user, status__in=['TODO', 'IN_PROGRESS'])
+        current_tasks_data = TaskSerializer(current_tasks, many=True, context={'request': request}).data
+
+        dashboard_data = {
+            'my_projects': projects_data,
+            'my_teams': teams_data, # This will now contain the serialized team data
+            'my_current_tasks': current_tasks_data,
+        }
+        return Response(dashboard_data)

@@ -2,16 +2,86 @@ from rest_framework import serializers
 from .models import Project, Task, WorkLog, Team, User
 
 
+# api/serializers.py
+from rest_framework import serializers
+from .models import Project, Task, WorkLog, Team, User # User is already imported
+from django.contrib.auth.password_validation import validate_password # For password strength
+from django.core.exceptions import ValidationError
+
+
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']
 
 
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True, label="Confirm password")
+    email = serializers.EmailField(required=True)
+    first_name = serializers.CharField(required=False, allow_blank=True)
+    last_name = serializers.CharField(required=False, allow_blank=True)
+    phone_number = serializers.CharField(required=False, allow_blank=True)
+
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password', 'password2', 'first_name', 'last_name', 'phone_number')
+
+    def validate_username(self, value):
+        if User.objects.filter(username__iexact=value).exists():
+            raise serializers.ValidationError("A user with that username already exists.")
+        return value
+
+    def validate_email(self, value):
+        if User.objects.filter(email__iexact=value).exists():
+            raise serializers.ValidationError("A user with that email address already exists.")
+        return value
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        return attrs
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password'],
+            first_name=validated_data.get('first_name', ''),
+            last_name=validated_data.get('last_name', ''),
+            phone_number=validated_data.get('phone_number', '')
+            # role defaults to 'employee' as per your User model
+        )
+        # Note: Tokens are not automatically created here.
+        # The user will need to log in to get a token.
+        # Or, you can explicitly create one: Token.objects.create(user=user)
+        return user
+
+class AssigneeUserSerializer(serializers.ModelSerializer):
+    display_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'display_name']
+
+    def get_display_name(self, obj):
+        if obj.first_name and obj.last_name:
+            return f"{obj.first_name} {obj.last_name} ({obj.username})"
+        return obj.username
+
 class TeamSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ['id', 'name', 'owner']
+
+class TeamDetailSerializer(serializers.ModelSerializer):
+    owner = UserSimpleSerializer(read_only=True)
+    members = UserSimpleSerializer(many=True, read_only=True) # Crucial: list of members
+
+    class Meta:
+        model = Team
+        fields = ['id', 'name', 'description', 'owner', 'members']
 
 
 class TaskSimpleSerializer(serializers.ModelSerializer):
@@ -23,9 +93,17 @@ class TaskSimpleSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    owner = UserSimpleSerializer(read_only=True)
+    owner = UserSimpleSerializer(read_only=True) # Correct for displaying owner information
+
+    # Make owner_id not required for input, as perform_create handles it.
+    # It's still write_only, meaning if provided, it would attempt to set the 'owner' field.
+    # But since perform_create overrides it, making it not required is key.
     owner_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(), source='owner', write_only=True
+        queryset=User.objects.all(),
+        source='owner',
+        write_only=True,
+        required=False, # <--- KEY CHANGE: Make it not required
+        allow_null=True  # <--- Also good to add if it can be null before perform_create sets it
     )
     tasks_count = serializers.SerializerMethodField()
     tasks = TaskSimpleSerializer(many=True, read_only=True)
@@ -38,7 +116,9 @@ class ProjectSerializer(serializers.ModelSerializer):
             'tasks_count',
             'tasks'
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at', 'owner']
+        # 'owner' field is correctly read-only for output as defined by UserSimpleSerializer(read_only=True)
+        # For input, owner_id is handled.
+        read_only_fields = ['id', 'created_at', 'updated_at'] # 'owner' is handled by its own read_only=True
 
     def get_tasks_count(self, obj):
         return obj.tasks.count()
