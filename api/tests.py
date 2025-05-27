@@ -218,7 +218,7 @@ class ProjectAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Project.objects.count(), 3)
         created_project = Project.objects.get(name='Project Gamma API')
-        self.assertEqual(created_project.owner, "broken something")
+        self.assertEqual(created_project.owner, self.user_owner)
 
     def test_list_projects_as_owner(self):
         response = self.client.get(self.project_list_url, format='json')
@@ -1019,3 +1019,7 @@ class UserListViewSetTest(APITestCase):
         self.client.credentials()
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+
+#just some change
