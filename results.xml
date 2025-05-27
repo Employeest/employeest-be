@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="54" skipped="0" tests="60" time="72.301" timestamp="2025-05-27T01:45:32.257616+00:00" hostname="fv-az1719-65"><testcase classname="api.tests.UserModelTest" name="test_user_creation" time="1.446" /><testcase classname="api.tests.UserModelTest" name="test_user_default_role" time="0.959" /><testcase classname="api.tests.UserModelTest" name="test_user_str_representation" time="0.942" /><testcase classname="api.tests.UserModelTest" name="test_user_team_membership" time="0.943" /><testcase classname="api.tests.TeamModelTest" name="test_team_creation" time="0.306" /><testcase classname="api.tests.TeamModelTest" name="test_team_str_representation" time="0.307" /><testcase classname="api.tests.UserProfileViewTest" name="test_user_profile_view_accessible_returns_json" time="0.661"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.UserProfileViewTest testMethod=test_user_profile_view_accessible_returns_json&gt;
+
+    def test_user_profile_view_accessible_returns_json(self):
+        response = self.client.get(self.profile_url)
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:96: AssertionError</failure></testcase><testcase classname="api.tests.UserProfileViewTest" name="test_user_profile_view_redirects_unauthenticated" time="0.616"><failure message="AssertionError: 401 != 302">self = &lt;api.tests.UserProfileViewTest testMethod=test_user_profile_view_redirects_unauthenticated&gt;
+
+    def test_user_profile_view_redirects_unauthenticated(self):
+        self.client.logout()
+        response = self.client.get(self.profile_url)
+&gt;       self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+E       AssertionError: 401 != 302
+
+api/tests.py:113: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_create_project" time="0.926"><failure message="AssertionError: 401 != 201">self = &lt;api.tests.ProjectAPITests testMethod=test_create_project&gt;
+
+    def test_create_project(self):
+        url = reverse('project-list')
+        data = {'name': 'Project Gamma', 'description': 'New project', 'owner_id': self.user_owner.id}
+        response = self.client.post(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+E       AssertionError: 401 != 201
+
+api/tests.py:131: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_delete_project_not_owner" time="1.228"><failure message="AssertionError: 401 != 403">self = &lt;api.tests.ProjectAPITests testMethod=test_delete_project_not_owner&gt;
+
+    def test_delete_project_not_owner(self):
+        self.client.logout()
+        self.client.login(username='employee', password='password123')
+        url = reverse('project-detail', kwargs={'pk': self.project1.pk})
+        response = self.client.delete(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+E       AssertionError: 401 != 403
+
+api/tests.py:187: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_delete_project_owner" time="0.919"><failure message="AssertionError: 401 != 204">self = &lt;api.tests.ProjectAPITests testMethod=test_delete_project_owner&gt;
+
+    def test_delete_project_owner(self):
+        url = reverse('project-detail', kwargs={'pk': self.project1.pk})
+        response = self.client.delete(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+E       AssertionError: 401 != 204
+
+api/tests.py:179: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_list_projects" time="0.917"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ProjectAPITests testMethod=test_list_projects&gt;
+
+    def test_list_projects(self):
+        url = reverse('project-list')
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:138: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_partial_update_project_owner" time="0.920"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ProjectAPITests testMethod=test_partial_update_project_owner&gt;
+
+    def test_partial_update_project_owner(self):
+        url = reverse('project-detail', kwargs={'pk': self.project1.pk})
+        data = {'description': 'Partially Updated Description'}
+        response = self.client.patch(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:163: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_project_task_status_chart_permission_denied_for_employee" time="1.250"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.ProjectAPITests testMethod=test_project_task_status_chart_permission_denied_for_employee&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071778271312'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_project_task_status_chart_permission_denied_for_employee(self, mock_get_chart_url):
+        self.client.logout()
+        self.client.login(username='employee', password='password123')
+        url = reverse('project-task-status-chart', kwargs={'pk': self.project1.pk})
+        response = self.client.get(url, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:196: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_project_velocity_chart_permission_denied_for_employee" time="1.227"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.ProjectAPITests testMethod=test_project_velocity_chart_permission_denied_for_employee&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071773073632'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_project_velocity_chart_permission_denied_for_employee(self, mock_get_chart_url):
+        self.client.logout()
+        self.client.login(username='employee', password='password123')
+        url = reverse('project-velocity-chart', kwargs={'pk': self.project1.pk})
+        response = self.client.get(url, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:206: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_retrieve_project" time="0.919"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ProjectAPITests testMethod=test_retrieve_project&gt;
+
+    def test_retrieve_project(self):
+        url = reverse('project-detail', kwargs={'pk': self.project1.pk})
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:148: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_update_project_not_owner" time="1.232"><failure message="AssertionError: 401 != 403">self = &lt;api.tests.ProjectAPITests testMethod=test_update_project_not_owner&gt;
+
+    def test_update_project_not_owner(self):
+        self.client.logout()
+        self.client.login(username='employee', password='password123')
+        url = reverse('project-detail', kwargs={'pk': self.project1.pk})
+        data = {'name': 'Attempt Update Fail', 'description': 'Updated Description', 'owner_id': self.user_owner.id}
+        response = self.client.put(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+E       AssertionError: 401 != 403
+
+api/tests.py:174: AssertionError</failure></testcase><testcase classname="api.tests.ProjectAPITests" name="test_update_project_owner" time="0.918"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ProjectAPITests testMethod=test_update_project_owner&gt;
+
+    def test_update_project_owner(self):
+        url = reverse('project-detail', kwargs={'pk': self.project1.pk})
+        data = {'name': 'Project Alpha Updated', 'description': 'Updated Description', 'owner_id': self.user_owner.id}
+        response = self.client.put(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:155: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_create_task" time="1.229"><failure message="AssertionError: 401 != 201">self = &lt;api.tests.TaskAPITests testMethod=test_create_task&gt;
+
+    def test_create_task(self):
+        url = reverse('task-list')
+        data = {
+            'name': 'Task Three',
+            'project_id': self.project.id,
+            'status': 'TODO',
+            'assignee_id': self.assignee.id,
+            'story_points': 3
+        }
+        response = self.client.post(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+E       AssertionError: 401 != 201
+
+api/tests.py:234: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_delete_task_assignee_permission_check" time="1.536"><failure message="AssertionError: 401 != 204">self = &lt;api.tests.TaskAPITests testMethod=test_delete_task_assignee_permission_check&gt;
+
+    def test_delete_task_assignee_permission_check(self):
+        self.client.logout()
+        self.client.login(username='taskassignee', password='password123')
+        task_to_delete_by_assignee = Task.objects.create(project=self.project, name='Deletable by Assignee',
+                                                         assignee=self.assignee)
+        url = reverse('task-detail', kwargs={'pk': task_to_delete_by_assignee.pk})
+        response = self.client.delete(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+E       AssertionError: 401 != 204
+
+api/tests.py:309: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_delete_task_not_owner_nor_assignee" time="1.577"><failure message="AssertionError: 401 != 403">self = &lt;api.tests.TaskAPITests testMethod=test_delete_task_not_owner_nor_assignee&gt;
+
+    def test_delete_task_not_owner_nor_assignee(self):
+        self.client.logout()
+        self.client.login(username='otheruser', password='password123')
+        url = reverse('task-detail', kwargs={'pk': self.task2.pk})
+        response = self.client.delete(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+E       AssertionError: 401 != 403
+
+api/tests.py:316: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_delete_task_owner" time="1.228"><failure message="AssertionError: 401 != 204">self = &lt;api.tests.TaskAPITests testMethod=test_delete_task_owner&gt;
+
+    def test_delete_task_owner(self):
+        url = reverse('task-detail', kwargs={'pk': self.task1.pk})
+        response = self.client.delete(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+E       AssertionError: 401 != 204
+
+api/tests.py:299: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_list_tasks" time="1.228"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_list_tasks&gt;
+
+    def test_list_tasks(self):
+        url = reverse('task-list')
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:240: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_partial_update_task_owner_or_assignee" time="1.223"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_partial_update_task_owner_or_assignee&gt;
+
+    def test_partial_update_task_owner_or_assignee(self):
+        url = reverse('task-detail', kwargs={'pk': self.task1.pk})
+        data = {'story_points': 10}
+        response = self.client.patch(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:275: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_retrieve_task" time="1.231"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_retrieve_task&gt;
+
+    def test_retrieve_task(self):
+        url = reverse('task-detail', kwargs={'pk': self.task1.pk})
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:250: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_task_filter_by_deadline_range" time="1.228"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_deadline_range&gt;
+
+    def test_task_filter_by_deadline_range(self):
+        url = reverse('task-list')
+        response_after = self.client.get(url + '?deadline_after=2025-11-15', format='json')
+&gt;       self.assertEqual(response_after.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:379: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_task_filter_by_project_name" time="1.531"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_project_name&gt;
+
+    def test_task_filter_by_project_name(self):
+        other_project_owner = User.objects.create_user(username='otherowner', password='password123')
+        other_project = Project.objects.create(name='Other Project', owner=other_project_owner)
+        Task.objects.create(project=other_project, name='Task in Other Project', assignee=self.assignee)
+    
+        url = reverse('task-list')
+        response = self.client.get(url + f'?project_name={self.project.name}', format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:368: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_task_filter_by_status" time="1.228"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_task_filter_by_status&gt;
+
+    def test_task_filter_by_status(self):
+        url = reverse('task-list')
+        response = self.client.get(url + '?status=TODO', format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:352: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_task_mark_as_done_action" time="1.224"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_task_mark_as_done_action&gt;
+
+    def test_task_mark_as_done_action(self):
+        self.task2.status = 'IN_PROGRESS'
+        self.task2.save()
+        url = reverse('task-mark-as-done', kwargs={'pk': self.task2.pk})
+        response = self.client.post(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:337: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_task_mark_as_done_action_from_todo" time="1.225"><failure message="AssertionError: 401 != 400">self = &lt;api.tests.TaskAPITests testMethod=test_task_mark_as_done_action_from_todo&gt;
+
+    def test_task_mark_as_done_action_from_todo(self):
+        self.task1.status = 'TODO'
+        self.task1.save()
+        url = reverse('task-mark-as-done', kwargs={'pk': self.task1.pk})
+        response = self.client.post(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+E       AssertionError: 401 != 400
+
+api/tests.py:347: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_task_start_progress_action" time="1.226"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_task_start_progress_action&gt;
+
+    def test_task_start_progress_action(self):
+        url = reverse('task-start-progress', kwargs={'pk': self.task1.pk})
+        response = self.client.post(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:321: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_task_start_progress_action_already_in_progress" time="1.229"><failure message="AssertionError: 401 != 400">self = &lt;api.tests.TaskAPITests testMethod=test_task_start_progress_action_already_in_progress&gt;
+
+    def test_task_start_progress_action_already_in_progress(self):
+        self.task2.status = 'IN_PROGRESS'
+        self.task2.save()
+        url = reverse('task-start-progress', kwargs={'pk': self.task2.pk})
+        response = self.client.post(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+E       AssertionError: 401 != 400
+
+api/tests.py:330: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_update_task_not_owner_nor_assignee" time="1.534"><failure message="AssertionError: 401 != 403">self = &lt;api.tests.TaskAPITests testMethod=test_update_task_not_owner_nor_assignee&gt;
+
+    def test_update_task_not_owner_nor_assignee(self):
+        self.client.logout()
+        self.client.login(username='otheruser', password='password123')
+        url = reverse('task-detail', kwargs={'pk': self.task1.pk})
+        data = {'name': 'Attempt Update Fail', 'status': 'DONE', 'project_id': self.project.id,
+                'assignee_id': self.other_user.id}
+        response = self.client.put(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+E       AssertionError: 401 != 403
+
+api/tests.py:294: AssertionError</failure></testcase><testcase classname="api.tests.TaskAPITests" name="test_update_task_owner_or_assignee" time="1.226"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.TaskAPITests testMethod=test_update_task_owner_or_assignee&gt;
+
+    def test_update_task_owner_or_assignee(self):
+        url = reverse('task-detail', kwargs={'pk': self.task1.pk})
+        data = {'name': 'Task One Updated by Owner', 'status': 'DONE', 'project_id': self.project.id,
+                'assignee_id': self.assignee.id}
+        response = self.client.put(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:258: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_business_statistics_story_points_monthly" time="1.234"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ChartViewTests testMethod=test_business_statistics_story_points_monthly&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071778271312'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_business_statistics_story_points_monthly(self, mock_get_chart_url):
+        mock_get_chart_url.return_value = 'http://fakechart.url/business_stats'
+        Task.objects.create(project=self.project, name='Biz Task Old Month', status='DONE', assignee=self.owner,
+                            story_points=10, updated_at=timezone.now() - timedelta(days=35))
+    
+        url = reverse('business-stats-story-points')
+        response = self.client.get(url, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:478: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_business_stats_no_data" time="1.232"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.ChartViewTests testMethod=test_business_stats_no_data&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071773075984'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_business_stats_no_data(self, mock_get_chart_url):
+        Task.objects.filter(status='DONE', story_points__isnull=False).delete()
+        url = reverse('business-stats-story-points')
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:543: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_get_chart_url_api_failure" time="1.231"><failure message="AssertionError: 401 != 500">self = &lt;api.tests.ChartViewTests testMethod=test_get_chart_url_api_failure&gt;
+mock_requests_post = &lt;MagicMock name='post' id='140071773076656'&gt;
+
+    @patch('api.quickchart_helper.requests.post')
+    def test_get_chart_url_api_failure(self, mock_requests_post):
+        mock_requests_post.side_effect = requests.RequestException("API Error")
+        url = reverse('project-task-status-chart', kwargs={'pk': self.project.pk})
+        response = self.client.get(url, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+E       AssertionError: 401 != 500
+
+api/tests.py:562: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_project_task_status_chart" time="1.230"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ChartViewTests testMethod=test_project_task_status_chart&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071778286432'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_project_task_status_chart(self, mock_get_chart_url):
+        mock_get_chart_url.return_value = 'http://fakechart.url/piechart'
+        url = reverse('project-task-status-chart', kwargs={'pk': self.project.pk})
+        response = self.client.get(url, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:432: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_project_task_status_chart_no_tasks" time="1.535"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.ChartViewTests testMethod=test_project_task_status_chart_no_tasks&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071778277360'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_project_task_status_chart_no_tasks(self, mock_get_chart_url):
+        empty_project_owner = User.objects.create_user(username='emptyowner', password='password123')
+        empty_project = Project.objects.create(name='Empty Project', owner=empty_project_owner)
+        url = reverse('project-task-status-chart', kwargs={'pk': empty_project.pk})
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:519: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_project_velocity_chart" time="1.234"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ChartViewTests testMethod=test_project_velocity_chart&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071778278032'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_project_velocity_chart(self, mock_get_chart_url):
+        mock_get_chart_url.return_value = 'http://fakechart.url/velocitychart'
+        Task.objects.filter(project=self.project, name='Task C').update(updated_at=timezone.now() - timedelta(days=80),
+                                                                        story_points=8)
+        Task.objects.filter(project=self.project, name='Task D').update(updated_at=timezone.now() - timedelta(days=73),
+                                                                        story_points=2)
+        Task.objects.filter(project=self.project, name='Task E').update(updated_at=timezone.now() - timedelta(days=10),
+                                                                        story_points=1)
+    
+        url = reverse('project-velocity-chart', kwargs={'pk': self.project.pk})
+        response = self.client.get(url, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:458: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_project_velocity_chart_no_data" time="1.538"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.ChartViewTests testMethod=test_project_velocity_chart_no_data&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071778271312'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_project_velocity_chart_no_data(self, mock_get_chart_url):
+        data_less_project_owner = User.objects.create_user(username='datalessowner', password='password123')
+        data_less_project = Project.objects.create(name='Data Less Project', owner=data_less_project_owner)
+        Task.objects.create(project=data_less_project, name='No SP Task', status='DONE', assignee=self.assignee,
+                            updated_at=timezone.now() - timedelta(days=10))
+        Task.objects.create(project=data_less_project, name='Not Done Task', status='IN_PROGRESS', story_points=5,
+                            assignee=self.assignee, updated_at=timezone.now() - timedelta(days=10))
+    
+        url = reverse('project-velocity-chart', kwargs={'pk': data_less_project.pk})
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:534: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_user_personal_stats_no_data" time="1.233"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.ChartViewTests testMethod=test_user_personal_stats_no_data&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071773076656'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_user_personal_stats_no_data(self, mock_get_chart_url):
+        Task.objects.filter(assignee=self.owner, status='DONE').delete()
+        url = reverse('user-personal-task-stats')
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:552: AssertionError</failure></testcase><testcase classname="api.tests.ChartViewTests" name="test_user_personal_task_stats" time="1.256"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.ChartViewTests testMethod=test_user_personal_task_stats&gt;
+mock_get_chart_url = &lt;MagicMock name='get_chart_url' id='140071773073632'&gt;
+
+    @patch('api.views.get_chart_url')
+    def test_user_personal_task_stats(self, mock_get_chart_url):
+        mock_get_chart_url.return_value = 'http://fakechart.url/personal_stats'
+        url = reverse('user-personal-task-stats')
+        response = self.client.get(url, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:494: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_create_worklog_for_neither_task_nor_project_fails" time="1.247"><failure message="AssertionError: 401 != 400">self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_neither_task_nor_project_fails&gt;
+
+    def test_create_worklog_for_neither_task_nor_project_fails(self):
+        data = {
+            'date': timezone.now().date().isoformat(),
+            'hours_spent': '1.00',
+        }
+        response = self.client.post(self.list_create_url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+E       AssertionError: 401 != 400
+
+api/tests.py:642: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_create_worklog_for_project" time="1.244"><failure message="AssertionError: 401 != 201">self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_project&gt;
+
+    def test_create_worklog_for_project(self):
+        log_date = timezone.now().date()
+        data = {
+            'project_id': self.project.id,
+            'date': log_date.isoformat(),
+            'hours_spent': '1.00',
+            'description': 'General project meeting'
+        }
+        response = self.client.post(self.list_create_url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+E       AssertionError: 401 != 201
+
+api/tests.py:611: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_create_worklog_for_task" time="1.248"><failure message="AssertionError: 401 != 201">self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_task&gt;
+
+    def test_create_worklog_for_task(self):
+        log_date = timezone.now().date()
+        data = {
+            'task_id': self.task.id,
+            'date': log_date.isoformat(),
+            'hours_spent': '2.50',
+            'description': 'Worked on task logging'
+        }
+        response = self.client.post(self.list_create_url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+E       AssertionError: 401 != 201
+
+api/tests.py:593: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_create_worklog_for_task_and_project_fails" time="1.250"><failure message="AssertionError: 401 != 400">self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_for_task_and_project_fails&gt;
+
+    def test_create_worklog_for_task_and_project_fails(self):
+        data = {
+            'task_id': self.task.id,
+            'project_id': self.project.id,
+            'date': timezone.now().date().isoformat(),
+            'hours_spent': '1.00',
+        }
+        response = self.client.post(self.list_create_url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+E       AssertionError: 401 != 400
+
+api/tests.py:632: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_create_worklog_missing_date" time="1.249"><failure message="AssertionError: 401 != 201">self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_missing_date&gt;
+
+    def test_create_worklog_missing_date(self):
+    
+        data = {'task_id': self.task.id, 'hours_spent': '1.50'}
+        response = self.client.post(self.list_create_url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+E       AssertionError: 401 != 201
+
+api/tests.py:655: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_create_worklog_missing_hours_spent" time="1.227"><failure message="AssertionError: 401 != 400">self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_missing_hours_spent&gt;
+
+    def test_create_worklog_missing_hours_spent(self):
+        data = {'task_id': self.task.id, 'date': timezone.now().date().isoformat()}
+        response = self.client.post(self.list_create_url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+E       AssertionError: 401 != 400
+
+api/tests.py:648: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_create_worklog_unauthenticated" time="1.234"><failure message="AssertionError: 401 != 403">self = &lt;api.tests.WorkLogAPITests testMethod=test_create_worklog_unauthenticated&gt;
+
+    def test_create_worklog_unauthenticated(self):
+        self.client.logout()
+        data = {'task_id': self.task.id, 'date': timezone.now().date().isoformat(), 'hours_spent': '1.00'}
+        response = self.client.post(self.list_create_url, data, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+E       AssertionError: 401 != 403
+
+api/tests.py:622: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_delete_others_worklog_by_user_fails" time="1.240"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.WorkLogAPITests testMethod=test_delete_others_worklog_by_user_fails&gt;
+
+    def test_delete_others_worklog_by_user_fails(self):
+        other_log = WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
+                                           hours_spent='1.0')
+        url = reverse('worklog-detail', kwargs={'pk': other_log.pk})
+        response = self.client.delete(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:747: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_delete_own_worklog" time="1.236"><failure message="AssertionError: 401 != 204">self = &lt;api.tests.WorkLogAPITests testMethod=test_delete_own_worklog&gt;
+
+    def test_delete_own_worklog(self):
+        url = reverse('worklog-detail', kwargs={'pk': self.worklog_user1.pk})
+        response = self.client.delete(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+E       AssertionError: 401 != 204
+
+api/tests.py:739: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_list_all_worklogs_as_admin" time="1.539"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.WorkLogAPITests testMethod=test_list_all_worklogs_as_admin&gt;
+
+    def test_list_all_worklogs_as_admin(self):
+        WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
+                               hours_spent='5.00')
+        self.client.logout()
+        self.client.login(username='logadmin', password='password123')
+        response = self.client.get(self.list_create_url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:676: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_list_own_worklogs" time="1.226"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.WorkLogAPITests testMethod=test_list_own_worklogs&gt;
+
+    def test_list_own_worklogs(self):
+        response = self.client.get(self.list_create_url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:661: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_partial_update_own_worklog" time="1.234"><failure message="AssertionError: 401 != 200 : Response data: {'detail': ErrorDetail(string='Authentication credentials were not provided.', code='not_authenticated')}">self = &lt;api.tests.WorkLogAPITests testMethod=test_partial_update_own_worklog&gt;
+
+    def test_partial_update_own_worklog(self):
+        url = reverse('worklog-detail', kwargs={'pk': self.worklog_user1.pk})
+        patch_data = {'description': 'Partially updated log'}
+        response = self.client.patch(url, patch_data, format='json')
+    
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK, f"Response data: {response.data}")
+E       AssertionError: 401 != 200 : Response data: {'detail': ErrorDetail(string='Authentication credentials were not provided.', code='not_authenticated')}
+
+api/tests.py:724: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_retrieve_others_worklog_by_admin_succeeds" time="1.543"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.WorkLogAPITests testMethod=test_retrieve_others_worklog_by_admin_succeeds&gt;
+
+    def test_retrieve_others_worklog_by_admin_succeeds(self):
+        self.client.logout()
+        self.client.login(username='logadmin', password='password123')
+        url = reverse('worklog-detail', kwargs={'pk': self.worklog_user1.pk})
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:701: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_retrieve_others_worklog_by_user_fails" time="1.231"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.WorkLogAPITests testMethod=test_retrieve_others_worklog_by_user_fails&gt;
+
+    def test_retrieve_others_worklog_by_user_fails(self):
+        other_log = WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
+                                           hours_spent='1.0')
+        url = reverse('worklog-detail', kwargs={'pk': other_log.pk})
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:694: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_retrieve_own_worklog" time="1.229"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.WorkLogAPITests testMethod=test_retrieve_own_worklog&gt;
+
+    def test_retrieve_own_worklog(self):
+        url = reverse('worklog-detail', kwargs={'pk': self.worklog_user1.pk})
+        response = self.client.get(url, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:686: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_update_others_worklog_by_user_fails" time="1.232"><failure message="AssertionError: 401 != 404">self = &lt;api.tests.WorkLogAPITests testMethod=test_update_others_worklog_by_user_fails&gt;
+
+    def test_update_others_worklog_by_user_fails(self):
+        other_log = WorkLog.objects.create(user=self.admin_user, project=self.project, date=timezone.now().date(),
+                                           hours_spent='1.0')
+        url = reverse('worklog-detail', kwargs={'pk': other_log.pk})
+        data = {'hours_spent': '2.00', 'date': other_log.date.isoformat(), 'project_id': other_log.project.id}
+        response = self.client.put(url, data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+E       AssertionError: 401 != 404
+
+api/tests.py:734: AssertionError</failure></testcase><testcase classname="api.tests.WorkLogAPITests" name="test_update_own_worklog" time="1.242"><failure message="AssertionError: 401 != 200">self = &lt;api.tests.WorkLogAPITests testMethod=test_update_own_worklog&gt;
+
+    def test_update_own_worklog(self):
+        url = reverse('worklog-detail', kwargs={'pk': self.worklog_user1.pk})
+    
+        put_data = {
+            'hours_spent': '4.50',
+            'description': 'Updated log',
+            'date': self.worklog_user1_date.isoformat(),
+            'task_id': self.task.id
+        }
+        response = self.client.put(url, put_data, format='json')
+&gt;       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 401 != 200
+
+api/tests.py:714: AssertionError</failure></testcase></testsuite></testsuites>
